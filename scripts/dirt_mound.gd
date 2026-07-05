@@ -14,11 +14,21 @@ var is_cleaned = false
 const STONE_BLOCK_SCENE = preload("res://scenes/stone_block.tscn")
 
 func _ready() -> void:
+	# Enable Y-sorting for cozy depth sorting
+	y_sort_enabled = true
+	
 	collision_layer = 8 # Layer 4 (Interactables)
 	collision_mask = 2 # Detect Player
 	body_entered.connect(_on_player_entered)
 	body_exited.connect(_on_player_exited)
 	prompt.visible = false
+	
+	# Assign baked sprite texture
+	if Global.textures.has("dirt_mound"):
+		var sprite = Sprite2D.new()
+		sprite.texture = Global.textures["dirt_mound"]
+		visual.add_child(sprite)
+		visual.set_script(null)
 	
 	# If already discovered globally, destroy this mound and spawn the stone block
 	if symbol_char in Global.discovered_symbols:

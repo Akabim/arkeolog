@@ -7,15 +7,22 @@ extends RigidBody2D
 @onready var visual: Node2D = $Visual
 
 func _ready() -> void:
+	# Enable Y-sorting for cozy depth sorting
+	y_sort_enabled = true
+	
 	# Set up physical parameters for satisfying pushing feel
 	gravity_scale = 0.0
 	lock_rotation = true
 	linear_damp = 12.0
 	angular_damp = 12.0
 	
-	# Notify visual to update its redraw when symbol changes
-	if visual and visual.has_method("update_symbol"):
-		visual.update_symbol(symbol_char)
+	# Assign baked sprite texture
+	var tex_key = "stone_" + symbol_char
+	if Global.textures.has(tex_key):
+		var sprite = Sprite2D.new()
+		sprite.texture = Global.textures[tex_key]
+		visual.add_child(sprite)
+		visual.set_script(null)
 
 func _physics_process(_delta: float) -> void:
 	# Trigger slight dust particle or sounds if moving fast enough

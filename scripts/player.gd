@@ -15,11 +15,21 @@ var shake_intensity: float = 0.0
 var shake_timer: float = 0.0
 
 func _ready() -> void:
+	# Enable Y-sorting for cozy depth sorting
+	y_sort_enabled = true
+	
 	# Enable physics interpolation if available
 	if has_method("set_physics_interpolation_mode"):
 		set_physics_interpolation_mode(1) # Inherit
 	Global.camera_shake.connect(start_camera_shake)
 	call_deferred("setup_camera_limits")
+	
+	# Assign baked sprite texture
+	if Global.textures.has("player"):
+		var sprite = Sprite2D.new()
+		sprite.texture = Global.textures["player"]
+		visual.add_child(sprite)
+		visual.set_script(null)
 
 func setup_camera_limits() -> void:
 	var level = get_parent()

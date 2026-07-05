@@ -21,6 +21,13 @@ func _ready() -> void:
 	ui_flash_layer.visible = false
 	victory_ui.visible = false
 	
+	# Dynamically instantiate texture baker
+	var baker = Node.new()
+	baker.set_script(preload("res://scripts/texture_baker.gd"))
+	add_child(baker)
+	await baker.bake_all_textures()
+	baker.queue_free()
+	
 	# Load level 1
 	load_level()
 	

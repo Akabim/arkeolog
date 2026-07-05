@@ -13,12 +13,16 @@ var grass_clumps = []
 var flowers = []
 
 func _ready() -> void:
+	# Enable Y-Sorting for depth layering
+	y_sort_enabled = true
+	
 	# Define spawned elements before calling parent ready
 	setup_level_boundaries()
 	setup_sockets()
 	setup_dirt_mounds()
 	setup_torches()
 	setup_shrubs()
+	setup_trees()
 	setup_decorative_details()
 	
 	# Call base class ready to calculate sockets
@@ -89,6 +93,7 @@ func setup_sockets() -> void:
 func setup_dirt_mounds() -> void:
 	var mounds_node = Node2D.new()
 	mounds_node.name = "DirtMounds"
+	mounds_node.y_sort_enabled = true
 	add_child(mounds_node)
 	
 	# Place mounds scattered in different cozy areas of the map
@@ -110,6 +115,7 @@ func setup_dirt_mounds() -> void:
 func setup_torches() -> void:
 	var torches_node = Node2D.new()
 	torches_node.name = "Torches"
+	torches_node.y_sort_enabled = true
 	add_child(torches_node)
 	
 	# Torches around the ancient temple sockets in the center
@@ -127,6 +133,7 @@ func setup_torches() -> void:
 func setup_shrubs() -> void:
 	var shrubs_node = Node2D.new()
 	shrubs_node.name = "Shrubs"
+	shrubs_node.y_sort_enabled = true
 	add_child(shrubs_node)
 	
 	# Place shrubs to guide the player and act as cozy barricades
@@ -219,3 +226,26 @@ func _draw() -> void:
 			draw_line(flower.pos, flower.pos + Vector2(0, 4), grass.darkened(0.2), 1.5)
 			draw_circle(flower.pos, 2.0, flower.color)
 			draw_circle(flower.pos, 0.7, ink)
+
+func setup_trees() -> void:
+	var trees_node = Node2D.new()
+	trees_node.name = "Trees"
+	trees_node.y_sort_enabled = true
+	add_child(trees_node)
+	
+	var tree_scene = preload("res://scenes/tree.tscn")
+	
+	# Cozy layout of trees around level edges and framing the shrine
+	var tree_positions = [
+		Vector2(100, 100), Vector2(200, 80), Vector2(1180, 100), Vector2(1080, 80),
+		Vector2(100, 620), Vector2(220, 640), Vector2(1180, 620), Vector2(1060, 640),
+		Vector2(120, 360), Vector2(1160, 360),
+		Vector2(380, 140), Vector2(900, 140),
+		Vector2(380, 580), Vector2(900, 580)
+	]
+	
+	for pos in tree_positions:
+		var tree = tree_scene.instantiate()
+		tree.position = pos
+		trees_node.add_child(tree)
+

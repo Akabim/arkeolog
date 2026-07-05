@@ -8,12 +8,26 @@ extends Area2D
 
 var is_solved: bool = false
 
+var sprite: Sprite2D = null
+
 func _ready() -> void:
 	collision_layer = 0
 	collision_mask = 4 # Detect Stone Blocks (Layer 3)
 	
-	if visual and visual.has_method("update_symbol"):
-		visual.update_symbol(symbol_char)
+	# Instantiate Sprite2D to hold baked texture
+	sprite = Sprite2D.new()
+	sprite.name = "Sprite"
+	visual.add_child(sprite)
+	visual.set_script(null) # Remove custom drawing
+	
+	update_socket_texture()
+
+func update_socket_texture() -> void:
+	if not sprite: return
+	var suffix = "_on" if is_solved else "_off"
+	var tex_key = "socket_" + symbol_char + suffix
+	if Global.textures.has(tex_key):
+		sprite.texture = Global.textures[tex_key]
 
 func _physics_process(_delta: float) -> void:
 	var overlapping = get_overlapping_bodies()
@@ -35,18 +49,17 @@ func _physics_process(_delta: float) -> void:
 				Global.play_sfx.emit("socket_lock")
 				Global.camera_shake.emit(1.5, 0.15)
 				check_level_completion()
-				# Force redrawing of socket visual for solved state
-				visual.queue_redraw()
+				update_socket_texture()
 			else:
 				if Global.solved_sockets.has(relic_id):
 					Global.solved_sockets.erase(relic_id)
-				visual.queue_redraw()
+				update_socket_texture()
 	else:
 		if is_solved:
 			is_solved = false
 			if Global.solved_sockets.has(relic_id):
 				Global.solved_sockets.erase(relic_id)
-			visual.queue_redraw()
+			update_socket_texture()
 
 func check_level_completion() -> void:
 	if Global.solved_sockets.size() == Global.total_sockets_in_level and Global.total_sockets_in_level > 0:

@@ -1,22 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsh2i3l4h3s02"]
+[gd_scene format=3 uid="uid://bsh2i3l4h3s02"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://bqibt7xsdsol8" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://bsh2i3l4h3s01" path="res://scenes/excavation_overlay.tscn" id="2_exca"]
 [ext_resource type="PackedScene" uid="uid://be5e2m6p5a081" path="res://scenes/journal_ui.tscn" id="3_journal"]
-[ext_resource type="Script" path="res://scripts/polaroid_frame.gd" id="4_frame"]
+[ext_resource type="Script" uid="uid://cbqlg73rlhn2m" path="res://scripts/polaroid_frame.gd" id="4_frame"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1228835079]
 script = ExtResource("1_main")
 
-[node name="ExcavationOverlay" parent="." instance=ExtResource("2_exca")]
+[node name="ExcavationOverlay" parent="." unique_id=1161345688 instance=ExtResource("2_exca")]
 
-[node name="JournalUI" parent="." instance=ExtResource("3_journal")]
+[node name="JournalUI" parent="." unique_id=52581367 instance=ExtResource("3_journal")]
 
-[node name="VictoryUI" type="CanvasLayer" parent="."]
+[node name="VictoryUI" type="CanvasLayer" parent="." unique_id=1882323727]
 layer = 12
-visible = false
 
-[node name="Control" type="Control" parent="VictoryUI"]
+[node name="Control" type="Control" parent="VictoryUI" unique_id=597283374]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="VictoryUI/Control"]
+[node name="ColorRect" type="ColorRect" parent="VictoryUI/Control" unique_id=424475512]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0666667, 0.0941176, 0.152941, 0.823529)
 
-[node name="PolaroidFrame" type="Control" parent="VictoryUI/Control"]
+[node name="PolaroidFrame" type="Control" parent="VictoryUI/Control" unique_id=1464959918]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,12 +40,12 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_top = -25.0
-offset_bottom = -25.0 # Center with offset upwards
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_frame")
 
-[node name="BtnRestart" type="Button" parent="VictoryUI/Control"]
+[node name="BtnRestart" type="Button" parent="VictoryUI/Control" unique_id=783300804]
 custom_minimum_size = Vector2(160, 36)
 layout_mode = 1
 anchors_preset = 7
@@ -62,25 +61,25 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Main Lagi"
 
-[node name="UIFlash" type="CanvasLayer" parent="."]
+[node name="UIFlash" type="CanvasLayer" parent="." unique_id=640039906]
 layer = 15
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="UIFlash"]
+[node name="ColorRect" type="ColorRect" parent="UIFlash" unique_id=340541064]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SFXPlayers" type="Node" parent="."]
+[node name="SFXPlayers" type="Node" parent="." unique_id=1917667750]
 
-[node name="SFXPlayer1" type="AudioStreamPlayer" parent="SFXPlayers"]
+[node name="SFXPlayer1" type="AudioStreamPlayer" parent="SFXPlayers" unique_id=1299393425]
 
-[node name="SFXPlayer2" type="AudioStreamPlayer" parent="SFXPlayers"]
+[node name="SFXPlayer2" type="AudioStreamPlayer" parent="SFXPlayers" unique_id=1622643142]
 
-[node name="SFXPlayer3" type="AudioStreamPlayer" parent="SFXPlayers"]
+[node name="SFXPlayer3" type="AudioStreamPlayer" parent="SFXPlayers" unique_id=267952405]
 
-[node name="SFXPlayer4" type="AudioStreamPlayer" parent="SFXPlayers"]
+[node name="SFXPlayer4" type="AudioStreamPlayer" parent="SFXPlayers" unique_id=1444225086]
 
 [connection signal="pressed" from="VictoryUI/Control/BtnRestart" to="." method="restart_game"]

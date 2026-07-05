@@ -13,6 +13,9 @@ var current_state: State = State.OVERWORLD:
 			current_state = value
 			state_changed.emit(current_state)
 
+# Baked texture cache
+var textures = {}
+
 # Signals
 signal state_changed(new_state: State)
 signal excavation_started(dirt_mound)
