@@ -138,7 +138,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Face moving direction (flip visual horizontal scale)
 		if input_dir.x != 0:
-			visual.scale.x = sign(input_dir.x)
+			visual.scale.x = -sign(input_dir.x)
 			
 		if not check_swinging():
 			anim.play("walk")
