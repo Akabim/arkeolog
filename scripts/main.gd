@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var excavation_overlay = $ExcavationOverlay
 @onready var journal_ui = $JournalUI
-@onready var ui_flash = $UIFlash
+@onready var ui_flash_layer = $UIFlash
+@onready var ui_flash = $UIFlash/ColorRect
 @onready var victory_ui = $VictoryUI
 @onready var photo_frame = $VictoryUI/Control/PolaroidFrame
 @onready var sfx_players = $SFXPlayers
@@ -17,7 +18,7 @@ var player: CharacterBody2D = null
 func _ready() -> void:
 	# Hide overlays initially
 	ui_flash.color = Color(1, 1, 1, 0)
-	ui_flash.visible = false
+	ui_flash_layer.visible = false
 	victory_ui.visible = false
 	
 	# Load level 1
@@ -53,12 +54,12 @@ func on_level_restored() -> void:
 	Global.current_state = Global.State.JOURNAL
 	
 	# 1. Screen flash effect
-	ui_flash.visible = true
+	ui_flash_layer.visible = true
 	ui_flash.color = Color(1, 1, 1, 1)
 	
 	var tween = create_tween()
 	tween.tween_property(ui_flash, "color", Color(1, 1, 1, 0), 0.8)
-	tween.tween_callback(func(): ui_flash.visible = false)
+	tween.tween_callback(func(): ui_flash_layer.visible = false)
 	
 	# 2. Wait a bit then show the victory polaroid photo!
 	get_tree().create_timer(1.2).timeout.connect(func():
