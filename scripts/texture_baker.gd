@@ -11,11 +11,16 @@ const TORCH_VISUAL = preload("res://scripts/torch_visual.gd")
 func bake_all_textures() -> void:
 	print("[Texture Baker] Initiating asset texture loading system...")
 	
-	# Basic items
-	Global.textures["player"] = await get_texture_or_bake("player", PLAYER_VISUAL, {}, Vector2(80, 80))
+	# Basic items (Note: Player uses the custom named 'karakter.png')
+	Global.textures["player"] = await get_texture_or_bake("karakter", PLAYER_VISUAL, {}, Vector2(80, 80))
 	Global.textures["shrub"] = await get_texture_or_bake("shrub", SHRUB_VISUAL, {}, Vector2(36, 36))
 	Global.textures["tree"] = await get_texture_or_bake("tree", TREE_VISUAL, {}, Vector2(64, 96))
 	Global.textures["dirt_mound"] = await get_texture_or_bake("dirt_mound", DIRT_MOUND_VISUAL, {}, Vector2(64, 48))
+	
+	# Load hand and tools with fallbacks
+	Global.textures["hand"] = load_or_create_fallback("hand", Vector2(16, 16), Color.WHITE)
+	Global.textures["scythe"] = load_or_create_fallback("scyte", Vector2(32, 32), Color.DARK_GRAY)
+	Global.textures["shovel"] = load_or_create_fallback("shovel", Vector2(32, 32), Color.GRAY)
 	
 	# Torches
 	Global.textures["torch_off"] = await get_texture_or_bake("torch_off", TORCH_VISUAL, {"is_lit": false}, Vector2(24, 40))
@@ -51,6 +56,20 @@ func get_texture_or_bake(key: String, script_type, properties: Dictionary, size:
 	# Fallback to baking
 	print("[Texture Baker] PENDING: Asset file '", png_path, "' not found. Fallback to procedural baking...")
 	return await bake_item(script_type, properties, size)
+
+func load_or_create_fallback(key: String, fallback_size: Vector2, fallback_color: Color) -> Texture2D:
+	var png_path = "res://assets/sprites/" + key + ".png"
+	if ResourceLoader.exists(png_path):
+		var tex = load(png_path)
+		if tex:
+			print("[Texture Baker] SUCCESS: Loaded tool/hand texture -> ", png_path)
+			return tex
+			
+	# Fallback: create a small colored square/circle
+	print("[Texture Baker] WARNING: Tool/hand asset '", png_path, "' not found. Creating fallback.")
+	var img = Image.create(int(fallback_size.x), int(fallback_size.y), false, Image.FORMAT_RGBA8)
+	img.fill(fallback_color)
+	return ImageTexture.create_from_image(img)
 
 func bake_item(script_type, properties: Dictionary, size: Vector2) -> Texture2D:
 	var viewport = SubViewport.new()
