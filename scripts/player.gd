@@ -19,6 +19,19 @@ func _ready() -> void:
 	if has_method("set_physics_interpolation_mode"):
 		set_physics_interpolation_mode(1) # Inherit
 	Global.camera_shake.connect(start_camera_shake)
+	call_deferred("setup_camera_limits")
+
+func setup_camera_limits() -> void:
+	var level = get_parent()
+	if level:
+		var limit_r = level.get("level_width")
+		var limit_b = level.get("level_height")
+		if limit_r and limit_b:
+			$Camera2D.limit_left = 0
+			$Camera2D.limit_top = 0
+			$Camera2D.limit_right = int(limit_r)
+			$Camera2D.limit_bottom = int(limit_b)
+
 
 func start_camera_shake(intensity: float, duration: float) -> void:
 	shake_intensity = intensity
@@ -87,21 +100,30 @@ func animate_idle(delta: float) -> void:
 	visual.scale = visual.scale.lerp(Vector2(1.0 + breathe, 1.0 - breathe), 10.0 * delta)
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Allow toggling the journal even when state is locked in JOURNAL
+	if event.is_action_pressed("journal"):
+		toggle_journal()
+		get_viewport().set_input_as_handled()
+		return
+		
 	if Global.current_state != Global.State.OVERWORLD:
 		return
 		
 	if event.is_action_pressed("interact"):
 		interact()
-	elif event.is_action_pressed("journal"):
-		toggle_journal()
+		get_viewport().set_input_as_handled()
 
 func interact() -> void:
 	var areas = interaction_detector.get_overlapping_areas()
 	for area in areas:
-		var parent = area.get_parent()
-		if parent and parent.has_method("interact"):
-			parent.interact(self)
+		if area.has_method("interact"):
+			area.interact(self)
 			break
+		else:
+			var parent = area.get_parent()
+			if parent and parent.has_method("interact"):
+				parent.interact(self)
+				break
 
 func toggle_journal() -> void:
 	if Global.current_state == Global.State.OVERWORLD:
