@@ -171,7 +171,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 		
 	# Select Scythe (Key 1 or select_scythe action)
-	if event.is_action_pressed("select_scythe") or (event is InputEventKey and event.pressed and event.keycode == KEY_1):
+	var is_scythe_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_1)
+	if InputMap.has_action("select_scythe") and event.is_action_pressed("select_scythe"):
+		is_scythe_pressed = true
+		
+	if is_scythe_pressed:
 		if current_tool != "scythe":
 			current_tool = "scythe"
 			update_tool_visual()
@@ -180,7 +184,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 		
 	# Select Shovel (Key 2 or select_shovel action)
-	if event.is_action_pressed("select_shovel") or (event is InputEventKey and event.pressed and event.keycode == KEY_2):
+	var is_shovel_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_2)
+	if InputMap.has_action("select_shovel") and event.is_action_pressed("select_shovel"):
+		is_shovel_pressed = true
+		
+	if is_shovel_pressed:
 		if current_tool != "shovel":
 			current_tool = "shovel"
 			update_tool_visual()
