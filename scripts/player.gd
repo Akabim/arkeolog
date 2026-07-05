@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Visual/Sprite
 @onready var hand_l: Sprite2D = $Visual/HandL
 @onready var hand_r: Sprite2D = $Visual/HandR
-@onready var tool_sprite: Sprite2D = $Visual/HandR/Tool
+@onready var tool_sprite: Sprite2D = $Visual/HandL/Tool
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var interaction_detector: Area2D = $InteractionDetector
 
