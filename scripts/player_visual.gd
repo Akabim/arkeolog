@@ -3,8 +3,6 @@ extends Node2D
 func _ready() -> void:
 	queue_redraw()
 
-func _process(_delta: float) -> void:
-	queue_redraw()
 
 func _draw() -> void:
 	# Colors from Global palette

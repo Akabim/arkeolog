@@ -3,6 +3,8 @@ extends Node2D
 @export var is_lit: bool = false
 @onready var visual: Node2D = $Visual
 
+var flicker_timer: float = 0.0
+
 func _ready() -> void:
 	queue_redraw()
 
@@ -40,7 +42,9 @@ func _draw() -> void:
 		draw_circle(Vector2(flicker_x * 0.5, -8 + flicker_y * 0.5), 4.0, ink)
 		draw_circle(Vector2(flicker_x * 0.5, -8 + flicker_y * 0.5), 2.5, flame_inner)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_lit:
-		# Redraw to animate flame flicker
-		queue_redraw()
+		flicker_timer += delta
+		if flicker_timer >= 0.08: # ~12 FPS retro flicker rate
+			flicker_timer = 0.0
+			queue_redraw()
