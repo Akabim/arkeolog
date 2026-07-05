@@ -1,11 +1,17 @@
 extends Node2D
 
-@onready var sockets_container: Node2D = $Sockets
-@onready var Player_spawn: Marker2D = $PlayerSpawn
+var sockets_container: Node2D = null
+var player_spawn: Marker2D = null
 
 var level_is_restored = false
 
 func _ready() -> void:
+	# Resolve nodes dynamically since level elements are spawned programmatically in inherited classes before super._ready()
+	if has_node("Sockets"):
+		sockets_container = $Sockets
+	if has_node("PlayerSpawn"):
+		player_spawn = $PlayerSpawn
+		
 	# Calculate total sockets in this level
 	if sockets_container:
 		Global.total_sockets_in_level = sockets_container.get_child_count()
