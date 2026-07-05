@@ -1,10 +1,17 @@
 extends Node2D
 
 var symbol_char: String = "ha"
-@onready var socket = get_parent()
+var socket = null
 
 func update_symbol(new_symbol: String) -> void:
 	symbol_char = new_symbol
+	queue_redraw()
+
+func _ready() -> void:
+	if socket == null:
+		var parent = get_parent()
+		if parent and parent.has_method("check_level_completion"):
+			socket = parent
 	queue_redraw()
 
 func _draw() -> void:
