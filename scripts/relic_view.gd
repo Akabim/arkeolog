@@ -64,12 +64,12 @@ func _draw() -> void:
 				Vector2(4, 8), Vector2(-4, 8), Vector2(-2, 0), Vector2(2, 0)
 			])
 		"ra":
-			var gold_color = gold.with_alpha(overlay.spray_amount)
+			var gold_color = Color(gold.r, gold.g, gold.b, overlay.spray_amount)
 			draw_line(center + Vector2(-36, -18), center + Vector2(36, -18), gold_color, 8.0)
 			draw_line(center + Vector2(-27, 0), center + Vector2(27, 0), gold_color, 8.0)
 			draw_line(center + Vector2(-36, 18), center + Vector2(36, 18), gold_color, 8.0)
 		"ka":
-			var gold_color = gold.with_alpha(overlay.spray_amount)
+			var gold_color = Color(gold.r, gold.g, gold.b, overlay.spray_amount)
 			draw_arc(center, 30.0, 0.0, 2*PI, 18, gold_color, 8.0)
 			draw_line(center + Vector2(-36, 0), center + Vector2(36, 0), gold_color, 8.0)
 			draw_line(center + Vector2(0, -36), center + Vector2(0, 36), gold_color, 8.0)
@@ -80,20 +80,22 @@ func _draw() -> void:
 		for pt in glyph_points:
 			shifted_points.append(center + pt * scale_factor)
 			
-		var outline_color = ink.with_alpha(overlay.spray_amount)
-		var gold_color = gold.with_alpha(overlay.spray_amount)
+		var outline_color = Color(ink.r, ink.g, ink.b, overlay.spray_amount)
+		var gold_color = Color(gold.r, gold.g, gold.b, overlay.spray_amount)
 		draw_polyline(shifted_points, outline_color, 12.0, true)
 		draw_polyline(shifted_points, gold_color, 7.0, true)
 		
 	# 4. Grime/Dirty film overlay (fades as player sprays)
 	if overlay.spray_amount < 1.0:
-		var grime_color = dirt.darkened(0.2).with_alpha(1.0 - overlay.spray_amount)
+		var dirt_dark = dirt.darkened(0.2)
+		var grime_color = Color(dirt_dark.r, dirt_dark.g, dirt_dark.b, 1.0 - overlay.spray_amount)
 		draw_rect(Rect2(relic_rect.position + Vector2.ONE*4, relic_rect.size - Vector2.ONE*8), grime_color)
 		
 	# 5. Brush Dust Nodes (Step 2)
 	for node in overlay.brush_nodes:
 		if node.alpha > 0.0:
-			var d_color = dirt.lightened(0.15).with_alpha(node.alpha)
+			var dirt_light = dirt.lightened(0.15)
+			var d_color = Color(dirt_light.r, dirt_light.g, dirt_light.b, node.alpha)
 			draw_circle(node.pos, node.size, d_color)
 			# Draw minor outlines for dust
 			draw_circle(node.pos, node.size - 2.0, d_color.darkened(0.1))
@@ -113,4 +115,6 @@ func _draw() -> void:
 		draw_polyline(points, ink, 2.0)
 		
 		# Draw pebble highlight
-		draw_line(chunk_pos + Vector2(-10, -5), chunk_pos + Vector2(0, -10), highlight.with_alpha(0.2), 2.0)
+		var highlight_color = Color(highlight.r, highlight.g, highlight.b, 0.2)
+		draw_line(chunk_pos + Vector2(-10, -5), chunk_pos + Vector2(0, -10), highlight_color, 2.0)
+

@@ -17,7 +17,7 @@ func _draw() -> void:
 	
 	# 1. Draw dashed tolerance circle (faint)
 	var radius = socket.tolerance_radius if socket else 16.0
-	var circle_color = gold.with_alpha(0.3) if is_solved else ink.with_alpha(0.15)
+	var circle_color = Color(gold.r, gold.g, gold.b, 0.3) if is_solved else Color(ink.r, ink.g, ink.b, 0.15)
 	
 	# Draw dashed circle programmatically
 	var points = 16
@@ -43,7 +43,9 @@ func _draw() -> void:
 	draw_line(Vector2(offset, offset), Vector2(offset, offset - corner_size), active_color, 2.0)
 	
 	# Faint background shading
-	draw_rect(Rect2(-15, -15, 30, 30), active_color.with_alpha(0.05))
+	var shadow_color = Color(active_color.r, active_color.g, active_color.b, 0.05)
+	draw_rect(Rect2(-15, -15, 30, 30), shadow_color)
+
 	
 	# 3. Draw Faint Hanacaraka symbol etching
 	var glyph_points = PackedVector2Array()
