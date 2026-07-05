@@ -12,7 +12,7 @@ func bake_all_textures() -> void:
 	print("[Texture Baker] Initiating asset texture loading system...")
 	
 	# Basic items
-	Global.textures["player"] = await get_texture_or_bake("player", PLAYER_VISUAL, {}, Vector2(48, 48))
+	Global.textures["player"] = await get_texture_or_bake("player", PLAYER_VISUAL, {}, Vector2(80, 80))
 	Global.textures["shrub"] = await get_texture_or_bake("shrub", SHRUB_VISUAL, {}, Vector2(36, 36))
 	Global.textures["tree"] = await get_texture_or_bake("tree", TREE_VISUAL, {}, Vector2(64, 96))
 	Global.textures["dirt_mound"] = await get_texture_or_bake("dirt_mound", DIRT_MOUND_VISUAL, {}, Vector2(64, 48))

@@ -1,6 +1,6 @@
 # Panduan Aset Gambar (Sprite Guide) - Arkeolog Gembul
 
-Gunakan panduan ini sebagai referensi ukuran dan nama file PNG yang perlu Anda gambar untuk menggantikan gambar prosedural bawaan.
+Gunakan panduan ini sebagai referensi ukuran dan nama file PNG yang perlu Anda gambar untuk menggantikan gambar prosedural bawaan. Proyek ini didesain menggunakan basis grid persegi **$80 \times 80$** piksel.
 
 ## 📂 Lokasi Folder Aset
 Letakkan seluruh file PNG buatan Anda di folder:
@@ -14,8 +14,8 @@ Sistem pembuat tekstur otomatis (`texture_baker.gd`) akan mendeteksi keberadaan 
 
 | Nama File PNG | Ukuran Rekomendasi (Piksel) | Deskripsi Objek |
 | :--- | :---: | :--- |
-| **`player.png`** | $32 \times 32$ atau $48 \times 48$ | Karakter Arkeolog imut bulat (Chiikawa-like). Karakter akan otomatis melakukan gerakan memantul (*squash/stretch*) saat berjalan. |
-| **`shrub.png`** | $32 \times 32$ | Semak rintangan yang bisa dihancurkan. |
+| **`player.png`** | $80 \times 80$ | Karakter Arkeolog imut bulat (Chiikawa-like). Karakter akan otomatis melakukan gerakan memantul (*squash/stretch*) saat berjalan. |
+| **`shrub.png`** | $80 \times 80$ | Semak rintangan yang bisa dihancurkan. |
 | **`tree.png`** | $64 \times 96$ | Pohon lebat kuno. Memiliki kedalaman (Y-sorting), karakter bisa berjalan di belakang daunnya. |
 | **`dirt_mound.png`** | $64 \times 48$ | Gundukan tanah situs ekskavasi. |
 | **`torch_off.png`** | $24 \times 40$ | Obor kuil dalam kondisi mati/belum menyala. |
