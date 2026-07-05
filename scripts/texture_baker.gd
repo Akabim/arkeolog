@@ -28,17 +28,9 @@ func bake_all_textures() -> void:
 		Global.textures["stone_" + sym] = await bake_item(STONE_BLOCK_VISUAL, {"symbol_char": sym}, Vector2(40, 40))
 		
 	# Sockets
-	# Sockets need a reference to a fake socket parent to check solved status, but socket_visual.gd does:
-	# var is_solved = socket.is_solved if socket else false
-	# Since it handles null safety (if socket is null), we can bake them by setting variables directly!
 	for sym in symbols:
-		Global.textures["socket_" + sym + "_off"] = await bake_item(SOCKET_VISUAL, {"symbol_char": sym, "socket": null}, Vector2(48, 48))
-		# For solved socket, we can pass a dummy object with is_solved = true
-		var dummy_socket = Node2D.new()
-		dummy_socket.set("is_solved", true)
-		dummy_socket.set("tolerance_radius", 16.0)
-		Global.textures["socket_" + sym + "_on"] = await bake_item(SOCKET_VISUAL, {"symbol_char": sym, "socket": dummy_socket}, Vector2(48, 48))
-		dummy_socket.free()
+		Global.textures["socket_" + sym + "_off"] = await bake_item(SOCKET_VISUAL, {"symbol_char": sym, "is_solved": false, "tolerance_radius": 16.0}, Vector2(48, 48))
+		Global.textures["socket_" + sym + "_on"] = await bake_item(SOCKET_VISUAL, {"symbol_char": sym, "is_solved": true, "tolerance_radius": 16.0}, Vector2(48, 48))
 		
 	print("[Texture Baker] All textures baked successfully! Cache count: ", Global.textures.size())
 
