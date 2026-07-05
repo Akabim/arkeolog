@@ -6,7 +6,7 @@ const TREE_VISUAL = preload("res://scripts/tree_visual.gd")
 const DIRT_MOUND_VISUAL = preload("res://scripts/dirt_mound_visual.gd")
 const STONE_BLOCK_VISUAL = preload("res://scripts/stone_block_visual.gd")
 const SOCKET_VISUAL = preload("res://scripts/socket_visual.gd")
-const TORCH_SCRIPT = preload("res://scripts/torch.gd")
+const TORCH_VISUAL = preload("res://scripts/torch_visual.gd")
 
 func bake_all_textures() -> void:
 	print("[Texture Baker] Starting procedural texture baking...")
@@ -18,9 +18,9 @@ func bake_all_textures() -> void:
 	Global.textures["dirt_mound"] = await bake_item(DIRT_MOUND_VISUAL, {}, Vector2(64, 48))
 	
 	# Torches
-	Global.textures["torch_off"] = await bake_item(TORCH_SCRIPT, {"is_lit": false}, Vector2(24, 40))
-	Global.textures["torch_on1"] = await bake_item(TORCH_SCRIPT, {"is_lit": true}, Vector2(24, 40))
-	Global.textures["torch_on2"] = await bake_item(TORCH_SCRIPT, {"is_lit": true}, Vector2(24, 40))
+	Global.textures["torch_off"] = await bake_item(TORCH_VISUAL, {"is_lit": false}, Vector2(24, 40))
+	Global.textures["torch_on1"] = await bake_item(TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
+	Global.textures["torch_on2"] = await bake_item(TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
 	
 	# Stone blocks
 	var symbols = ["ha", "na", "ca", "ra", "ka"]
