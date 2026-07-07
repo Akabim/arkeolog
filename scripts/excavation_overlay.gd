@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var main_panel: Control = $Control
 @onready var label_instruction: Label = $Control/InstructionLabel
 @onready var btn_chisel = $Control/Tools/BtnChisel
 @onready var btn_brush = $Control/Tools/BtnBrush
@@ -8,6 +9,8 @@ extends CanvasLayer
 @onready var relic_view = $Control/RelicView
 @onready var chisel_particles = $Control/RelicView/ChiselParticles
 @onready var brush_particles = $Control/RelicView/BrushParticles
+@onready var spray_particles = $Control/RelicView/SprayParticles
+@onready var sparkle_particles = $Control/RelicView/SparkleParticles
 
 # Game State
 enum Tool { CHISEL, BRUSH, SPRAY }
@@ -117,9 +120,25 @@ func start_game(mound) -> void:
 	if total_dirt_pixels == 0: total_dirt_pixels = 1
 	if total_gold_pixels == 0: total_gold_pixels = 1
 	
-	update_ui()
+	# Turn off sparkles initially
+	if sparkle_particles:
+		sparkle_particles.emitting = false
+		
+	# Smooth fade-in and bounce-scale transition
+	if main_panel:
+		main_panel.modulate.a = 0.0
+		main_panel.scale = Vector2(0.92, 0.92)
+		main_panel.pivot_offset = Vector2(640, 360) # Center of 1280x720 screen
+		
 	visible = true
 	relic_view.queue_redraw()
+	
+	if main_panel:
+		var tween = create_tween().set_parallel(true)
+		tween.tween_property(main_panel, "modulate:a", 1.0, 0.45).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(main_panel, "scale", Vector2.ONE, 0.45).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	
+	update_ui()
 
 func set_tool(tool_type: Tool) -> void:
 	active_tool = tool_type
@@ -164,10 +183,21 @@ func is_brush_complete() -> bool:
 	return ratio >= 0.96 # Requires 96% completeness for high-res clean-up
 
 func _on_complete_pressed() -> void:
-	visible = false
-	Global.change_state(Global.State.OVERWORLD)
-	if target_mound:
-		target_mound.complete_cleaning()
+	if main_panel:
+		var tween = create_tween().set_parallel(true)
+		tween.tween_property(main_panel, "modulate:a", 0.0, 0.35).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(main_panel, "scale", Vector2(0.92, 0.92), 0.35).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.chain().tween_callback(func():
+			visible = false
+			Global.change_state(Global.State.OVERWORLD)
+			if target_mound:
+				target_mound.complete_cleaning()
+		)
+	else:
+		visible = false
+		Global.change_state(Global.State.OVERWORLD)
+		if target_mound:
+			target_mound.complete_cleaning()
 
 func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 	if completed_steps: return
@@ -236,6 +266,9 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 			if is_drag or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 				var changed = reveal_spray_circle(mapped_pos, 20.0 * map_scale.x)
 				if changed:
+					if spray_particles:
+						spray_particles.position = local_pos
+						spray_particles.restart()
 					if randf() < 0.12:
 						Global.play_sfx.emit("spray_pssh")
 					relic_view.queue_redraw()
@@ -245,6 +278,8 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 					if ratio >= 0.96:
 						completed_steps = true
 						Global.play_sfx.emit("chime_success")
+						if sparkle_particles:
+							sparkle_particles.emitting = true
 					update_ui()
 
 func erase_brush_circle(pos: Vector2, radius: float) -> bool:
@@ -255,19 +290,28 @@ func erase_brush_circle(pos: Vector2, radius: float) -> bool:
 	var start_y = max(0, int(pos.y - radius))
 	var end_y = min(brush_image.get_height(), int(pos.y + radius))
 	
-	var r_sq = radius * radius
 	var changed = false
+	var inner_radius = radius * 0.5
+	var outer_diff = radius - inner_radius
 	
 	for x in range(start_x, end_x):
 		for y in range(start_y, end_y):
 			var dx = x - pos.x
 			var dy = y - pos.y
-			if dx*dx + dy*dy <= r_sq:
+			var dist = sqrt(dx*dx + dy*dy)
+			if dist <= radius:
 				var col = brush_image.get_pixel(x, y)
-				if col.a > 0.05:
-					brush_image.set_pixel(x, y, Color(0, 0, 0, 0))
-					erased_dirt_pixels += 1
-					changed = true
+				if col.a > 0.01:
+					var target_alpha = 0.0
+					if dist > inner_radius:
+						var factor = (dist - inner_radius) / outer_diff
+						target_alpha = col.a * factor
+						
+					if col.a > target_alpha:
+						brush_image.set_pixel(x, y, Color(col.r, col.g, col.b, target_alpha))
+						if col.a > 0.05 and target_alpha <= 0.05:
+							erased_dirt_pixels += 1
+						changed = true
 					
 	if changed:
 		brush_texture.update(brush_image)
@@ -281,20 +325,28 @@ func reveal_spray_circle(pos: Vector2, radius: float) -> bool:
 	var start_y = max(0, int(pos.y - radius))
 	var end_y = min(spray_image.get_height(), int(pos.y + radius))
 	
-	var r_sq = radius * radius
 	var changed = false
+	var inner_radius = radius * 0.5
+	var outer_diff = radius - inner_radius
 	
 	for x in range(start_x, end_x):
 		for y in range(start_y, end_y):
 			var dx = x - pos.x
 			var dy = y - pos.y
-			if dx*dx + dy*dy <= r_sq:
-				var target_col = spray_image.get_pixel(x, y)
-				if target_col.a == 0.0:
-					var gold_col = tulisan_image.get_pixel(x, y)
-					if gold_col.a > 0.05:
-						spray_image.set_pixel(x, y, gold_col)
-						revealed_gold_pixels += 1
+			var dist = sqrt(dx*dx + dy*dy)
+			if dist <= radius:
+				var gold_col = tulisan_image.get_pixel(x, y)
+				if gold_col.a > 0.01:
+					var target_alpha = gold_col.a
+					if dist > inner_radius:
+						var factor = 1.0 - (dist - inner_radius) / outer_diff
+						target_alpha = gold_col.a * factor
+						
+					var current_col = spray_image.get_pixel(x, y)
+					if current_col.a < target_alpha:
+						spray_image.set_pixel(x, y, Color(gold_col.r, gold_col.g, gold_col.b, target_alpha))
+						if current_col.a <= 0.05 and target_alpha > 0.05:
+							revealed_gold_pixels += 1
 						changed = true
 						
 	if changed:

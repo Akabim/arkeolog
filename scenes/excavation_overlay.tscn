@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsh2i3l4h3s01"]
+[gd_scene load_steps=8 format=3 uid="uid://bsh2i3l4h3s01"]
 
 [ext_resource type="Script" path="res://scripts/excavation_overlay.gd" id="1_overlay"]
 [ext_resource type="Script" path="res://scripts/relic_view.gd" id="2_view"]
@@ -9,6 +9,12 @@ _data = [Vector2(0, 0.4), 0.0, 1.5, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 
 [sub_resource type="Gradient" id="Gradient_dust"]
 colors = PackedColorArray(0.435294, 0.305882, 0.215686, 0.6, 0.435294, 0.305882, 0.215686, 0)
+
+[sub_resource type="Curve" id="Curve_sparkle"]
+_data = [Vector2(0, 0.2), 0.0, 2.0, 0, 0, Vector2(0.5, 1.0), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+
+[sub_resource type="Gradient" id="Gradient_sparkle"]
+colors = PackedColorArray(1, 0.9, 0.25, 0.9, 1, 0.75, 0, 0)
 
 [node name="ExcavationOverlay" type="CanvasLayer"]
 process_mode = 3
@@ -47,17 +53,17 @@ script = ExtResource("2_view")
 
 [node name="ChiselParticles" type="CPUParticles2D" parent="Control/RelicView"]
 emitting = false
-amount = 12
+amount = 16
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 direction = Vector2(0, -1)
 spread = 70.0
-gravity = Vector2(0, 400)
-initial_velocity_min = 100.0
-initial_velocity_max = 180.0
+gravity = Vector2(0, 450)
+initial_velocity_min = 120.0
+initial_velocity_max = 200.0
 scale_amount_min = 3.0
-scale_amount_max = 6.0
+scale_amount_max = 7.0
 color = Color(0.54902, 0.54902, 0.54902, 1)
 
 [node name="BrushParticles" type="CPUParticles2D" parent="Control/RelicView"]
@@ -78,6 +84,43 @@ scale_amount_min = 0.08
 scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_dust")
 color_ramp = SubResource("Gradient_dust")
+
+[node name="SprayParticles" type="CPUParticles2D" parent="Control/RelicView"]
+emitting = false
+amount = 20
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("3_hand")
+direction = Vector2(0, -1)
+spread = 360.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 60.0
+initial_velocity_max = 100.0
+damping_min = 30.0
+damping_max = 50.0
+scale_amount_min = 0.03
+scale_amount_max = 0.07
+color = Color(0.705882, 0.862745, 1, 0.54902)
+
+[node name="SparkleParticles" type="CPUParticles2D" parent="Control/RelicView"]
+emitting = false
+amount = 24
+lifetime = 1.2
+texture = ExtResource("3_hand")
+emission_shape = 3
+emission_rect_extents = Vector2(100, 100)
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, -40)
+initial_velocity_min = 15.0
+initial_velocity_max = 35.0
+linear_accel_min = 5.0
+linear_accel_max = 15.0
+scale_amount_min = 0.05
+scale_amount_max = 0.12
+scale_amount_curve = SubResource("Curve_sparkle")
+color_ramp = SubResource("Gradient_sparkle")
 
 [node name="Tools" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -140,7 +183,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
 theme_override_font_sizes/font_size = 12
-text = "Gunakan Pahat untuk memecah bongkahan tanah keras!"
+text = "Gunakan Pahat untuk memecah bongkahan batu besar!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
