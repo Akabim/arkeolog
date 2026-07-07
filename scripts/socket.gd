@@ -25,7 +25,7 @@ func _ready() -> void:
 func update_socket_texture() -> void:
 	if not sprite: return
 	var suffix = "_on" if is_solved else "_off"
-	var tex_key = "socket_" + symbol_char + suffix
+	var tex_key = "socket_" + relic_id + suffix
 	sprite.texture = Global.get_texture(tex_key)
 
 func _physics_process(_delta: float) -> void:

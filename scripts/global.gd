@@ -37,18 +37,31 @@ const COLOR_WHITE = Color("#F3F4F6")
 const COLOR_CHEEKS = Color("#FCD34D")
 
 # Relic / Translation data
-# In Hanacaraka, let's map some symbols to their meaning and physical socket hints
+# Dictionary mapping relic_id to its name, ancient inscription text, Indonesian translation, and socket hint
 var dictionary = {
-	"ha": {"translation": "Hulu", "clue": "Utara / Atas"},
-	"na": {"translation": "Nusa", "clue": "Pulau / Tengah"},
-	"ca": {"translation": "Candi", "clue": "Kuil / Pusat"},
-	"ra": {"translation": "Ranu", "clue": "Air / Selatan"},
-	"ka": {"translation": "Katon", "clue": "Timur / Kanan"}
+	"stone_1": {
+		"name": "Prasasti Sukabumi",
+		"inscription": "aksara kuno: Hulu Nusa Candi",
+		"translation": "Utusan kehormatan dari pusat pulau.",
+		"clue": "Utara / Atas (Tempatkan di altar utara)"
+	},
+	"stone_2": {
+		"name": "Prasasti Canggal",
+		"inscription": "aksara kuno: Datuk Ranu Katon",
+		"translation": "Mengalirkan berkah air ke arah timur.",
+		"clue": "Timur / Kanan (Tempatkan di altar timur)"
+	},
+	"stone_3": {
+		"name": "Prasasti Tugu",
+		"inscription": "aksara kuno: Sri Candra Katon",
+		"translation": "Bulan yang menerangi timur.",
+		"clue": "Bawah / Selatan (Tempatkan di altar selatan)"
+	}
 }
 
 # Player Game Progress
-var discovered_symbols = [] # Array of String (e.g. ["ha", "ra"])
-var deciphered_symbols = {} # Dictionary of String (symbol) -> String (translation)
+var discovered_symbols = [] # Array of String (holds relic_ids: e.g. ["stone_1"])
+var deciphered_symbols = {} # Dictionary of String (relic_id) -> String (translation)
 var solved_sockets = {} # Dictionary mapping socket ID to stone ID
 var total_sockets_in_level = 0
 var completed_levels = []

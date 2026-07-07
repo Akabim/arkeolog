@@ -5,12 +5,19 @@ extends CanvasLayer
 @onready var btn_chisel = $Control/DeskPanel/ToolsContainer/BtnChisel
 @onready var btn_brush = $Control/DeskPanel/ToolsContainer/BtnBrush
 @onready var btn_spray = $Control/DeskPanel/ToolsContainer/BtnSpray
+@onready var btn_kamus = $Control/DeskPanel/ToolsContainer/BtnKamus
 @onready var btn_complete = $Control/DeskPanel/BtnComplete
 @onready var relic_view = $Control/DeskPanel/TrayPanel/RelicView
 @onready var chisel_particles = $Control/DeskPanel/TrayPanel/RelicView/ChiselParticles
 @onready var brush_particles = $Control/DeskPanel/TrayPanel/RelicView/BrushParticles
 @onready var spray_particles = $Control/DeskPanel/TrayPanel/RelicView/SprayParticles
 @onready var sparkle_particles = $Control/DeskPanel/TrayPanel/RelicView/SparkleParticles
+
+# Kamus (Dictionary) overlay
+@onready var kamus_overlay = $Control/KamusOverlay
+@onready var kamus_image = $Control/KamusOverlay/KamusPanel/KamusImage
+@onready var btn_close_kamus = $Control/KamusOverlay/KamusPanel/BtnCloseKamus
+var tex_kamus: Texture2D = null
 
 # Game State
 enum Tool { CHISEL, BRUSH, SPRAY }
@@ -67,6 +74,18 @@ func _ready() -> void:
 	btn_chisel.pressed.connect(func(): set_tool(Tool.CHISEL))
 	btn_brush.pressed.connect(func(): set_tool(Tool.BRUSH))
 	btn_spray.pressed.connect(func(): set_tool(Tool.SPRAY))
+	
+	# Kamus button & overlay setup
+	btn_kamus.pressed.connect(_toggle_kamus)
+	btn_close_kamus.pressed.connect(_toggle_kamus)
+	kamus_overlay.visible = false
+	
+	# Load kamus texture
+	var kamus_path = "res://assets/tes/kamus.jpg"
+	if ResourceLoader.exists(kamus_path):
+		tex_kamus = load(kamus_path)
+		if kamus_image:
+			kamus_image.texture = tex_kamus
 	
 	Global.excavation_started.connect(start_game)
 
@@ -144,6 +163,23 @@ func set_tool(tool_type: Tool) -> void:
 	active_tool = tool_type
 	Global.play_sfx.emit("tool_select")
 	update_ui()
+
+func _toggle_kamus() -> void:
+	if kamus_overlay.visible:
+		# Close kamus with fade-out
+		var tween = create_tween()
+		tween.tween_property(kamus_overlay, "modulate:a", 0.0, 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_callback(func():
+			kamus_overlay.visible = false
+			kamus_overlay.modulate.a = 1.0
+		)
+	else:
+		# Open kamus with fade-in
+		kamus_overlay.modulate.a = 0.0
+		kamus_overlay.visible = true
+		var tween = create_tween()
+		tween.tween_property(kamus_overlay, "modulate:a", 1.0, 0.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		Global.play_sfx.emit("book_open")
 
 func update_ui() -> void:
 	btn_chisel.button_pressed = (active_tool == Tool.CHISEL)

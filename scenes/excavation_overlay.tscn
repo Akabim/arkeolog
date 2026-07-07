@@ -337,6 +337,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
+[node name="BtnKamus" type="Button" parent="Control/DeskPanel/ToolsContainer"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_hover_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+text = "📖 Buka Kamus Aksara"
+
 [node name="BtnComplete" type="Button" parent="Control/DeskPanel"]
 visible = false
 custom_minimum_size = Vector2(220, 44)
@@ -359,3 +372,85 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/normal = SubResource("StyleBoxFlat_btn_complete")
 text = "📸 AMBIL FOTO & SIMPAN"
+
+[node name="KamusOverlay" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KamusBg" type="ColorRect" parent="Control/KamusOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0392157, 0.054902, 0.0862745, 0.901961)
+
+[node name="KamusPanel" type="Panel" parent="Control/KamusOverlay"]
+custom_minimum_size = Vector2(640, 460)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -230.0
+offset_right = 320.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_desk")
+
+[node name="KamusTitle" type="Label" parent="Control/KamusOverlay/KamusPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 12.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.831373, 0.686275, 0.215686, 1)
+theme_override_font_sizes/font_size = 16
+text = "📖 KAMUS AKSARA KUNO"
+horizontal_alignment = 1
+
+[node name="KamusImage" type="TextureRect" parent="Control/KamusOverlay/KamusPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 44.0
+offset_right = -16.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BtnCloseKamus" type="Button" parent="Control/KamusOverlay/KamusPanel"]
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -48.0
+offset_right = 80.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+text = "Tutup Kamus"
+

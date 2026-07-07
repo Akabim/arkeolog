@@ -17,7 +17,7 @@ func _ready() -> void:
 	angular_damp = 12.0
 	
 	# Assign baked sprite texture
-	var tex_key = "stone_" + symbol_char
+	var tex_key = "stone_" + relic_id
 	var sprite = Sprite2D.new()
 	sprite.texture = Global.get_texture(tex_key)
 	visual.add_child(sprite)

@@ -30,7 +30,7 @@ func _ready() -> void:
 	visual.set_script(null)
 	
 	# If already discovered globally, destroy this mound and spawn the stone block
-	if symbol_char in Global.discovered_symbols:
+	if relic_id in Global.discovered_symbols:
 		call_deferred("spawn_stone_block")
 		queue_free()
 
@@ -54,7 +54,7 @@ func _on_player_exited(body: Node2D) -> void:
 func interact(_player: CharacterBody2D) -> void:
 	if is_cleaned: return
 	# Switch to excavation game state
-	Global.current_state = Global.State.EXCAVATION
+	Global.change_state(Global.State.EXCAVATION)
 	Global.excavation_started.emit(self)
 	prompt.visible = false
 	Global.play_sfx.emit("zoom")
@@ -62,12 +62,12 @@ func interact(_player: CharacterBody2D) -> void:
 func complete_cleaning() -> void:
 	is_cleaned = true
 	var translation = ""
-	if Global.dictionary.has(symbol_char):
-		translation = Global.dictionary[symbol_char]["translation"]
+	if Global.dictionary.has(relic_id):
+		translation = Global.dictionary[relic_id]["translation"]
 	
 	# Add to discovered list if not already there
-	if not symbol_char in Global.discovered_symbols:
-		Global.discovered_symbols.append(symbol_char)
+	if not relic_id in Global.discovered_symbols:
+		Global.discovered_symbols.append(relic_id)
 		
 	Global.excavation_completed.emit(relic_id, relic_name, symbol_char, translation)
 	
