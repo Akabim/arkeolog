@@ -214,11 +214,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func toggle_journal() -> void:
 	if Global.current_state == Global.State.OVERWORLD:
-		Global.current_state = Global.State.JOURNAL
+		Global.change_state(Global.State.JOURNAL)
 		Global.journal_toggled.emit(true)
 		Global.play_sfx.emit("book_open")
 	elif Global.current_state == Global.State.JOURNAL:
-		Global.current_state = Global.State.OVERWORLD
+		Global.change_state(Global.State.OVERWORLD)
 		Global.journal_toggled.emit(false)
 		Global.play_sfx.emit("book_close")
 

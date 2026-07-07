@@ -61,7 +61,7 @@ func load_level() -> void:
 
 func on_level_restored() -> void:
 	# Lock player movement by changing state
-	Global.current_state = Global.State.JOURNAL
+	Global.change_state(Global.State.JOURNAL)
 	
 	# 1. Screen flash effect
 	ui_flash_layer.visible = true
@@ -90,7 +90,7 @@ func restart_game() -> void:
 	Global.discovered_symbols.clear()
 	Global.deciphered_symbols.clear()
 	Global.solved_sockets.clear()
-	Global.current_state = Global.State.OVERWORLD
+	Global.change_state(Global.State.OVERWORLD)
 	load_level()
 	Global.play_sfx.emit("welcome")
 

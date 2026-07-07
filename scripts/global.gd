@@ -7,11 +7,12 @@ enum State {
 	JOURNAL
 }
 
-var current_state: State = State.OVERWORLD:
-	set(value):
-		if current_state != value:
-			current_state = value
-			state_changed.emit(current_state)
+var current_state: State = State.OVERWORLD
+
+func change_state(new_state: State) -> void:
+	if current_state != new_state:
+		current_state = new_state
+		state_changed.emit(current_state)
 
 # Baked texture cache
 var textures = {}

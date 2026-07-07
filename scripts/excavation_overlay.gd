@@ -131,40 +131,27 @@ func update_ui() -> void:
 	btn_brush.button_pressed = (active_tool == Tool.BRUSH)
 	btn_spray.button_pressed = (active_tool == Tool.SPRAY)
 	
-	# Check stages
+	# All buttons are always enabled for sandbox freedom!
+	btn_chisel.disabled = completed_steps
+	btn_brush.disabled = completed_steps
+	btn_spray.disabled = completed_steps
+	
+	# Set helper text based on puzzle progress
 	var chisel_done = is_chisel_complete()
 	var brush_done = is_brush_complete()
 	
 	if not chisel_done:
-		label_instruction.text = "TAHAP 1: Pahat bongkahan batu besar (klik 3x per batu)!"
-		btn_chisel.disabled = false
-		btn_brush.disabled = true
-		btn_spray.disabled = true
+		label_instruction.text = "Gunakan Pahat untuk memecah bongkahan batu besar (klik 3x langsung pada batu)!"
 	elif not brush_done:
-		label_instruction.text = "TAHAP 2: Gosok kuas pada sisa tanah cokelat hingga bersih!"
-		btn_chisel.disabled = true
-		btn_brush.disabled = false
-		btn_spray.disabled = true
-		if active_tool == Tool.CHISEL:
-			active_tool = Tool.BRUSH
+		label_instruction.text = "Gunakan Kuas untuk membersihkan sisa tanah cokelat hingga bersih!"
 	elif not completed_steps:
-		label_instruction.text = "TAHAP 3: Klik/semprot air untuk membersihkan aksara emas!"
-		btn_chisel.disabled = true
-		btn_brush.disabled = true
-		btn_spray.disabled = false
-		if active_tool != Tool.SPRAY:
-			active_tool = Tool.SPRAY
+		label_instruction.text = "Gunakan Semprotan Air untuk mengilapkan aksara emas!"
 	else:
 		label_instruction.text = "SELESAI! Relik kuno telah bersih sempurna."
 		btn_chisel.disabled = true
 		btn_brush.disabled = true
 		btn_spray.disabled = true
 		btn_complete.visible = true
-		
-	# Update active highlights
-	btn_chisel.button_pressed = (active_tool == Tool.CHISEL)
-	btn_brush.button_pressed = (active_tool == Tool.BRUSH)
-	btn_spray.button_pressed = (active_tool == Tool.SPRAY)
 
 func is_chisel_complete() -> bool:
 	for r in rocks:
@@ -174,18 +161,17 @@ func is_chisel_complete() -> bool:
 
 func is_brush_complete() -> bool:
 	var ratio = float(erased_dirt_pixels) / float(total_dirt_pixels)
-	return ratio >= 0.90
+	return ratio >= 0.96 # Requires 96% completeness for high-res clean-up
 
 func _on_complete_pressed() -> void:
 	visible = false
-	Global.current_state = Global.State.OVERWORLD
+	Global.change_state(Global.State.OVERWORLD)
 	if target_mound:
 		target_mound.complete_cleaning()
 
 func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 	if completed_steps: return
 	
-	# Mapping factors to map 320x280 screen inputs to full texture size
 	var tex_w = brush_image.get_width()
 	var tex_h = brush_image.get_height()
 	var map_scale = Vector2(float(tex_w)/320.0, float(tex_h)/280.0)
@@ -194,17 +180,24 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 	match active_tool:
 		Tool.CHISEL:
 			if not is_drag: # Click only
-				var closest_rock = null
-				var min_dist = 9999.0
+				# Pixel-perfect hit check on transparent rock layers
+				var hit_rock = null
 				for r in rocks:
 					if not r.destroyed:
-						var dist = local_pos.distance_to(r.center)
-						if dist < min_dist:
-							min_dist = dist
-							closest_rock = r
-							
-				if closest_rock and min_dist < 80.0:
-					closest_rock.clicks_left -= 1
+						var r_w = r.texture.get_width()
+						var r_h = r.texture.get_height()
+						var r_scale = Vector2(float(r_w)/320.0, float(r_h)/280.0)
+						var rx = int(local_pos.x * r_scale.x)
+						var ry = int(local_pos.y * r_scale.y)
+						
+						if rx >= 0 and rx < r_w and ry >= 0 and ry < r_h:
+							var img = r.texture.get_image()
+							if img.get_pixel(rx, ry).a > 0.1:
+								hit_rock = r
+								break
+								
+				if hit_rock:
+					hit_rock.clicks_left -= 1
 					
 					# Emitting chisel rock shards
 					if chisel_particles:
@@ -214,8 +207,8 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 					Global.camera_shake.emit(3.0, 0.1)
 					Global.play_sfx.emit("chisel_clink")
 					
-					if closest_rock.clicks_left <= 0:
-						closest_rock.destroyed = true
+					if hit_rock.clicks_left <= 0:
+						hit_rock.destroyed = true
 						# Emitting extra chisel debris shards
 						if chisel_particles:
 							chisel_particles.amount = 24
@@ -224,14 +217,11 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 						Global.camera_shake.emit(6.0, 0.2)
 						Global.play_sfx.emit("step_complete")
 						
-						if is_chisel_complete():
-							set_tool(Tool.BRUSH)
-							
 					relic_view.queue_redraw()
+					update_ui()
 					
 		Tool.BRUSH:
 			if is_drag or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				# Erase circle in texture space (radius 25 pixels in texture space)
 				var changed = erase_brush_circle(mapped_pos, 25.0 * map_scale.x)
 				if changed:
 					if brush_particles and randf() < 0.25:
@@ -240,14 +230,10 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 					if randf() < 0.08:
 						Global.play_sfx.emit("brush_sweep")
 					relic_view.queue_redraw()
-					
-					if is_brush_complete():
-						Global.play_sfx.emit("step_complete")
-						set_tool(Tool.SPRAY)
+					update_ui()
 						
 		Tool.SPRAY:
 			if is_drag or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-				# Reveal circle in texture space (radius 20 pixels in texture space)
 				var changed = reveal_spray_circle(mapped_pos, 20.0 * map_scale.x)
 				if changed:
 					if randf() < 0.12:
@@ -256,10 +242,10 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 					
 					var ratio = float(revealed_gold_pixels) / float(total_gold_pixels)
 					spray_amount = ratio
-					if ratio >= 0.90:
+					if ratio >= 0.96:
 						completed_steps = true
 						Global.play_sfx.emit("chime_success")
-						update_ui()
+					update_ui()
 
 func erase_brush_circle(pos: Vector2, radius: float) -> bool:
 	if not brush_image: return false
