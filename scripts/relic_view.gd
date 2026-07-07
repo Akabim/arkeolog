@@ -36,10 +36,14 @@ func _draw() -> void:
 	if overlay.brush_texture:
 		draw_texture_rect(overlay.brush_texture, canvas, false)
 		
-	# 5. Draw Layer 4: Hard Rocks (Batu 1, 2, 3 - full-canvas PNGs, HP-modulated)
+	# 5. Draw Layer 4: Hard Rocks (Batu 1, 2, 3 - full-canvas or positioned sprites, HP-modulated)
 	for rock in overlay.rocks:
 		if not rock.destroyed:
 			var opacity = float(rock.clicks_left) / float(rock.max_clicks)
 			var modulate_col = Color(1, 1, 1, opacity)
-			# All rock PNGs are full-canvas (same size as Prasasti), pre-positioned in Clip Studio
-			draw_texture_rect(rock.texture, Rect2(0, 0, size.x, size.y), false, modulate_col)
+			if rock.full_canvas:
+				draw_texture_rect(rock.texture, canvas, false, modulate_col)
+			else:
+				var tex_size = rock.texture.get_size()
+				var mapped_center = Vector2(rock.center.x * (size.x/320.0), rock.center.y * (size.y/280.0))
+				draw_texture(rock.texture, mapped_center - tex_size / 2, modulate_col)

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="RelicData" load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/resources/rock_data.gd" id="1_rock_script"]
+[ext_resource type="Script" path="res://scripts/resources/relic_data.gd" id="2_relic_script"]
+[ext_resource type="Texture2D" path="res://assets/tes/Prasasti.png" id="3_base"]
+[ext_resource type="Texture2D" path="res://assets/tes/Tulisan.png" id="4_writing"]
+[ext_resource type="Texture2D" path="res://assets/tes/Tanah.png" id="5_dirt"]
+[ext_resource type="Texture2D" path="res://assets/tes/Batu 1.png" id="6_batu1"]
+[ext_resource type="Texture2D" path="res://assets/tes/Batu 2.png" id="7_batu2"]
+[ext_resource type="Texture2D" path="res://assets/tes/Batu 3.png" id="8_batu3"]
+
+[sub_resource type="Resource" id="Resource_rock1"]
+script = ExtResource("1_rock_script")
+texture = ExtResource("6_batu1")
+max_clicks = 3
+full_canvas = true
+custom_position = Vector2(90, 130)
+
+[sub_resource type="Resource" id="Resource_rock2"]
+script = ExtResource("1_rock_script")
+texture = ExtResource("7_batu2")
+max_clicks = 3
+full_canvas = true
+custom_position = Vector2(230, 90)
+
+[sub_resource type="Resource" id="Resource_rock3"]
+script = ExtResource("1_rock_script")
+texture = ExtResource("8_batu3")
+max_clicks = 3
+full_canvas = true
+custom_position = Vector2(190, 190)
+
+[resource]
+script = ExtResource("2_relic_script")
+relic_id = "stone_3"
+relic_name = "Prasasti Tugu"
+base_texture = ExtResource("3_base")
+writing_texture = ExtResource("4_writing")
+dirt_texture = ExtResource("5_dirt")
+rocks = Array[ExtResource("1_rock_script")]([SubResource("Resource_rock1"), SubResource("Resource_rock2"), SubResource("Resource_rock3")])
+inscription = "aksara kuno: Sri Candra Katon"
+translation = "Bulan yang menerangi timur."
+clue = "Bawah / Selatan (Tempatkan di altar selatan)"
+decipher_options = Array[String](["Utusan kehormatan dari pusat pulau.", "Mengalirkan berkah air ke arah timur.", "Bulan yang menerangi timur."])

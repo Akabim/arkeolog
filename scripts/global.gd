@@ -38,26 +38,8 @@ const COLOR_CHEEKS = Color("#FCD34D")
 
 # Relic / Translation data
 # Dictionary mapping relic_id to its name, ancient inscription text, Indonesian translation, and socket hint
-var dictionary = {
-	"stone_1": {
-		"name": "Prasasti Sukabumi",
-		"inscription": "aksara kuno: Hulu Nusa Candi",
-		"translation": "Utusan kehormatan dari pusat pulau.",
-		"clue": "Utara / Atas (Tempatkan di altar utara)"
-	},
-	"stone_2": {
-		"name": "Prasasti Canggal",
-		"inscription": "aksara kuno: Datuk Ranu Katon",
-		"translation": "Mengalirkan berkah air ke arah timur.",
-		"clue": "Timur / Kanan (Tempatkan di altar timur)"
-	},
-	"stone_3": {
-		"name": "Prasasti Tugu",
-		"inscription": "aksara kuno: Sri Candra Katon",
-		"translation": "Bulan yang menerangi timur.",
-		"clue": "Bawah / Selatan (Tempatkan di altar selatan)"
-	}
-}
+# Dictionary mapping relic_id to its RelicData resource
+var dictionary = {}
 
 # Player Game Progress
 var discovered_symbols = [] # Array of String (holds relic_ids: e.g. ["stone_1"])
@@ -69,6 +51,21 @@ var completed_levels = []
 
 func _ready() -> void:
 	setup_input_map()
+	load_relic_blueprints()
+
+func load_relic_blueprints() -> void:
+	dictionary.clear()
+	var path = "res://resources/relics/"
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".tres"):
+				var relic_res = load(path + file_name)
+				if relic_res is RelicData:
+					dictionary[relic_res.relic_id] = relic_res
+			file_name = dir.get_next()
 
 func get_texture(key: String) -> Texture2D:
 	if textures.has(key):

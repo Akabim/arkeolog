@@ -28,13 +28,18 @@ var relic_id: String = ""
 var symbol_char: String = "ha"
 var relic_name: String = ""
 
-# Preloaded assets
-var tex_prasasti = preload("res://assets/tes/Prasasti.png")
-var tex_tulisan = preload("res://assets/tes/Tulisan.png")
-var tex_tanah = preload("res://assets/tes/Tanah.png")
-var tex_batu1 = preload("res://assets/tes/Batu 1.png")
-var tex_batu2 = preload("res://assets/tes/Batu 2.png")
-var tex_batu3 = preload("res://assets/tes/Batu 3.png")
+# Preloaded assets fallback
+var fallback_prasasti = preload("res://assets/tes/Prasasti.png")
+var fallback_tulisan = preload("res://assets/tes/Tulisan.png")
+var fallback_tanah = preload("res://assets/tes/Tanah.png")
+var fallback_batu1 = preload("res://assets/tes/Batu 1.png")
+var fallback_batu2 = preload("res://assets/tes/Batu 2.png")
+var fallback_batu3 = preload("res://assets/tes/Batu 3.png")
+
+# Active textures for the current relic
+var tex_prasasti: Texture2D
+var tex_tulisan: Texture2D
+var tex_tanah: Texture2D
 
 # Dynamic Image Data
 var brush_image: Image
@@ -54,13 +59,15 @@ class Rock:
 	var center: Vector2
 	var clicks_left: int
 	var max_clicks: int
+	var full_canvas: bool
 	var destroyed: bool = false
 	
-	func _init(tex: Texture2D, pos: Vector2, clicks: int) -> void:
+	func _init(tex: Texture2D, pos: Vector2, clicks: int, is_full: bool = true) -> void:
 		texture = tex
 		center = pos
 		clicks_left = clicks
 		max_clicks = clicks
+		full_canvas = is_full
 
 var rocks = []
 var spray_amount: float = 0.0
@@ -95,19 +102,37 @@ func start_game(mound) -> void:
 	symbol_char = mound.symbol_char
 	relic_name = mound.relic_name
 	
+	# Get RelicData Resource from global dictionary
+	var relic_data: RelicData = Global.dictionary.get(relic_id)
+	
 	# Reset states
 	active_tool = Tool.CHISEL
 	completed_steps = false
 	spray_amount = 0.0
 	btn_complete.visible = false
 	
-	# Initialize Rocks (3 clicks to break each, positioned dynamically)
+	# Override active textures from Resource, or use preloaded fallbacks
+	if relic_data:
+		tex_prasasti = relic_data.base_texture if relic_data.base_texture else fallback_prasasti
+		tex_tulisan = relic_data.writing_texture if relic_data.writing_texture else fallback_tulisan
+		tex_tanah = relic_data.dirt_texture if relic_data.dirt_texture else fallback_tanah
+	else:
+		tex_prasasti = fallback_prasasti
+		tex_tulisan = fallback_tulisan
+		tex_tanah = fallback_tanah
+	
+	# Initialize Rocks from Resource, or use defaults
 	rocks.clear()
-	rocks = [
-		Rock.new(tex_batu1, Vector2(90, 130), 3),
-		Rock.new(tex_batu2, Vector2(230, 90), 3),
-		Rock.new(tex_batu3, Vector2(190, 190), 3)
-	]
+	if relic_data and not relic_data.rocks.is_empty():
+		for r_data in relic_data.rocks:
+			if r_data and r_data.texture:
+				rocks.append(Rock.new(r_data.texture, r_data.custom_position, r_data.max_clicks, r_data.full_canvas))
+	else:
+		rocks = [
+			Rock.new(fallback_batu1, Vector2(90, 130), 3, true),
+			Rock.new(fallback_batu2, Vector2(230, 90), 3, true),
+			Rock.new(fallback_batu3, Vector2(190, 190), 3, true)
+		]
 	
 	# Initialize Brush Layer (Soil)
 	var base_tanah = tex_tanah.get_image()
@@ -258,14 +283,27 @@ func handle_view_input(local_pos: Vector2, is_drag: bool) -> void:
 						var r_w = r.texture.get_width()
 						var r_h = r.texture.get_height()
 						var r_scale = Vector2(float(r_w)/320.0, float(r_h)/280.0)
-						var rx = int(local_pos.x * r_scale.x)
-						var ry = int(local_pos.y * r_scale.y)
 						
-						if rx >= 0 and rx < r_w and ry >= 0 and ry < r_h:
-							var img = r.texture.get_image()
-							if img.get_pixel(rx, ry).a > 0.1:
-								hit_rock = r
-								break
+						if r.full_canvas:
+							var rx = int(local_pos.x * r_scale.x)
+							var ry = int(local_pos.y * r_scale.y)
+							if rx >= 0 and rx < r_w and ry >= 0 and ry < r_h:
+								var img = r.texture.get_image()
+								if img.get_pixel(rx, ry).a > 0.1:
+									hit_rock = r
+									break
+						else:
+							# Cropped sprite hit check centered at r.center
+							var half_size = Vector2(r_w, r_h) / (2.0 * r_scale)
+							var rect = Rect2(r.center - half_size, half_size * 2.0)
+							if rect.has_point(local_pos):
+								var rx = int((local_pos.x - rect.position.x) * r_scale.x)
+								var ry = int((local_pos.y - rect.position.y) * r_scale.y)
+								if rx >= 0 and rx < r_w and ry >= 0 and ry < r_h:
+									var img = r.texture.get_image()
+									if img.get_pixel(rx, ry).a > 0.1:
+										hit_rock = r
+										break
 								
 				if hit_rock:
 					hit_rock.clicks_left -= 1

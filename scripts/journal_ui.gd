@@ -53,7 +53,8 @@ func refresh_list() -> void:
 	for rid in Global.discovered_symbols:
 		var relic_name = rid
 		if Global.dictionary.has(rid):
-			relic_name = Global.dictionary[rid]["name"]
+			var relic_res = Global.dictionary[rid] as RelicData
+			relic_name = relic_res.relic_name
 			
 		var item_text = relic_name
 		if Global.deciphered_symbols.has(rid):
@@ -76,9 +77,9 @@ func _on_relic_selected(index: int) -> void:
 		symbol_display.update_symbol(selected_relic_id)
 	
 	# Show relic name and inscription text
-	var relic_data = Global.dictionary.get(selected_relic_id, {})
-	var relic_name = relic_data.get("name", selected_relic_id)
-	var inscription = relic_data.get("inscription", "Aksara tidak diketahui")
+	var relic_res = Global.dictionary.get(selected_relic_id) as RelicData
+	var relic_name = relic_res.relic_name if relic_res else selected_relic_id
+	var inscription = relic_res.inscription if relic_res else "Aksara tidak diketahui"
 	label_symbol_char.text = relic_name + "\n" + inscription
 		
 	# Check if already deciphered
@@ -92,7 +93,8 @@ func show_deciphered_info() -> void:
 	label_result.visible = true
 	
 	var translation = Global.deciphered_symbols[selected_relic_id]
-	var clue = Global.dictionary[selected_relic_id]["clue"]
+	var relic_res = Global.dictionary.get(selected_relic_id) as RelicData
+	var clue = relic_res.clue if relic_res else "Petunjuk tidak ditemukan"
 	
 	label_result.text = "TERJEMAHAN:\n\"" + translation + "\"\n\nPETUNJUK RESTORASI:\n" + clue
 	label_result.add_theme_color_override("font_color", Global.COLOR_GOLD)
@@ -106,7 +108,9 @@ func show_decipher_puzzle() -> void:
 	var choices_nodes = decipher_choices.get_children()
 	var all_translations = []
 	for k in Global.dictionary:
-		all_translations.append(Global.dictionary[k]["translation"])
+		var relic_res = Global.dictionary[k] as RelicData
+		if relic_res:
+			all_translations.append(relic_res.translation)
 		
 	all_translations.shuffle()
 	
@@ -121,7 +125,8 @@ func show_decipher_puzzle() -> void:
 func _on_choice_pressed(choice_text: String) -> void:
 	if selected_relic_id == "": return
 	
-	var correct_translation = Global.dictionary[selected_relic_id]["translation"]
+	var relic_res = Global.dictionary.get(selected_relic_id) as RelicData
+	var correct_translation = relic_res.translation if relic_res else ""
 	
 	if choice_text == correct_translation:
 		# Correct decipher!
