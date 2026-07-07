@@ -200,9 +200,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 		
-	# Swing Tool (Space bar, Left Click or action interact/ui_accept)
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("interact") or (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+	# Swing Tool (Exclusively Mouse Left Click)
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		swing_tool()
+		get_viewport().set_input_as_handled()
+		return
+		
+	# Interact (Key E / Space or interact action)
+	if event.is_action_pressed("interact") or event.is_action_pressed("ui_accept"):
+		interact_with_surroundings()
 		get_viewport().set_input_as_handled()
 		return
 
@@ -215,3 +221,23 @@ func toggle_journal() -> void:
 		Global.current_state = Global.State.OVERWORLD
 		Global.journal_toggled.emit(false)
 		Global.play_sfx.emit("book_close")
+
+func interact_with_surroundings() -> void:
+	if Global.current_state != Global.State.OVERWORLD: return
+	
+	# Detect nearby interactable areas
+	var areas = interaction_detector.get_overlapping_areas()
+	for area in areas:
+		var parent = area.get_parent()
+		# Interact with Dirt Mound
+		if parent and parent.name.begins_with("DirtMound") and parent.has_method("interact"):
+			if current_tool == "shovel":
+				# Dig it!
+				anim.play("swing_shovel")
+				Global.play_sfx.emit("dig")
+				parent.interact(self)
+			else:
+				# Warn player they need Shovel
+				print("Kamu butuh sekop untuk menggali gundukan tanah ini!")
+				Global.play_sfx.emit("stone_scrape")
+			return
