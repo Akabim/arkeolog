@@ -1,6 +1,6 @@
 extends Control
 
-@onready var overlay = get_parent().get_parent()
+@onready var overlay = owner
 
 func _ready() -> void:
 	# Enable mouse input tracking
