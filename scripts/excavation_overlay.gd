@@ -1,16 +1,16 @@
 extends CanvasLayer
 
-@onready var main_panel: Control = $Control
-@onready var label_instruction: Label = $Control/InstructionLabel
-@onready var btn_chisel = $Control/Tools/BtnChisel
-@onready var btn_brush = $Control/Tools/BtnBrush
-@onready var btn_spray = $Control/Tools/BtnSpray
-@onready var btn_complete = $Control/BtnComplete
-@onready var relic_view = $Control/RelicView
-@onready var chisel_particles = $Control/RelicView/ChiselParticles
-@onready var brush_particles = $Control/RelicView/BrushParticles
-@onready var spray_particles = $Control/RelicView/SprayParticles
-@onready var sparkle_particles = $Control/RelicView/SparkleParticles
+@onready var main_panel: Control = $Control/DeskPanel
+@onready var label_instruction: Label = $Control/DeskPanel/ToolsContainer/NotePanel/InstructionLabel
+@onready var btn_chisel = $Control/DeskPanel/ToolsContainer/BtnChisel
+@onready var btn_brush = $Control/DeskPanel/ToolsContainer/BtnBrush
+@onready var btn_spray = $Control/DeskPanel/ToolsContainer/BtnSpray
+@onready var btn_complete = $Control/DeskPanel/BtnComplete
+@onready var relic_view = $Control/DeskPanel/TrayPanel/RelicView
+@onready var chisel_particles = $Control/DeskPanel/TrayPanel/RelicView/ChiselParticles
+@onready var brush_particles = $Control/DeskPanel/TrayPanel/RelicView/BrushParticles
+@onready var spray_particles = $Control/DeskPanel/TrayPanel/RelicView/SprayParticles
+@onready var sparkle_particles = $Control/DeskPanel/TrayPanel/RelicView/SparkleParticles
 
 # Game State
 enum Tool { CHISEL, BRUSH, SPRAY }

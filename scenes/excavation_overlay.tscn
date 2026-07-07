@@ -1,8 +1,97 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsh2i3l4h3s01"]
+[gd_scene load_steps=13 format=3 uid="uid://bsh2i3l4h3s01"]
 
 [ext_resource type="Script" path="res://scripts/excavation_overlay.gd" id="1_overlay"]
 [ext_resource type="Script" path="res://scripts/relic_view.gd" id="2_view"]
 [ext_resource type="Texture2D" uid="uid://fd32msged4o5" path="res://assets/sprites/hand.png" id="3_hand"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_desk"]
+bg_color = Color(0.117647, 0.141176, 0.192157, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.831373, 0.686275, 0.215686, 0.784314)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.627451)
+shadow_size = 24
+shadow_offset = Vector2(0, 8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tray"]
+bg_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.231373, 0.301961, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.180392, 0.211765, 0.282353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.270588, 0.313726, 0.415686, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.231373, 0.270588, 0.360784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.831373, 0.686275, 0.215686, 0.784314)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.831373, 0.686275, 0.215686, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.843137, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_note"]
+bg_color = Color(0.0901961, 0.109804, 0.14902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.180392, 0.211765, 0.282353, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_complete"]
+bg_color = Color(0.831373, 0.686275, 0.215686, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.901961, 0.4, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.831373, 0.686275, 0.215686, 0.313726)
+shadow_size = 12
 
 [sub_resource type="Curve" id="Curve_dust"]
 _data = [Vector2(0, 0.4), 0.0, 1.5, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -36,22 +125,54 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0666667, 0.0941176, 0.152941, 0.823529)
+color = Color(0.0588235, 0.0784314, 0.121569, 0.862745)
 
-[node name="RelicView" type="Control" parent="Control"]
-custom_minimum_size = Vector2(320, 280)
+[node name="DeskPanel" type="Panel" parent="Control"]
+custom_minimum_size = Vector2(740, 380)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -370.0
+offset_top = -190.0
+offset_right = 370.0
+offset_bottom = 190.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_desk")
+
+[node name="TrayPanel" type="Panel" parent="Control/DeskPanel"]
+custom_minimum_size = Vector2(340, 300)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 32.0
+offset_top = -150.0
+offset_right = 372.0
+offset_bottom = 150.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tray")
+
+[node name="RelicView" type="Control" parent="Control/DeskPanel/TrayPanel"]
+custom_minimum_size = Vector2(320, 280)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
 offset_top = -140.0
-offset_right = 352.0
+offset_right = 160.0
 offset_bottom = 140.0
+grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_view")
 
-[node name="ChiselParticles" type="CPUParticles2D" parent="Control/RelicView"]
+[node name="ChiselParticles" type="CPUParticles2D" parent="Control/DeskPanel/TrayPanel/RelicView"]
 emitting = false
 amount = 16
 lifetime = 0.5
@@ -66,7 +187,7 @@ scale_amount_min = 3.0
 scale_amount_max = 7.0
 color = Color(0.54902, 0.54902, 0.54902, 1)
 
-[node name="BrushParticles" type="CPUParticles2D" parent="Control/RelicView"]
+[node name="BrushParticles" type="CPUParticles2D" parent="Control/DeskPanel/TrayPanel/RelicView"]
 emitting = false
 amount = 16
 lifetime = 0.6
@@ -85,7 +206,7 @@ scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_dust")
 color_ramp = SubResource("Gradient_dust")
 
-[node name="SprayParticles" type="CPUParticles2D" parent="Control/RelicView"]
+[node name="SprayParticles" type="CPUParticles2D" parent="Control/DeskPanel/TrayPanel/RelicView"]
 emitting = false
 amount = 20
 lifetime = 0.4
@@ -103,7 +224,7 @@ scale_amount_min = 0.03
 scale_amount_max = 0.07
 color = Color(0.705882, 0.862745, 1, 0.54902)
 
-[node name="SparkleParticles" type="CPUParticles2D" parent="Control/RelicView"]
+[node name="SparkleParticles" type="CPUParticles2D" parent="Control/DeskPanel/TrayPanel/RelicView"]
 emitting = false
 amount = 24
 lifetime = 1.2
@@ -122,86 +243,119 @@ scale_amount_max = 0.12
 scale_amount_curve = SubResource("Curve_sparkle")
 color_ramp = SubResource("Gradient_sparkle")
 
-[node name="Tools" type="VBoxContainer" parent="Control"]
+[node name="ToolsContainer" type="VBoxContainer" parent="Control/DeskPanel"]
+custom_minimum_size = Vector2(312, 300)
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -140.0
+offset_left = -344.0
+offset_top = -150.0
 offset_right = -32.0
-offset_bottom = 140.0
+offset_bottom = 150.0
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="Control/Tools"]
+[node name="Title" type="Label" parent="Control/DeskPanel/ToolsContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.831373, 0.686275, 0.215686, 1)
 theme_override_font_sizes/font_size = 18
-text = "Ekskavasi Situs"
+text = "ALAT EKSKAVASI"
 horizontal_alignment = 1
 
-[node name="Separator" type="ColorRect" parent="Control/Tools"]
+[node name="Separator" type="ColorRect" parent="Control/DeskPanel/ToolsContainer"]
 custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 color = Color(0.831373, 0.686275, 0.215686, 0.470588)
 
-[node name="BtnChisel" type="Button" parent="Control/Tools"]
-custom_minimum_size = Vector2(0, 36)
+[node name="BtnChisel" type="Button" parent="Control/DeskPanel/ToolsContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_hover_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 toggle_mode = true
 button_pressed = true
 text = "🔨 [1] Pahat"
 
-[node name="BtnBrush" type="Button" parent="Control/Tools"]
-custom_minimum_size = Vector2(0, 36)
+[node name="BtnBrush" type="Button" parent="Control/DeskPanel/ToolsContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_hover_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 toggle_mode = true
 text = "🧹 [2] Kuas"
 
-[node name="BtnSpray" type="Button" parent="Control/Tools"]
-custom_minimum_size = Vector2(0, 36)
+[node name="BtnSpray" type="Button" parent="Control/DeskPanel/ToolsContainer"]
+custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_hover_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
 toggle_mode = true
 text = "💨 [3] Semprot Air"
 
-[node name="InstructionLabel" type="Label" parent="Control"]
+[node name="NotePanel" type="Panel" parent="Control/DeskPanel/ToolsContainer"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_note")
+
+[node name="InstructionLabel" type="Label" parent="Control/DeskPanel/ToolsContainer/NotePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85098, 0.878431, 0.921569, 1)
+theme_override_font_sizes/font_size = 12
+text = "Pahat bongkahan batu besar (klik 3x langsung pada batu)!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BtnComplete" type="Button" parent="Control/DeskPanel"]
+visible = false
+custom_minimum_size = Vector2(220, 44)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -288.0
-offset_top = -54.0
-offset_right = 288.0
-offset_bottom = -22.0
+offset_left = -110.0
+offset_top = -68.0
+offset_right = 110.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
-theme_override_font_sizes/font_size = 12
-text = "Gunakan Pahat untuk memecah bongkahan batu besar!"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="BtnComplete" type="Button" parent="Control"]
-custom_minimum_size = Vector2(160, 40)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = 32.0
-offset_right = 80.0
-offset_bottom = 72.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_hover_color = Color(0.831373, 0.686275, 0.215686, 1)
-theme_override_colors/font_color = Color(0.952941, 0.956863, 0.964706, 1)
-text = "Ambil Foto & Simpan"
+theme_override_colors/font_hover_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_colors/font_color = Color(0.0588235, 0.0705882, 0.0980392, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_complete")
+text = "📸 AMBIL FOTO & SIMPAN"
