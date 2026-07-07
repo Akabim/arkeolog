@@ -228,14 +228,14 @@ func interact_with_surroundings() -> void:
 	# Detect nearby interactable areas
 	var areas = interaction_detector.get_overlapping_areas()
 	for area in areas:
-		var parent = area.get_parent()
+		var mound = area if area.has_method("interact") else area.get_parent()
 		# Interact with Dirt Mound
-		if parent and parent.name.begins_with("DirtMound") and parent.has_method("interact"):
+		if mound and mound.name.begins_with("DirtMound") and mound.has_method("interact"):
 			if current_tool == "shovel":
 				# Dig it!
 				anim.play("swing_shovel")
 				Global.play_sfx.emit("dig")
-				parent.interact(self)
+				mound.interact(self)
 			else:
 				# Warn player they need Shovel
 				print("Kamu butuh sekop untuk menggali gundukan tanah ini!")

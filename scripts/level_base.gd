@@ -12,6 +12,11 @@ func _ready() -> void:
 	if has_node("PlayerSpawn"):
 		player_spawn = $PlayerSpawn
 		
+	# Prevent background ColorRect from swallowing mouse click inputs
+	var bg = get_node_or_null("Background")
+	if bg and bg is Control:
+		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		
 	# Calculate total sockets in this level
 	if sockets_container:
 		Global.total_sockets_in_level = sockets_container.get_child_count()
