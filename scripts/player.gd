@@ -12,10 +12,9 @@ extends CharacterBody2D
 @onready var tool_sprite: Sprite2D = $Visual/HandL/Tool
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var interaction_detector: Area2D = $InteractionDetector
-@onready var trail: Line2D = $Trail
+@onready var dust_particles: CPUParticles2D = $DustParticles
 
 var current_tool: String = "scythe" # "scythe" or "shovel"
-var trail_length: int = 15
 
 var shake_intensity: float = 0.0
 var shake_timer: float = 0.0
@@ -67,34 +66,6 @@ func _process(delta: float) -> void:
 		$Camera2D.offset = Vector2(randf_range(-shake_intensity, shake_intensity), randf_range(-shake_intensity, shake_intensity))
 		if shake_timer <= 0.0:
 			$Camera2D.offset = Vector2.ZERO
-			
-	update_trail()
-
-func update_trail() -> void:
-	if not trail: return
-	
-	var current_pos = global_position + Vector2(0, 24) # Position at the feet of 80x80 player
-	
-	if velocity.length() > 10.0 and Global.current_state == Global.State.OVERWORLD:
-		if trail.points.size() == 0:
-			trail.add_point(current_pos)
-			trail.add_point(current_pos)
-		else:
-			# Smoothly lock the head of the trail to the player feet
-			trail.set_point_position(trail.points.size() - 1, current_pos)
-			
-			# Add a new point if the player has moved enough (6.0 pixels)
-			var last_added_pos = trail.points[trail.points.size() - 2]
-			if current_pos.distance_to(last_added_pos) > 6.0:
-				trail.add_point(current_pos)
-	else:
-		# If stopped, slowly shrink and fade the trail
-		if trail.points.size() > 0:
-			trail.remove_point(0)
-			
-	# Limit maximum points in the trail
-	while trail.points.size() > trail_length:
-		trail.remove_point(0)
 
 func check_swinging() -> bool:
 	if not anim: return false
@@ -175,6 +146,12 @@ func _physics_process(delta: float) -> void:
 			anim.play("idle")
 	
 	move_and_slide()
+	
+	# Handle dust particle emission based on movement
+	if dust_particles:
+		var is_moving = velocity.length() > 20.0 and input_dir != Vector2.ZERO
+		var is_overworld = Global.current_state == Global.State.OVERWORLD
+		dust_particles.emitting = is_moving and is_overworld
 	
 	# Apply force to rigid bodies (stone blocks)
 	for i in get_slide_collision_count():
