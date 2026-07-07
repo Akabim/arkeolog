@@ -48,13 +48,16 @@ func load_level() -> void:
 	# Move level behind UI layers
 	move_child(current_level, 0)
 	
-	# Spawn Player at Marker
-	player = PLAYER_SCENE.instantiate()
-	var spawn_pos = Vector2(640, 640)
-	if current_level.has_node("PlayerSpawn"):
-		spawn_pos = current_level.get_node("PlayerSpawn").global_position
-	player.position = spawn_pos
-	current_level.add_child(player)
+	# Check if Player node already exists inside the level (manually placed in Editor)
+	player = current_level.get_node_or_null("Player")
+	if not player:
+		# Fallback: Spawn Player at Marker
+		player = PLAYER_SCENE.instantiate()
+		var spawn_pos = Vector2(640, 640)
+		if current_level.has_node("PlayerSpawn"):
+			spawn_pos = current_level.get_node("PlayerSpawn").global_position
+		player.position = spawn_pos
+		current_level.add_child(player)
 
 func on_level_restored() -> void:
 	# Lock player movement by changing state
