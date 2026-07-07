@@ -28,23 +28,20 @@ func _ready() -> void:
 	Global.camera_shake.connect(start_camera_shake)
 	call_deferred("setup_camera_limits")
 	
-	# Assign baked sprite texture
-	if Global.textures.has("player"):
-		sprite.texture = Global.textures["player"]
-		
-	if Global.textures.has("hand"):
-		hand_l.texture = Global.textures["hand"]
-		hand_r.texture = Global.textures["hand"]
+	# Assign sprite textures using safe get_texture helper
+	sprite.texture = Global.get_texture("player")
+	hand_l.texture = Global.get_texture("hand")
+	hand_r.texture = Global.get_texture("hand")
 		
 	update_tool_visual()
 
 func update_tool_visual() -> void:
 	if not tool_sprite: return
 	if current_tool == "scythe":
-		tool_sprite.texture = Global.textures["scythe"]
+		tool_sprite.texture = Global.get_texture("scythe")
 		tool_sprite.offset = Vector2(0, -12)
 	elif current_tool == "shovel":
-		tool_sprite.texture = Global.textures["shovel"]
+		tool_sprite.texture = Global.get_texture("shovel")
 		tool_sprite.offset = Vector2(0, -12)
 
 func setup_camera_limits() -> void:

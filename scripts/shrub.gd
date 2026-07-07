@@ -19,11 +19,10 @@ func _ready() -> void:
 	$BashDetector.body_entered.connect(_on_player_entered)
 	
 	# Assign baked sprite texture
-	if Global.textures.has("shrub"):
-		var sprite = Sprite2D.new()
-		sprite.texture = Global.textures["shrub"]
-		visual.add_child(sprite)
-		visual.set_script(null)
+	var sprite = Sprite2D.new()
+	sprite.texture = Global.get_texture("shrub")
+	visual.add_child(sprite)
+	visual.set_script(null)
 
 func _process(delta: float) -> void:
 	if shake_amount > 0.1:

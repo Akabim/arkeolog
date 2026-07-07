@@ -18,11 +18,10 @@ func _ready() -> void:
 	
 	# Assign baked sprite texture
 	var tex_key = "stone_" + symbol_char
-	if Global.textures.has(tex_key):
-		var sprite = Sprite2D.new()
-		sprite.texture = Global.textures[tex_key]
-		visual.add_child(sprite)
-		visual.set_script(null)
+	var sprite = Sprite2D.new()
+	sprite.texture = Global.get_texture(tex_key)
+	visual.add_child(sprite)
+	visual.set_script(null)
 
 func _physics_process(_delta: float) -> void:
 	# Trigger slight dust particle or sounds if moving fast enough

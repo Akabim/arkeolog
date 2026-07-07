@@ -37,12 +37,8 @@ func _process(delta: float) -> void:
 
 func update_torch_visual() -> void:
 	if not sprite: return
-	
 	if not is_lit:
-		if Global.textures.has("torch_off"):
-			sprite.texture = Global.textures["torch_off"]
+		sprite.texture = Global.get_texture("torch_off")
 	else:
 		var tex_key = "torch_on1" if anim_frame == 0 else "torch_on2"
-		if Global.textures.has(tex_key):
-			sprite.texture = Global.textures[tex_key]
-
+		sprite.texture = Global.get_texture(tex_key)

@@ -26,8 +26,7 @@ func update_socket_texture() -> void:
 	if not sprite: return
 	var suffix = "_on" if is_solved else "_off"
 	var tex_key = "socket_" + symbol_char + suffix
-	if Global.textures.has(tex_key):
-		sprite.texture = Global.textures[tex_key]
+	sprite.texture = Global.get_texture(tex_key)
 
 func _physics_process(_delta: float) -> void:
 	var overlapping = get_overlapping_bodies()

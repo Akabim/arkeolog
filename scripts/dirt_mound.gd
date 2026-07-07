@@ -24,11 +24,10 @@ func _ready() -> void:
 	prompt.visible = false
 	
 	# Assign baked sprite texture
-	if Global.textures.has("dirt_mound"):
-		var sprite = Sprite2D.new()
-		sprite.texture = Global.textures["dirt_mound"]
-		visual.add_child(sprite)
-		visual.set_script(null)
+	var sprite = Sprite2D.new()
+	sprite.texture = Global.get_texture("dirt_mound")
+	visual.add_child(sprite)
+	visual.set_script(null)
 	
 	# If already discovered globally, destroy this mound and spawn the stone block
 	if symbol_char in Global.discovered_symbols:

@@ -56,6 +56,31 @@ var completed_levels = []
 func _ready() -> void:
 	setup_input_map()
 
+func get_texture(key: String) -> Texture2D:
+	if textures.has(key):
+		return textures[key]
+		
+	# Fallback loading: allows running tested scenes directly in Editor
+	var base_key = key
+	if key == "player":
+		base_key = "karakter"
+	elif key == "scythe":
+		base_key = "scyte"
+		
+	var png_path = "res://assets/sprites/" + base_key + ".png"
+	if ResourceLoader.exists(png_path):
+		var tex = load(png_path)
+		if tex:
+			textures[key] = tex
+			return tex
+			
+	# If file still doesn't exist, create a tiny default fallback to avoid crashes
+	var img = Image.create(16, 16, false, Image.FORMAT_RGBA8)
+	img.fill(Color.MAGENTA)
+	var tex = ImageTexture.create_from_image(img)
+	textures[key] = tex
+	return tex
+
 func setup_input_map() -> void:
 	var inputs = {
 		"move_left": [KEY_A, KEY_LEFT],
