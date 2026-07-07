@@ -219,12 +219,17 @@ func is_brush_complete() -> bool:
 	return ratio >= 0.96 # Requires 96% completeness for high-res clean-up
 
 func _on_complete_pressed() -> void:
-	if main_panel:
-		var tween = create_tween().set_parallel(true)
-		tween.tween_property(main_panel, "modulate:a", 0.0, 0.35).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(main_panel, "scale", Vector2(0.92, 0.92), 0.35).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.chain().tween_callback(func():
+	# Close kamus if open
+	if kamus_overlay and kamus_overlay.visible:
+		kamus_overlay.visible = false
+	
+	var ctrl = $Control
+	if ctrl:
+		var tween = create_tween()
+		tween.tween_property(ctrl, "modulate:a", 0.0, 0.35).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.tween_callback(func():
 			visible = false
+			ctrl.modulate.a = 1.0
 			Global.change_state(Global.State.OVERWORLD)
 			if target_mound:
 				target_mound.complete_cleaning()
