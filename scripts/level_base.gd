@@ -26,6 +26,44 @@ func _ready() -> void:
 	Global.solved_sockets.clear()
 	Global.level_restored.connect(_on_level_restored)
 
+	# If running this level scene directly (F6 standalone test mode)
+	if get_tree().current_scene == self:
+		print("[Level Base] Running in F6 standalone test mode. Spawning UI overlays dynamically.")
+		
+		# 1. Spawn SFX player node and connect sfx signals
+		var sfx_node = Node.new()
+		sfx_node.name = "SFXPlayers"
+		add_child(sfx_node)
+		Global.play_sfx.connect(func(sfx_name: String):
+			var player_found = null
+			for p in sfx_node.get_children():
+				if p is AudioStreamPlayer and not p.playing:
+					player_found = p
+					break
+			if not player_found:
+				player_found = AudioStreamPlayer.new()
+				sfx_node.add_child(player_found)
+				
+			var path = "res://assets/sfx/" + sfx_name + ".wav"
+			if ResourceLoader.exists(path):
+				player_found.stream = load(path)
+				player_found.play()
+			else:
+				print("[SFX Standalone Fallback] Sound triggered: ", sfx_name)
+		)
+		
+		# 2. Spawn Excavation Overlay
+		var exc_scene = load("res://scenes/excavation_overlay.tscn")
+		if exc_scene:
+			var exc_ui = exc_scene.instantiate()
+			add_child(exc_ui)
+			
+		# 3. Spawn Journal UI
+		var jrn_scene = load("res://scenes/journal_ui.tscn")
+		if jrn_scene:
+			var jrn_ui = jrn_scene.instantiate()
+			add_child(jrn_ui)
+
 func _on_level_restored() -> void:
 	if level_is_restored: return
 	level_is_restored = true
