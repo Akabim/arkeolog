@@ -7,9 +7,9 @@ extends CharacterBody2D
 
 @onready var visual: Node2D = $Visual
 #@onready var sprite: Sprite2D = $Visual/Sprite
-@onready var hand_l: Sprite2D = $Visual/HandL
-@onready var hand_r: Sprite2D = $Visual/HandR
-@onready var tool_sprite: Sprite2D = $Visual/HandL/Tool
+@onready var hand_l: Sprite2D = $Visual/Badan/HandL
+@onready var hand_r: Sprite2D = $Visual/Badan/HandR
+@onready var tool_sprite: Sprite2D = $Visual/Badan/HandL/Tool
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var interaction_detector: Area2D = $InteractionDetector
 @onready var dust_particles: CPUParticles2D = $DustParticles
@@ -82,6 +82,21 @@ func update_tool_visual() -> void:
 			tool_sprite.centered = true
 			tool_sprite.position = Vector2(16, 16)
 			tool_sprite.offset = Vector2(0, -12)
+
+	# Update hand positions/rotations depending on equipped tool
+	if hand_l and hand_r:
+		if current_tool == "shovel":
+			# Shovel: Hold diagonally with 2 hands
+			hand_l.position = Vector2(-114, -120)
+			hand_r.position = Vector2(-127, -142)
+			hand_l.rotation = 0.4
+			hand_r.rotation = 0.4
+		else:
+			# Default (Scythe or none): Hold parallel on the sides
+			hand_l.position = Vector2(-124, -135)
+			hand_r.position = Vector2(-131, -128)
+			hand_l.rotation = 0.0
+			hand_r.rotation = 0.0
 
 func setup_camera_limits() -> void:
 	var level = get_parent()
