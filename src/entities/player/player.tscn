@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
-radius = 28.0
+radius = 12.0
 
 [sub_resource type="Curve" id="Curve_dust_scale"]
 _data = [Vector2(0, 0.4), 0.0, 1.5, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -22,7 +22,7 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 0.5, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
-radius = 48.0
+radius = 24.0
 
 [sub_resource type="Animation" id="Animation_RESET"]
 length = 0.001
@@ -371,8 +371,6 @@ tracks/9/keys = {
 "values": [0.0, 0.06, 0.0, -0.06, 0.0]
 }
 
-
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_player"]
 _data = {
 &"RESET": SubResource("Animation_RESET"),
@@ -390,7 +388,6 @@ motion_mode = 1
 script = ExtResource("1_player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2113414262]
-visible = false
 position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_player")
 
@@ -455,7 +452,6 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=1508877668]
-visible = false
 shape = SubResource("CircleShape2D_interact")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1587575647]
