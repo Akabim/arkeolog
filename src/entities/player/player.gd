@@ -86,19 +86,24 @@ func update_tool_visual() -> void:
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
 		if current_tool == "shovel":
-			# Shovel: Hold diagonally with 2 hands (lock positions and disable swing tracks)
-			set_hand_tracks_enabled(false)
+			# Shovel: Hold diagonally with 2 hands
 			hand_l.position = Vector2(-114, -120)
 			hand_r.position = Vector2(-127, -142)
 			hand_l.rotation = 0.4
 			hand_r.rotation = 0.4
 		else:
-			# Default (Scythe or none): Hold parallel on the sides (enable swing tracks)
-			set_hand_tracks_enabled(true)
+			# Default (Scythe or none): Hold parallel on the sides
 			hand_l.position = Vector2(-124, -135)
 			hand_r.position = Vector2(-131, -128)
 			hand_l.rotation = 0.0
 			hand_r.rotation = 0.0
+
+	# Refresh current animation with the new tool variant
+	if anim and anim.is_playing():
+		var cur = anim.current_animation
+		if cur.begins_with("walk") or cur.begins_with("idle"):
+			var base = "walk" if cur.begins_with("walk") else "idle"
+			play_anim(base)
 
 func setup_camera_limits() -> void:
 	var level = get_parent()
@@ -176,7 +181,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 		move_and_slide()
 		if not check_swinging():
-			anim.play("idle")
+			play_anim("idle")
 		return
 	
 	# Get input direction
@@ -200,11 +205,11 @@ func _physics_process(delta: float) -> void:
 			set_vertical_facing("front")
 			
 		if not check_swinging():
-			anim.play("walk")
+			play_anim("walk")
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 		if not check_swinging():
-			anim.play("idle")
+			play_anim("idle")
 	
 	move_and_slide()
 	
@@ -337,20 +342,13 @@ func update_character_facing() -> void:
 		if tool_sprite:
 			tool_sprite.z_index = -2
 
-func set_hand_tracks_enabled(enabled: bool) -> void:
+func play_anim(base_name: String) -> void:
 	if not anim: return
-	var library = anim.get_animation_library("")
-	if not library: return
+	var anim_name = base_name
+	if current_tool == "shovel":
+		anim_name = base_name + "_shovel"
 	
-	var anim_names = ["walk", "idle"]
-	for anim_name in anim_names:
-		if library.has_animation(anim_name):
-			var a = library.get_animation(anim_name)
-			
-			var t_l = a.find_track("Visual/Badan/HandL:position", Animation.TYPE_VALUE)
-			if t_l != -1:
-				a.track_set_enabled(t_l, enabled)
-				
-			var t_r = a.find_track("Visual/Badan/HandR:position", Animation.TYPE_VALUE)
-			if t_r != -1:
-				a.track_set_enabled(t_r, enabled)
+	if anim.has_animation(anim_name):
+		anim.play(anim_name)
+	else:
+		anim.play(base_name)
