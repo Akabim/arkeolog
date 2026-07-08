@@ -15,10 +15,21 @@ extends CharacterBody2D
 @onready var dust_particles: CPUParticles2D = $DustParticles
 @onready var base_scale_x: float = abs(visual.scale.x)
 
+@onready var sprite_tas: Sprite2D = $Visual/Tas
+@onready var sprite_kaki_l: Sprite2D = $Visual/KakiKiri
+@onready var sprite_kaki_r: Sprite2D = $Visual/KakiKanan
+@onready var sprite_badan: Sprite2D = $Visual/Badan
+@onready var sprite_kepala: Sprite2D = $Visual/Kepala
+@onready var sprite_topi: Sprite2D = $Visual/Topi
+
 var current_tool: String = "scythe" # "scythe" or "shovel"
 
 var shake_intensity: float = 0.0
 var shake_timer: float = 0.0
+
+var textures_front: Dictionary = {}
+var textures_back: Dictionary = {}
+var current_facing: String = "front"
 
 func _ready() -> void:
 	# Enable Y-sorting for cozy depth sorting
@@ -30,11 +41,28 @@ func _ready() -> void:
 	Global.camera_shake.connect(start_camera_shake)
 	call_deferred("setup_camera_limits")
 	
-	## Assign sprite textures using safe get_texture helper
-	##sprite.texture = Global.get_texture("player")
-	#hand_l.texture = Global.get_texture("hand")
-	#hand_r.texture = Global.get_texture("hand")
-		#
+	# Load modular textures
+	textures_front = {
+		"tas": load("res://assets/textures/player/Char depan/Tas.png"),
+		"kaki_l": load("res://assets/textures/player/Char depan/Kaki Kiri.png"),
+		"kaki_r": load("res://assets/textures/player/Char depan/Kaki Kanan.png"),
+		"badan": load("res://assets/textures/player/Char depan/Badan.png"),
+		"kepala": load("res://assets/textures/player/Char depan/Kepala.png"),
+		"topi": load("res://assets/textures/player/Char depan/Topi.png"),
+		"tangan_l": load("res://assets/textures/player/Char depan/tangan kiri.png"),
+		"tangan_r": load("res://assets/textures/player/Char depan/tangan kanan.png")
+	}
+	textures_back = {
+		"tas": load("res://assets/textures/player/Char Belakang/Tas.png"),
+		"kaki_l": load("res://assets/textures/player/Char Belakang/Kaki Kiri.png"),
+		"kaki_r": load("res://assets/textures/player/Char Belakang/Kaki Kanan.png"),
+		"badan": load("res://assets/textures/player/Char Belakang/badan.png"),
+		"kepala": load("res://assets/textures/player/Char Belakang/Kepala.png"),
+		"topi": load("res://assets/textures/player/Char Belakang/Topi.png"),
+		"tangan_l": load("res://assets/textures/player/Char Belakang/Tangan Kiri.png"),
+		"tangan_r": load("res://assets/textures/player/Char Belakang/Tangan Kanan.png")
+	}
+		
 	update_tool_visual()
 
 func update_tool_visual() -> void:
@@ -139,6 +167,12 @@ func _physics_process(delta: float) -> void:
 		if input_dir.x != 0:
 			visual.scale.x = -sign(input_dir.x) * base_scale_x
 			
+		# Vertical facing check
+		if input_dir.y < -0.1:
+			set_vertical_facing("back")
+		elif input_dir.y > 0.1:
+			set_vertical_facing("front")
+			
 		if not check_swinging():
 			anim.play("walk")
 	else:
@@ -242,3 +276,33 @@ func interact_with_surroundings() -> void:
 				print("Kamu butuh sekop untuk menggali gundukan tanah ini!")
 				Global.play_sfx.emit("stone_scrape")
 			return
+
+func set_vertical_facing(facing: String) -> void:
+	if current_facing == facing:
+		return
+	current_facing = facing
+	update_character_facing()
+
+func update_character_facing() -> void:
+	var dict = textures_front if current_facing == "front" else textures_back
+	
+	# Safety checks
+	if not sprite_tas or not sprite_kaki_l or not sprite_kaki_r or not sprite_badan or not sprite_kepala or not sprite_topi or not hand_l or not hand_r:
+		return
+		
+	sprite_tas.texture = dict["tas"]
+	sprite_kaki_l.texture = dict["kaki_l"]
+	sprite_kaki_r.texture = dict["kaki_r"]
+	sprite_badan.texture = dict["badan"]
+	sprite_kepala.texture = dict["kepala"]
+	sprite_topi.texture = dict["topi"]
+	hand_l.texture = dict["tangan_l"]
+	hand_r.texture = dict["tangan_r"]
+	
+	# Adjust Z-index of Tas:
+	# Front facing: Tas is behind everything (z_index = -1 relative to other body parts)
+	# Back facing: Tas is on top of Badan (z_index = 1)
+	if current_facing == "front":
+		sprite_tas.z_index = -1
+	else:
+		sprite_tas.z_index = 1
