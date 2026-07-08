@@ -20,7 +20,7 @@ func bake_all_textures() -> void:
 	# Load hand and tools with fallbacks
 	Global.textures["hand"] = load_or_create_fallback("hand", Vector2(16, 16), Color.WHITE)
 	Global.textures["scythe"] = load_or_create_fallback("scyte", Vector2(32, 32), Color.DARK_GRAY)
-	Global.textures["shovel"] = load_or_create_fallback("New folder/sekop", Vector2(32, 32), Color.GRAY)
+	Global.textures["shovel"] = load_or_create_fallback("Tools/sekop", Vector2(32, 32), Color.GRAY)
 	
 	# Torches
 	Global.textures["torch_off"] = await get_texture_or_bake("torch_off", TORCH_VISUAL, {"is_lit": false}, Vector2(24, 40))

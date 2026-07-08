@@ -245,6 +245,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.0, -0.4, 0.6, 0.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/HandR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-131, -128), Vector2(-126, -138), Vector2(-140, -118), Vector2(-131, -128)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/HandR:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.4, 0.6, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_walk"]
 resource_name = "walk"
@@ -388,7 +412,7 @@ motion_mode = 1
 script = ExtResource("1_player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2113414262]
-position = Vector2(0, 4)
+position = Vector2(-5, 46)
 shape = SubResource("CircleShape2D_player")
 
 [node name="DustParticles" type="CPUParticles2D" parent="." unique_id=253918371]
@@ -452,6 +476,7 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=1508877668]
+position = Vector2(-4, 36)
 shape = SubResource("CircleShape2D_interact")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1587575647]

@@ -78,7 +78,7 @@ func get_texture(key: String) -> Texture2D:
 	elif key == "scythe":
 		base_key = "scyte"
 	elif key == "shovel":
-		base_key = "New folder/sekop"
+		base_key = "Tools/sekop"
 		
 	# Look up textures dynamically in the structured textures folders
 	var subfolders = ["player", "environment", "relics", "ui"]
