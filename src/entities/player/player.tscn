@@ -413,6 +413,7 @@ scale_amount_curve = SubResource("Curve_dust_scale")
 color_ramp = SubResource("Gradient_dust_color")
 
 [node name="Visual" type="Node2D" parent="." unique_id=1858749338]
+scale = Vector2(0.45, 0.45)
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
 texture = ExtResource("3_tk761")
