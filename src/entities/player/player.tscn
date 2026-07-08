@@ -388,7 +388,6 @@ scale_amount_curve = SubResource("Curve_dust_scale")
 color_ramp = SubResource("Gradient_dust_color")
 
 [node name="Visual" type="Node2D" parent="." unique_id=1858749338]
-y_sort_enabled = true
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
 texture = ExtResource("3_tk761")
@@ -409,9 +408,6 @@ texture = ExtResource("6_3c4mh")
 [node name="Kepala" type="Sprite2D" parent="Visual" unique_id=1651958959]
 texture = ExtResource("7_p2qdy")
 
-[node name="Topi" type="Sprite2D" parent="Visual" unique_id=397567305]
-texture = ExtResource("8_lqdhu")
-
 [node name="HandL" type="Sprite2D" parent="Visual" unique_id=2070089238]
 position = Vector2(-124, -135)
 texture = ExtResource("9_t8d2k")
@@ -420,10 +416,12 @@ centered = false
 [node name="Tool" type="Sprite2D" parent="Visual/HandL" unique_id=1165311710]
 
 [node name="HandR" type="Sprite2D" parent="Visual" unique_id=1230186548]
-z_index = 4
 position = Vector2(-131, -128)
 texture = ExtResource("10_yi0df")
 centered = false
+
+[node name="Topi" type="Sprite2D" parent="Visual" unique_id=397567305]
+texture = ExtResource("8_lqdhu")
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=625213377]
 collision_layer = 0
