@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bqjhchs7as13o" path="res://assets/textures/player/Char depan/Badan.png" id="6_3c4mh"]
 [ext_resource type="Texture2D" uid="uid://dmyrsfombd4rb" path="res://assets/textures/player/Char depan/Kepala.png" id="7_p2qdy"]
 [ext_resource type="Texture2D" uid="uid://cf1ryiq56iq2f" path="res://assets/textures/player/Char depan/Topi.png" id="8_lqdhu"]
+[ext_resource type="Texture2D" uid="uid://c2x6c72uta7dd" path="res://assets/textures/player/Tools/sekop.png" id="8_n7e5a"]
 [ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/player/Char depan/tangan kiri.png" id="9_t8d2k"]
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
 
@@ -175,6 +176,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 2), Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visual/Badan/HandL:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-124, -135), Vector2(-124, -134), Vector2(-124, -135)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/Badan/HandR:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-131, -128), Vector2(-131, -127), Vector2(-131, -128)]
+}
 
 [sub_resource type="Animation" id="Animation_swing_scythe"]
 resource_name = "swing_scythe"
@@ -195,7 +220,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_swing_shovel"]
 resource_name = "swing_shovel"
-length = 0.3
+length = 0.35
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -207,7 +232,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-124, -135), Vector2(-120, -145), Vector2(-132, -125), Vector2(-124, -135)]
+"values": [Vector2(-100.195, -116.895), Vector2(-150.165, -88.46), Vector2(-52.275, -125), Vector2(-100.195, -116.895)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -231,7 +256,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-131, -128), Vector2(-126, -138), Vector2(-140, -118), Vector2(-131, -128)]
+"values": [Vector2(-131, -155.105), Vector2(-200.985, -102.15), Vector2(-51.105, -183.565), Vector2(-131, -155.105)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -313,34 +338,58 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Visual/Tas:position")
+tracks/5/path = NodePath("Visual/Badan/HandL:position")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-2, 4), Vector2(0, 0), Vector2(2, 4), Vector2(0, 0)]
+"values": [Vector2(-124, -135), Vector2(-124, -138), Vector2(-124, -135), Vector2(-124, -131), Vector2(-124, -135)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Visual/Tas:rotation")
+tracks/6/path = NodePath("Visual/Badan/HandR:position")
 tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.06, 0.0, 0.06, 0.0]
+"values": [Vector2(-131, -128), Vector2(-131, -124), Vector2(-131, -128), Vector2(-131, -132), Vector2(-131, -128)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Visual/Topi:rotation")
+tracks/7/path = NodePath("Visual/Tas:position")
 tracks/7/interp = 2
 tracks/7/loop_wrap = true
 tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-2, 4), Vector2(0, 0), Vector2(2, 4), Vector2(0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visual/Tas:rotation")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.06, 0.0, 0.06, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Visual/Topi:rotation")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
@@ -389,6 +438,8 @@ color_ramp = SubResource("Gradient_dust_color")
 scale = Vector2(0.45, 0.45)
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
+position = Vector2(1.5197699, 3.0395398)
+rotation = 0.045593098
 texture = ExtResource("3_tk761")
 
 [node name="KakiKiri" type="Sprite2D" parent="Visual" unique_id=343680900]
@@ -404,22 +455,25 @@ centered = false
 [node name="Badan" type="Sprite2D" parent="Visual" unique_id=256189750]
 texture = ExtResource("6_3c4mh")
 
-[node name="Kepala" type="Sprite2D" parent="Visual" unique_id=1651958959]
-texture = ExtResource("7_p2qdy")
-
 [node name="HandL" type="Sprite2D" parent="Visual/Badan" unique_id=2070089238]
 position = Vector2(-124, -135)
 texture = ExtResource("9_t8d2k")
 centered = false
 
 [node name="Tool" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
+position = Vector2(106.22223, 123.88889)
+texture = ExtResource("8_n7e5a")
 
 [node name="HandR" type="Sprite2D" parent="Visual/Badan" unique_id=1230186548]
 position = Vector2(-131, -128)
 texture = ExtResource("10_yi0df")
 centered = false
 
+[node name="Kepala" type="Sprite2D" parent="Visual" unique_id=1651958959]
+texture = ExtResource("7_p2qdy")
+
 [node name="Topi" type="Sprite2D" parent="Visual" unique_id=397567305]
+rotation = -0.045593098
 texture = ExtResource("8_lqdhu")
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=625213377]

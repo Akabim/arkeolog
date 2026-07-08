@@ -86,13 +86,15 @@ func update_tool_visual() -> void:
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
 		if current_tool == "shovel":
-			# Shovel: Hold diagonally with 2 hands
+			# Shovel: Hold diagonally with 2 hands (lock positions and disable swing tracks)
+			set_hand_tracks_enabled(false)
 			hand_l.position = Vector2(-114, -120)
 			hand_r.position = Vector2(-127, -142)
 			hand_l.rotation = 0.4
 			hand_r.rotation = 0.4
 		else:
-			# Default (Scythe or none): Hold parallel on the sides
+			# Default (Scythe or none): Hold parallel on the sides (enable swing tracks)
+			set_hand_tracks_enabled(true)
 			hand_l.position = Vector2(-124, -135)
 			hand_r.position = Vector2(-131, -128)
 			hand_l.rotation = 0.0
@@ -334,3 +336,21 @@ func update_character_facing() -> void:
 		sprite_tas.z_index = 1
 		if tool_sprite:
 			tool_sprite.z_index = -2
+
+func set_hand_tracks_enabled(enabled: bool) -> void:
+	if not anim: return
+	var library = anim.get_animation_library("")
+	if not library: return
+	
+	var anim_names = ["walk", "idle"]
+	for anim_name in anim_names:
+		if library.has_animation(anim_name):
+			var a = library.get_animation(anim_name)
+			
+			var t_l = a.find_track("Visual/Badan/HandL:position", Animation.TYPE_VALUE)
+			if t_l != -1:
+				a.track_set_enabled(t_l, enabled)
+				
+			var t_r = a.find_track("Visual/Badan/HandR:position", Animation.TYPE_VALUE)
+			if t_r != -1:
+				a.track_set_enabled(t_r, enabled)
