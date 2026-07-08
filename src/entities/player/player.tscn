@@ -446,7 +446,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-114, -120), Vector2(-114, -120)]
+"values": [Vector2(-100.195, -116.895), Vector2(-100.195, -116.895)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -458,7 +458,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-127, -142), Vector2(-127, -142)]
+"values": [Vector2(-131, -155.105), Vector2(-131, -155.105)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -470,7 +470,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.4, 0.4]
+"values": [0.0, 0.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -482,7 +482,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.4, 0.4]
+"values": [0.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_walk_shovel"]
@@ -559,7 +559,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-114, -120), Vector2(-114, -120)]
+"values": [Vector2(-100.195, -116.895), Vector2(-100.195, -116.895)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -571,7 +571,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-127, -142), Vector2(-127, -142)]
+"values": [Vector2(-131, -155.105), Vector2(-131, -155.105)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -583,7 +583,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.4, 0.4]
+"values": [0.0, 0.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -595,7 +595,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0.4, 0.4]
+"values": [0.0, 0.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -701,6 +701,7 @@ texture = ExtResource("9_t8d2k")
 centered = false
 
 [node name="Shovel" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
+show_behind_parent = true
 position = Vector2(106.22223, 123.88889)
 texture = ExtResource("8_n7e5a")
 
