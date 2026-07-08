@@ -67,12 +67,21 @@ func _ready() -> void:
 
 func update_tool_visual() -> void:
 	if not tool_sprite: return
-	if current_tool == "scythe":
-		tool_sprite.texture = Global.get_texture("scythe")
-		tool_sprite.offset = Vector2(0, -12)
-	elif current_tool == "shovel":
-		tool_sprite.texture = Global.get_texture("shovel")
-		tool_sprite.offset = Vector2(0, -12)
+	var tex = Global.get_texture(current_tool)
+	tool_sprite.texture = tex
+	
+	if tex:
+		if tex.get_size().x > 100:
+			# It's a high-res full-frame canvas texture from Nesya (e.g. 256x256)
+			tool_sprite.centered = false
+			# Offset to line up the Clip Studio canvas exactly with HandL
+			tool_sprite.position = Vector2(-4, 7)
+			tool_sprite.offset = Vector2.ZERO
+		else:
+			# It's a small placeholder icon texture (e.g. 32x32)
+			tool_sprite.centered = true
+			tool_sprite.position = Vector2(16, 16)
+			tool_sprite.offset = Vector2(0, -12)
 
 func setup_camera_limits() -> void:
 	var level = get_parent()
@@ -299,10 +308,14 @@ func update_character_facing() -> void:
 	hand_l.texture = dict["tangan_l"]
 	hand_r.texture = dict["tangan_r"]
 	
-	# Adjust Z-index of Tas:
-	# Front facing: Tas is behind everything (z_index = -1 relative to other body parts)
-	# Back facing: Tas is on top of Badan (z_index = 1)
+	# Adjust Z-index of Tas and Tool:
+	# Front facing: Tas is behind everything (-1), Tool is in front (0)
+	# Back facing: Tas is on top of Badan (1), Tool is behind body (-2)
 	if current_facing == "front":
 		sprite_tas.z_index = -1
+		if tool_sprite:
+			tool_sprite.z_index = 0
 	else:
 		sprite_tas.z_index = 1
+		if tool_sprite:
+			tool_sprite.z_index = -2
