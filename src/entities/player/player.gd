@@ -6,13 +6,14 @@ extends CharacterBody2D
 @export var push_force: float = 80.0
 
 @onready var visual: Node2D = $Visual
-@onready var sprite: Sprite2D = $Visual/Sprite
+#@onready var sprite: Sprite2D = $Visual/Sprite
 @onready var hand_l: Sprite2D = $Visual/HandL
 @onready var hand_r: Sprite2D = $Visual/HandR
 @onready var tool_sprite: Sprite2D = $Visual/HandL/Tool
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var interaction_detector: Area2D = $InteractionDetector
 @onready var dust_particles: CPUParticles2D = $DustParticles
+@onready var base_scale_x: float = abs(visual.scale.x)
 
 var current_tool: String = "scythe" # "scythe" or "shovel"
 
@@ -29,11 +30,11 @@ func _ready() -> void:
 	Global.camera_shake.connect(start_camera_shake)
 	call_deferred("setup_camera_limits")
 	
-	# Assign sprite textures using safe get_texture helper
-	sprite.texture = Global.get_texture("player")
-	hand_l.texture = Global.get_texture("hand")
-	hand_r.texture = Global.get_texture("hand")
-		
+	## Assign sprite textures using safe get_texture helper
+	##sprite.texture = Global.get_texture("player")
+	#hand_l.texture = Global.get_texture("hand")
+	#hand_r.texture = Global.get_texture("hand")
+		#
 	update_tool_visual()
 
 func update_tool_visual() -> void:
@@ -136,7 +137,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Face moving direction (flip visual horizontal scale)
 		if input_dir.x != 0:
-			visual.scale.x = -sign(input_dir.x)
+			visual.scale.x = -sign(input_dir.x) * base_scale_x
 			
 		if not check_swinging():
 			anim.play("walk")
