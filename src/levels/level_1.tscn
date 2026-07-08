@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cx4x6j8o4v822"]
+
+[ext_resource type="Script" uid="uid://rvnosdiyap08" path="res://src/levels/level_1.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://b8y48k1q6k7g" path="res://src/entities/player/player.tscn" id="2_bswci"]
+[ext_resource type="PackedScene" uid="uid://c6cswd7i4x1e1" path="res://src/entities/obstacles/shrub.tscn" id="3_rus8k"]
+[ext_resource type="PackedScene" uid="uid://dmyqfchq87431" path="res://src/entities/dirt_mound/dirt_mound.tscn" id="4_4nkto"]
+[ext_resource type="PackedScene" uid="uid://cx4x6j8o4v821" path="res://src/entities/socket/socket.tscn" id="5_fcfvj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bswci"]
+size = Vector2(8.00004, 1279)
+
+[node name="Level1" type="Node2D" unique_id=178210531]
+script = ExtResource("1_level")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1802798687]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.3019608, 0.4862745, 0.34901962, 1)
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="." unique_id=1700644359 instance=ExtResource("2_bswci")]
+position = Vector2(298, 256)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1464803714]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=722168127]
+position = Vector2(5, 360)
+shape = SubResource("RectangleShape2D_bswci")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=1912490262]
+position = Vector2(1275, 360)
+shape = SubResource("RectangleShape2D_bswci")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=1918750505]
+position = Vector2(640.5, 4.9999924)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_bswci")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=2109957157]
+position = Vector2(640.5, 712)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_bswci")
+
+[node name="Shrub" parent="." unique_id=941340407 instance=ExtResource("3_rus8k")]
+position = Vector2(1027, 530)
+
+[node name="Shrub2" parent="." unique_id=120313617 instance=ExtResource("3_rus8k")]
+position = Vector2(824, 398)
+
+[node name="Shrub3" parent="." unique_id=1046078350 instance=ExtResource("3_rus8k")]
+position = Vector2(496, 384)
+
+[node name="Shrub4" parent="." unique_id=48614578 instance=ExtResource("3_rus8k")]
+position = Vector2(538, 421)
+
+[node name="Shrub5" parent="." unique_id=707962124 instance=ExtResource("3_rus8k")]
+position = Vector2(456, 427)
+
+[node name="Shrub6" parent="." unique_id=248443825 instance=ExtResource("3_rus8k")]
+position = Vector2(525, 330)
+
+[node name="DirtMound" parent="." unique_id=1338128221 instance=ExtResource("4_4nkto")]
+position = Vector2(707, 245)
+
+[node name="Socket" parent="." unique_id=1308032500 instance=ExtResource("5_fcfvj")]
+position = Vector2(2208, -521)

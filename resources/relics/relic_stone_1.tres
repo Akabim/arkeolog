@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="RelicData" load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://scripts/resources/rock_data.gd" id="1_rock_script"]
-[ext_resource type="Script" path="res://scripts/resources/relic_data.gd" id="2_relic_script"]
-[ext_resource type="Texture2D" path="res://assets/tes/Prasasti.png" id="3_base"]
-[ext_resource type="Texture2D" path="res://assets/tes/Tulisan.png" id="4_writing"]
-[ext_resource type="Texture2D" path="res://assets/tes/Tanah.png" id="5_dirt"]
-[ext_resource type="Texture2D" path="res://assets/tes/Batu 1.png" id="6_batu1"]
-[ext_resource type="Texture2D" path="res://assets/tes/Batu 2.png" id="7_batu2"]
-[ext_resource type="Texture2D" path="res://assets/tes/Batu 3.png" id="8_batu3"]
+[ext_resource type="Script" path="res://resources/classes/rock_data.gd" id="1_rock_script"]
+[ext_resource type="Script" path="res://resources/classes/relic_data.gd" id="2_relic_script"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Prasasti.png" id="3_base"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Tulisan.png" id="4_writing"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Tanah.png" id="5_dirt"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Batu 1.png" id="6_batu1"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Batu 2.png" id="7_batu2"]
+[ext_resource type="Texture2D" path="res://assets/textures/relics/Batu 3.png" id="8_batu3"]
 
 [sub_resource type="Resource" id="Resource_rock1"]
 script = ExtResource("1_rock_script")
