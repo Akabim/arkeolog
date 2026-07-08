@@ -9,7 +9,9 @@ extends CharacterBody2D
 #@onready var sprite: Sprite2D = $Visual/Sprite
 @onready var hand_l: Sprite2D = $Visual/Badan/HandL
 @onready var hand_r: Sprite2D = $Visual/Badan/HandR
-@onready var tool_sprite: Sprite2D = $Visual/Badan/HandL/Tool
+@onready var shovel_sprite: Sprite2D = $Visual/Badan/HandL/Shovel
+@onready var scythe_sprite: Sprite2D = $Visual/Badan/HandL/Scythe
+@onready var pickaxe_sprite: Sprite2D = $Visual/Badan/HandL/Pickaxe
 @onready var anim: AnimationPlayer = $AnimationPlayer
 @onready var interaction_detector: Area2D = $InteractionDetector
 @onready var dust_particles: CPUParticles2D = $DustParticles
@@ -66,22 +68,40 @@ func _ready() -> void:
 	update_tool_visual()
 
 func update_tool_visual() -> void:
-	if not tool_sprite: return
-	var tex = Global.get_texture(current_tool)
-	tool_sprite.texture = tex
+	if not shovel_sprite or not scythe_sprite or not pickaxe_sprite: return
 	
-	if tex:
-		if tex.get_size().x > 100:
-			# It's a high-res full-frame canvas texture from Nesya (e.g. 256x256)
-			tool_sprite.centered = false
-			# Offset to line up the Clip Studio canvas exactly with HandL
-			tool_sprite.position = Vector2(-4, 7)
-			tool_sprite.offset = Vector2.ZERO
-		else:
-			# It's a small placeholder icon texture (e.g. 32x32)
-			tool_sprite.centered = true
-			tool_sprite.position = Vector2(16, 16)
-			tool_sprite.offset = Vector2(0, -12)
+	# Load scythe/pickaxe textures dynamically from Global if they are not already loaded
+	if not scythe_sprite.texture:
+		scythe_sprite.texture = Global.get_texture("scythe")
+	if not pickaxe_sprite.texture:
+		pickaxe_sprite.texture = Global.get_texture("pickaxe")
+	if not shovel_sprite.texture:
+		shovel_sprite.texture = Global.get_texture("shovel")
+		
+	# Hide all tools
+	shovel_sprite.visible = false
+	scythe_sprite.visible = false
+	pickaxe_sprite.visible = false
+	
+	# Show active tool
+	var active_sprite = get_active_tool_sprite()
+	if active_sprite:
+		active_sprite.visible = true
+		
+		# Update active tool configuration based on texture size
+		var tex = active_sprite.texture
+		if tex:
+			if tex.get_size().x > 100:
+				# High-res modular full-frame canvas (256x256)
+				active_sprite.centered = false
+				active_sprite.position = Vector2(-4, 7)
+				active_sprite.offset = Vector2.ZERO
+			else:
+				# Small icon fallback (32x32)
+				active_sprite.centered = true
+				if active_sprite != shovel_sprite:
+					active_sprite.position = Vector2(16, 16)
+					active_sprite.offset = Vector2(0, -12)
 
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
@@ -333,14 +353,25 @@ func update_character_facing() -> void:
 	# Adjust Z-index of Tas and Tool:
 	# Front facing: Tas is behind everything (-1), Tool is in front (0)
 	# Back facing: Tas is on top of Badan (1), Tool is behind body (-2)
+	var active_tool_sprite = get_active_tool_sprite()
 	if current_facing == "front":
 		sprite_tas.z_index = -1
-		if tool_sprite:
-			tool_sprite.z_index = 0
+		if active_tool_sprite:
+			active_tool_sprite.z_index = 0
 	else:
 		sprite_tas.z_index = 1
-		if tool_sprite:
-			tool_sprite.z_index = -2
+		if active_tool_sprite:
+			active_tool_sprite.z_index = -2
+
+func get_active_tool_sprite() -> Sprite2D:
+	if not is_inside_tree(): return null
+	if current_tool == "shovel":
+		return shovel_sprite
+	elif current_tool == "scythe":
+		return scythe_sprite
+	elif current_tool == "pickaxe":
+		return pickaxe_sprite
+	return null
 
 func play_anim(base_name: String) -> void:
 	if not anim: return

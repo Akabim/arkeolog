@@ -700,9 +700,19 @@ position = Vector2(-124, -135)
 texture = ExtResource("9_t8d2k")
 centered = false
 
-[node name="Tool" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
+[node name="Shovel" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
 position = Vector2(106.22223, 123.88889)
 texture = ExtResource("8_n7e5a")
+
+[node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
+visible = false
+position = Vector2(16, 16)
+offset = Vector2(0, -12)
+
+[node name="Pickaxe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311712]
+visible = false
+position = Vector2(16, 16)
+offset = Vector2(0, -12)
 
 [node name="HandR" type="Sprite2D" parent="Visual/Badan" unique_id=1230186548]
 position = Vector2(-131, -128)
