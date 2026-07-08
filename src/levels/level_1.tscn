@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cx4x6j8o4v822"]
 
-[ext_resource type="Script" uid="uid://rvnosdiyap08" path="res://src/levels/level_1.gd" id="1_level"]
+[ext_resource type="Script" path="res://src/levels/level_1.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://b8y48k1q6k7g" path="res://src/entities/player/player.tscn" id="2_bswci"]
 [ext_resource type="PackedScene" uid="uid://c6cswd7i4x1e1" path="res://src/entities/obstacles/shrub.tscn" id="3_rus8k"]
 [ext_resource type="PackedScene" uid="uid://dmyqfchq87431" path="res://src/entities/dirt_mound/dirt_mound.tscn" id="4_4nkto"]
