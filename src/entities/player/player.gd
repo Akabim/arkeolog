@@ -87,21 +87,6 @@ func update_tool_visual() -> void:
 	var active_sprite = get_active_tool_sprite()
 	if active_sprite:
 		active_sprite.visible = true
-		
-		# Update active tool configuration based on texture size
-		var tex = active_sprite.texture
-		if tex:
-			if tex.get_size().x > 100:
-				# High-res modular full-frame canvas (256x256)
-				active_sprite.centered = false
-				active_sprite.position = Vector2(-4, 7)
-				active_sprite.offset = Vector2.ZERO
-			else:
-				# Small icon fallback (32x32)
-				active_sprite.centered = true
-				if active_sprite != shovel_sprite:
-					active_sprite.position = Vector2(16, 16)
-					active_sprite.offset = Vector2(0, -12)
 
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
