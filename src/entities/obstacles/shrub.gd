@@ -18,9 +18,17 @@ func _ready() -> void:
 	health = max_health
 	$BashDetector.body_entered.connect(_on_player_entered)
 	
-	# Assign baked sprite texture
+	# Assign baked sprite texture or load Nesya's new assets
 	var sprite = Sprite2D.new()
-	sprite.texture = Global.get_texture("shrub")
+	var tex_1 = "res://assets/textures/player/envi/semak 1.png"
+	var tex_2 = "res://assets/textures/player/envi/semak 2.png"
+	if ResourceLoader.exists(tex_1) and ResourceLoader.exists(tex_2):
+		sprite.texture = load(tex_1) if randf() > 0.5 else load(tex_2)
+		sprite.centered = true
+		sprite.offset = Vector2(0, -128)
+		sprite.scale = Vector2(0.45, 0.45)
+	else:
+		sprite.texture = Global.get_texture("shrub")
 	visual.add_child(sprite)
 	visual.set_script(null)
 

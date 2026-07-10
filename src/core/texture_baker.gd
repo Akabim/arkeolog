@@ -19,13 +19,13 @@ func bake_all_textures() -> void:
 	
 	# Load hand and tools with fallbacks
 	Global.textures["hand"] = load_or_create_fallback("hand", Vector2(16, 16), Color.WHITE)
-	Global.textures["scythe"] = load_or_create_fallback("scyte", Vector2(32, 32), Color.DARK_GRAY)
+	Global.textures["scythe"] = load_or_create_fallback("Tools/scythe", Vector2(32, 32), Color.DARK_GRAY)
 	Global.textures["shovel"] = load_or_create_fallback("Tools/sekop", Vector2(32, 32), Color.GRAY)
 	
 	# Torches
-	Global.textures["torch_off"] = await get_texture_or_bake("torch_off", TORCH_VISUAL, {"is_lit": false}, Vector2(24, 40))
-	Global.textures["torch_on1"] = await get_texture_or_bake("torch_on1", TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
-	Global.textures["torch_on2"] = await get_texture_or_bake("torch_on2", TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
+	Global.textures["torch_off"] = await get_texture_or_bake("Tools/kayu obor", TORCH_VISUAL, {"is_lit": false}, Vector2(24, 40))
+	Global.textures["torch_on1"] = await get_texture_or_bake("Tools/obor nyala", TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
+	Global.textures["torch_on2"] = await get_texture_or_bake("Tools/obor nyala", TORCH_VISUAL, {"is_lit": true}, Vector2(24, 40))
 	
 	# Stone blocks
 	var symbols = ["ha", "na", "ca", "ra", "ka"]
