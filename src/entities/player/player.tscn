@@ -251,7 +251,6 @@ tracks/8/keys = {
 "values": [Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525)]
 }
 
-
 [sub_resource type="Animation" id="Animation_idle_shovel"]
 resource_name = "idle_shovel"
 length = 1.6
@@ -355,7 +354,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.0, 0.8, 0.0]
+"values": [0.0, 1.396263, -1.710423, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -391,7 +390,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.08, 0.05, 0.0]
+"values": [0.0, 0.1, -0.12, 0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -415,7 +414,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0.08, 0.15, 0.22),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [-1.0, -0.1, 0.8]
+"values": [1.396263, -0.15708, -1.710423]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -451,7 +450,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.6, 0.4, 0.0]
+"values": [0.0, 0.0, 0.0, 0.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -465,9 +464,6 @@ tracks/9/keys = {
 "update": 0,
 "values": [Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525)]
 }
-
-
-
 
 
 [sub_resource type="Animation" id="Animation_swing_shovel"]
@@ -696,7 +692,6 @@ tracks/13/keys = {
 "values": [Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525)]
 }
 
-
 [sub_resource type="Animation" id="Animation_walk_shovel"]
 resource_name = "walk_shovel"
 length = 0.5
@@ -909,7 +904,6 @@ texture = ExtResource("6_3c4mh")
 z_index = 2
 position = Vector2(-124, -135)
 texture = ExtResource("9_t8d2k")
-centered = false
 
 [node name="Shovel" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
 visible = false
@@ -919,9 +913,8 @@ texture = ExtResource("8_n7e5a")
 
 [node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
 show_behind_parent = true
-position = Vector2(-120.44445, -0.5555525)
+position = Vector2(-118.22223, -0.55555725)
 texture = ExtResource("9_3c4mh")
-centered = false
 
 [node name="Pickaxe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311712]
 visible = false
@@ -941,10 +934,10 @@ texture = ExtResource("8_lqdhu")
 
 [node name="SlashArc" type="Node2D" parent="Visual" unique_id=397567306]
 visible = false
-modulate = Color(1, 1, 1, 0.8)
+modulate = Color(1, 1, 1, 0)
 position = Vector2(-20, -10)
-rotation = -1.8
-scale = Vector2(0.5, 0.5)
+rotation = 0.8
+scale = Vector2(1.2, 0.9)
 script = ExtResource("12_slash_arc")
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=625213377]
