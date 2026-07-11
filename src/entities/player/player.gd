@@ -90,7 +90,7 @@ func update_tool_visual() -> void:
 
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
-		if current_tool == "shovel" or current_tool == "scythe":
+		if current_tool == "shovel":
 			# Shovel/Scythe: Hold diagonally with 2 hands (sync with user's swing_shovel keyframe start)
 			hand_l.position = Vector2(-100.195, -116.895)
 			hand_r.position = Vector2(-131, -155.105)
