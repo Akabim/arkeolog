@@ -93,7 +93,7 @@ func get_texture(key: String) -> Texture2D:
 	if key == "player":
 		base_key = "karakter"
 	elif key == "scythe":
-		base_key = "Tools/scythe"
+		base_key = "Tools/sabit baru"
 	elif key == "shovel":
 		base_key = "Tools/sekop"
 		
