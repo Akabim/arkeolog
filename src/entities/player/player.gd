@@ -196,16 +196,7 @@ func swing_tool() -> void:
 					if dist < 48.0:
 						child.take_damage(1, Vector2(facing_dir, 0))
 						
-	elif current_tool == "shovel":
-		# Dig dirt mounds in front
-		var areas = interaction_detector.get_overlapping_areas()
-		for area in areas:
-			var mound = area if area.has_method("interact") else area.get_parent()
-			if mound and mound.has_method("interact") and mound.name.begins_with("DirtMound"):
-				var dist = global_position.distance_to(mound.global_position)
-				if dist < 64.0:
-					mound.interact(self)
-					break
+
 
 func _physics_process(delta: float) -> void:
 	# Locked movement in excavation or journal states
@@ -340,24 +331,7 @@ func toggle_journal() -> void:
 		Global.play_sfx.emit("book_close")
 
 func interact_with_surroundings() -> void:
-	if Global.current_state != Global.State.OVERWORLD: return
-	
-	# Detect nearby interactable areas
-	var areas = interaction_detector.get_overlapping_areas()
-	for area in areas:
-		var mound = area if area.has_method("interact") else area.get_parent()
-		# Interact with Dirt Mound
-		if mound and mound.name.begins_with("DirtMound") and mound.has_method("interact"):
-			if current_tool == "shovel":
-				# Dig it!
-				anim.play("swing_shovel")
-				Global.play_sfx.emit("dig")
-				mound.interact(self)
-			else:
-				# Warn player they need Shovel
-				print("Kamu butuh sekop untuk menggali gundukan tanah ini!")
-				Global.play_sfx.emit("stone_scrape")
-			return
+	pass
 
 func set_vertical_facing(facing: String) -> void:
 	if current_facing == facing:

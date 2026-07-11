@@ -60,6 +60,8 @@ func preload_textures() -> void:
 		"semak_1": "res://assets/textures/player/envi/semak 1.png",
 		"semak_2": "res://assets/textures/player/envi/semak 2.png",
 		"gundukan_1": "res://assets/textures/player/envi/Gundukan Tanah 1.png",
+		"gundukan_rumput": "res://assets/textures/player/envi/gundukan rumput.png",
+		"lubang": "res://assets/textures/player/envi/lubang.png",
 		"torch_off": "res://assets/textures/player/Tools/kayu obor.png",
 		"torch_on": "res://assets/textures/player/Tools/obor nyala.png",
 		"batu_1": "res://assets/textures/player/envi/batu 1.png",
