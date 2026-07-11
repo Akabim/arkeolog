@@ -34,6 +34,29 @@ var textures_back: Dictionary = {}
 var current_facing: String = "front"
 
 func _ready() -> void:
+	# Create soft radial shadow at player's feet
+	var grad = Gradient.new()
+	grad.colors = PackedColorArray([Color(0, 0, 0, 0.4), Color(0, 0, 0, 0)])
+	grad.offsets = PackedFloat32Array([0.0, 1.0])
+	
+	var grad_tex = GradientTexture2D.new()
+	grad_tex.gradient = grad
+	grad_tex.fill = GradientTexture2D.FILL_RADIAL
+	grad_tex.fill_from = Vector2(0.5, 0.5)
+	grad_tex.fill_to = Vector2(0.5, 0.0)
+	grad_tex.width = 64
+	grad_tex.height = 64
+	
+	var shadow = Sprite2D.new()
+	shadow.name = "Shadow"
+	shadow.texture = grad_tex
+	shadow.position = Vector2(-5, 46)
+	shadow.scale = Vector2(1.5, 0.6)
+	shadow.show_behind_parent = true
+	shadow.z_index = -1
+	add_child(shadow)
+	move_child(shadow, 0)
+
 	# Enable Y-sorting for cozy depth sorting
 	y_sort_enabled = true
 	
