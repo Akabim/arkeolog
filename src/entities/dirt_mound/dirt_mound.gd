@@ -23,6 +23,17 @@ func _ready() -> void:
 	body_exited.connect(_on_player_exited)
 	prompt.visible = false
 	
+	if Global.is_baked:
+		setup_visual()
+	else:
+		Global.baking_completed.connect(setup_visual)
+	
+	# If already discovered globally, destroy this mound and spawn the stone block
+	if relic_id in Global.discovered_symbols:
+		call_deferred("spawn_stone_block")
+		queue_free()
+
+func setup_visual() -> void:
 	# Assign baked sprite texture or load Nesya's new assets from preloaded cache
 	var sprite = Sprite2D.new()
 	var tex_mound = Global.textures.get("gundukan_1")
@@ -35,11 +46,7 @@ func _ready() -> void:
 		sprite.texture = Global.get_texture("dirt_mound")
 	visual.add_child(sprite)
 	visual.set_script(null)
-	
-	# If already discovered globally, destroy this mound and spawn the stone block
-	if relic_id in Global.discovered_symbols:
-		call_deferred("spawn_stone_block")
-		queue_free()
+
 
 func _on_player_entered(body: Node2D) -> void:
 	if is_cleaned: return

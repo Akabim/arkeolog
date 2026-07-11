@@ -54,6 +54,7 @@ func bake_all_textures() -> void:
 		Global.textures[on_key] = await get_texture_or_bake(on_key, SOCKET_VISUAL, {"symbol_char": sym, "is_solved": true, "tolerance_radius": 16.0}, Vector2(48, 48))
 		
 	print("[Texture Baker] Texture loading system complete! Cache size: ", Global.textures.size())
+	print("[Texture Baker] Cache keys: ", Global.textures.keys())
 
 # Helper to automatically load PNG files if they exist in assets/textures/ subfolders, otherwise fall back to baking
 func get_texture_or_bake(key: String, script_type, properties: Dictionary, size: Vector2) -> Texture2D:

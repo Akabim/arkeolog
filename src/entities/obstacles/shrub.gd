@@ -18,6 +18,12 @@ func _ready() -> void:
 	health = max_health
 	$BashDetector.body_entered.connect(_on_player_entered)
 	
+	if Global.is_baked:
+		setup_visual()
+	else:
+		Global.baking_completed.connect(setup_visual)
+
+func setup_visual() -> void:
 	# Assign baked sprite texture or load Nesya's new assets from preloaded cache
 	var sprite = Sprite2D.new()
 	var tex_1 = Global.textures.get("semak_1")
