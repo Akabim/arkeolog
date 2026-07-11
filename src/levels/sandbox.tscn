@@ -50,6 +50,7 @@ shape = SubResource("RectangleShape2D_border")
 position = Vector2(250, 360)
 
 [node name="Sockets" type="Node2D" parent="." unique_id=1524399721]
+y_sort_enabled = true
 
 [node name="Socket" parent="Sockets" instance=ExtResource("5_socket")]
 position = Vector2(640, 200)
@@ -57,10 +58,13 @@ relic_id = "stone_1"
 symbol_char = "ha"
 
 [node name="Torches" type="Node2D" parent="." unique_id=373566271]
+y_sort_enabled = true
 
 [node name="Obstacles" type="Node2D" parent="." unique_id=833852451]
+y_sort_enabled = true
 
 [node name="DirtMounds" type="Node2D" parent="." unique_id=1357581413]
+y_sort_enabled = true
 
 [node name="DirtMound" parent="DirtMounds" instance=ExtResource("4_mound")]
 position = Vector2(640, 450)

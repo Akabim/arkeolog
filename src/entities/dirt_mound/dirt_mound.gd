@@ -103,6 +103,12 @@ func _on_player_exited(body: Node2D) -> void:
 
 func _process(delta: float) -> void:
 	if is_cleaned: return
+	if Global.current_state != Global.State.OVERWORLD:
+		is_being_held = false
+		is_click_started_on_mound = false
+		hold_time = 0.0
+		queue_redraw()
+		return
 	
 	# Update prompt modulate based on whether player has correct tool equipped
 	if player_near and current_player:

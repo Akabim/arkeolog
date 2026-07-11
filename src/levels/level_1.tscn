@@ -10,6 +10,7 @@
 size = Vector2(8.00004, 1279)
 
 [node name="Level1" type="Node2D" unique_id=178210531]
+y_sort_enabled = true
 script = ExtResource("1_level")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1802798687]

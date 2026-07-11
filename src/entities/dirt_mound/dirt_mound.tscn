@@ -1,27 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmyqfchq87431"]
+[gd_scene format=3 uid="uid://dmyqfchq87431"]
 
-[ext_resource type="Script" path="res://src/entities/dirt_mound/dirt_mound.gd" id="1_mound"]
+[ext_resource type="Script" uid="uid://0a5355pgaa0r" path="res://src/entities/dirt_mound/dirt_mound.gd" id="1_mound"]
 [ext_resource type="Texture2D" uid="uid://b5uh3f3aqtjj" path="res://assets/textures/player/envi/gundukan rumput.png" id="2_grass"]
-[ext_resource type="Script" path="res://src/core/prompt_visual.gd" id="3_prompt"]
+[ext_resource type="Script" uid="uid://b8jcpcypp4reh" path="res://src/core/prompt_visual.gd" id="3_prompt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mound"]
-radius = 32.0
+radius = 49.0408
 
-[node name="DirtMound" type="Area2D"]
+[node name="DirtMound" type="Area2D" unique_id=2108471254]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_mound")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1694293198]
 shape = SubResource("CircleShape2D_mound")
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=889776734]
 
-[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=34819705]
+position = Vector2(5, 50)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_grass")
 offset = Vector2(0, -128)
 
-[node name="Prompt" type="Node2D" parent="."]
-position = Vector2(0, -28)
+[node name="Prompt" type="Node2D" parent="." unique_id=1622641699]
+position = Vector2(0, -41)
 script = ExtResource("3_prompt")

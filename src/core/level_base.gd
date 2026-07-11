@@ -6,6 +6,14 @@ var player_spawn: Marker2D = null
 var level_is_restored = false
 
 func _ready() -> void:
+	# Ensure Y-Sorting is enabled on level containers
+	y_sort_enabled = true
+	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles"]:
+		if has_node(container_name):
+			var node = get_node(container_name)
+			if node is Node2D:
+				node.y_sort_enabled = true
+				
 	# Resolve nodes dynamically since level elements are spawned programmatically in inherited classes before super._ready()
 	if has_node("Sockets"):
 		sockets_container = $Sockets
