@@ -24,23 +24,19 @@ metadata/_edit_lock_ = true
 collision_layer = 1
 collision_mask = 0
 
-[key id="CollisionLeft"]
 [node name="CollisionLeft" type="CollisionShape2D" parent="Borders"]
 position = Vector2(4, 360)
 shape = SubResource("RectangleShape2D_border")
 
-[key id="CollisionRight"]
 [node name="CollisionRight" type="CollisionShape2D" parent="Borders"]
 position = Vector2(1276, 360)
 shape = SubResource("RectangleShape2D_border")
 
-[key id="CollisionTop"]
 [node name="CollisionTop" type="CollisionShape2D" parent="Borders"]
 position = Vector2(640, 4)
 rotation = 1.570796
 shape = SubResource("RectangleShape2D_border")
 
-[key id="CollisionBottom"]
 [node name="CollisionBottom" type="CollisionShape2D" parent="Borders"]
 position = Vector2(640, 716)
 rotation = 1.570796
