@@ -90,14 +90,14 @@ func update_tool_visual() -> void:
 
 	# Update hand positions/rotations depending on equipped tool
 	if hand_l and hand_r:
-		if current_tool == "shovel":
-			# Shovel: Hold diagonally with 2 hands (sync with user's swing_shovel keyframe start)
+		if current_tool == "shovel" or current_tool == "scythe":
+			# Shovel/Scythe: Hold diagonally with 2 hands (sync with user's swing_shovel keyframe start)
 			hand_l.position = Vector2(-100.195, -116.895)
 			hand_r.position = Vector2(-131, -155.105)
 			hand_l.rotation = 0.0
 			hand_r.rotation = 0.0
 		else:
-			# Default (Scythe or none): Hold parallel on the sides
+			# Default (none): Hold parallel on the sides
 			hand_l.position = Vector2(-124, -135)
 			hand_r.position = Vector2(-131, -128)
 			hand_l.rotation = 0.0
@@ -251,10 +251,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_scythe_pressed = true
 		
 	if is_scythe_pressed:
-		if current_tool != "scythe":
+		if current_tool == "scythe":
+			current_tool = "none"
+		else:
 			current_tool = "scythe"
-			update_tool_visual()
-			Global.play_sfx.emit("stone_scrape")
+		update_tool_visual()
+		Global.play_sfx.emit("stone_scrape")
 		get_viewport().set_input_as_handled()
 		return
 		
@@ -264,10 +266,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_shovel_pressed = true
 		
 	if is_shovel_pressed:
-		if current_tool != "shovel":
+		if current_tool == "shovel":
+			current_tool = "none"
+		else:
 			current_tool = "shovel"
-			update_tool_visual()
-			Global.play_sfx.emit("stone_scrape")
+		update_tool_visual()
+		Global.play_sfx.emit("stone_scrape")
 		get_viewport().set_input_as_handled()
 		return
 		
@@ -363,6 +367,8 @@ func play_anim(base_name: String) -> void:
 	var anim_name = base_name
 	if current_tool == "shovel":
 		anim_name = base_name + "_shovel"
+	elif current_tool == "scythe":
+		anim_name = base_name + "_scythe"
 	
 	if anim.has_animation(anim_name):
 		anim.play(anim_name)
