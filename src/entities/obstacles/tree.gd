@@ -6,11 +6,11 @@ func _ready() -> void:
 	# Enable Y-sorting on this node
 	y_sort_enabled = true
 	
-	# Instantiate sprite with baked texture
-	var sprite = Sprite2D.new()
-	sprite.texture = Global.get_texture("tree")
-	# Center of tree is at (0,0), foliage is offset upwards, trunk is offset downwards
-	# Offset sprite to sit correctly relative to physics collision
-	sprite.offset = Vector2(0, -16)
-	visual.add_child(sprite)
-	visual.set_script(null)
+	# If a tree texture exists in assets, use it. Otherwise, fallback to vector drawing.
+	var tree_tex = Global.textures.get("tree")
+	if tree_tex:
+		var sprite = Sprite2D.new()
+		sprite.texture = tree_tex
+		sprite.offset = Vector2(0, -16)
+		visual.add_child(sprite)
+		visual.set_script(null)

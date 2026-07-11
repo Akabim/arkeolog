@@ -16,12 +16,10 @@ func _ready() -> void:
 	linear_damp = 12.0
 	angular_damp = 12.0
 	
-	# Assign baked sprite texture
-	var tex_key = "stone_" + relic_id
-	var sprite = Sprite2D.new()
-	sprite.texture = Global.get_texture(tex_key)
-	visual.add_child(sprite)
-	visual.set_script(null)
+	# Pass symbol to visual script and trigger draw
+	if visual:
+		visual.symbol_char = symbol_char
+		visual.queue_redraw()
 
 func _physics_process(_delta: float) -> void:
 	# Trigger slight dust particle or sounds if moving fast enough

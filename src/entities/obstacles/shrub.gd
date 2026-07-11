@@ -18,25 +18,20 @@ func _ready() -> void:
 	health = max_health
 	$BashDetector.body_entered.connect(_on_player_entered)
 	
-	if Global.is_baked:
-		setup_visual()
-	else:
-		Global.baking_completed.connect(setup_visual)
+	setup_visual()
 
 func setup_visual() -> void:
-	# Assign baked sprite texture or load Nesya's new assets from preloaded cache
-	var sprite = Sprite2D.new()
+	# Assign Sprite2D from cache if Nesya's assets exist
 	var tex_1 = Global.textures.get("semak_1")
 	var tex_2 = Global.textures.get("semak_2")
 	if tex_1 and tex_2:
+		var sprite = Sprite2D.new()
 		sprite.texture = tex_1 if randf() > 0.5 else tex_2
 		sprite.centered = true
 		sprite.offset = Vector2(0, -128)
 		sprite.scale = Vector2(0.45, 0.45)
-	else:
-		sprite.texture = Global.get_texture("shrub")
-	visual.add_child(sprite)
-	visual.set_script(null)
+		visual.add_child(sprite)
+		visual.set_script(null) # Remove vector fallback drawing
 
 func _process(delta: float) -> void:
 	if shake_amount > 0.1:

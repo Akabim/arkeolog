@@ -48,12 +48,27 @@ var solved_sockets = {} # Dictionary mapping socket ID to stone ID
 var total_sockets_in_level = 0
 var completed_levels = []
 
-signal baking_completed
-var is_baked: bool = false
+var is_baked: bool = true
 
 func _ready() -> void:
 	setup_input_map()
 	load_relic_blueprints()
+	preload_textures()
+
+func preload_textures() -> void:
+	var paths = {
+		"semak_1": "res://assets/textures/player/envi/semak 1.png",
+		"semak_2": "res://assets/textures/player/envi/semak 2.png",
+		"gundukan_1": "res://assets/textures/player/envi/Gundukan Tanah 1.png",
+		"torch_off": "res://assets/textures/player/Tools/kayu obor.png",
+		"torch_on": "res://assets/textures/player/Tools/obor nyala.png",
+		"batu_1": "res://assets/textures/player/envi/batu 1.png",
+		"rumput_1": "res://assets/textures/player/envi/rumput 1.png",
+	}
+	for key in paths:
+		var p = paths[key]
+		if ResourceLoader.exists(p):
+			textures[key] = load(p)
 
 func load_relic_blueprints() -> void:
 	dictionary.clear()

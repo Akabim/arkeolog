@@ -4,16 +4,23 @@ extends Node2D
 @onready var visual: Node2D = $Visual
 
 var flicker_timer: float = 0.0
-
 var sprite: Sprite2D = null
-var anim_frame: int = 0
 
 func _ready() -> void:
-	# Add Sprite2D for baked texture rendering
-	sprite = Sprite2D.new()
-	sprite.name = "Sprite"
-	visual.add_child(sprite)
-	
+	var tex_off = Global.textures.get("torch_off")
+	var tex_on = Global.textures.get("torch_on")
+	if tex_off and tex_on:
+		sprite = Sprite2D.new()
+		sprite.centered = true
+		sprite.offset = Vector2(0, -128)
+		sprite.scale = Vector2(0.45, 0.45)
+		visual.add_child(sprite)
+	else:
+		# Fallback to vector drawing
+		var visual_script = load("res://src/entities/obstacles/torch_visual.gd")
+		if visual_script:
+			visual.set_script(visual_script)
+			
 	update_torch_visual()
 
 func light_up() -> void:
@@ -23,22 +30,22 @@ func light_up() -> void:
 		# Spawn small flame particles
 		Global.play_sfx.emit("torch_light")
 
-# Suppress standard canvas drawing since we render via Sprite2D
-func _draw() -> void:
-	pass
-
 func _process(delta: float) -> void:
 	if is_lit:
 		flicker_timer += delta
 		if flicker_timer >= 0.08: # ~12 FPS
 			flicker_timer = 0.0
-			anim_frame = 1 - anim_frame
-			update_torch_visual()
+			if not sprite:
+				# Vector flicker
+				visual.queue_redraw()
 
 func update_torch_visual() -> void:
-	if not sprite: return
-	if not is_lit:
-		sprite.texture = Global.get_texture("torch_off")
+	if sprite:
+		if not is_lit:
+			sprite.texture = Global.textures.get("torch_off")
+		else:
+			sprite.texture = Global.textures.get("torch_on")
 	else:
-		var tex_key = "torch_on1" if anim_frame == 0 else "torch_on2"
-		sprite.texture = Global.get_texture(tex_key)
+		if "is_lit" in visual:
+			visual.is_lit = is_lit
+			visual.queue_redraw()

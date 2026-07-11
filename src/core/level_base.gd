@@ -28,17 +28,6 @@ func _ready() -> void:
 
 	# If running this level scene directly (F6 standalone test mode)
 	if get_tree().current_scene == self:
-		print("[Level Base] Running in F6 standalone test mode. Initializing Texture Baker...")
-		var baker_script = load("res://src/core/texture_baker.gd")
-		if baker_script:
-			var baker = baker_script.new()
-			add_child(baker)
-			await baker.bake_all_textures()
-			baker.queue_free()
-			Global.is_baked = true
-			Global.baking_completed.emit()
-			print("[Level Base] Texture baking complete for F6 standalone mode!")
-			
 		print("[Level Base] Running in F6 standalone test mode. Spawning UI overlays dynamically.")
 		
 		# 1. Spawn SFX player node and connect sfx signals
