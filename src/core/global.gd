@@ -48,6 +48,8 @@ var solved_sockets = {} # Dictionary mapping socket ID to stone ID
 var total_sockets_in_level = 0
 var completed_levels = []
 
+signal baking_completed
+var is_baked: bool = false
 
 func _ready() -> void:
 	setup_input_map()

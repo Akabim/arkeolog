@@ -28,6 +28,9 @@ func _ready() -> void:
 	await baker.bake_all_textures()
 	baker.queue_free()
 	
+	Global.is_baked = true
+	Global.baking_completed.emit()
+	
 	# Load level 1
 	load_level()
 	
