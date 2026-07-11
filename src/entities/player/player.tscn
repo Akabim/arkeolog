@@ -999,6 +999,7 @@ texture = ExtResource("8_n7e5a")
 [node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
 show_behind_parent = true
 position = Vector2(-150, -195)
+rotation = -0.7
 texture = ExtResource("11_scythe")
 centered = false
 
