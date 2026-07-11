@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://dmyrsfombd4rb" path="res://assets/textures/player/Char depan/Kepala.png" id="7_p2qdy"]
 [ext_resource type="Texture2D" uid="uid://cf1ryiq56iq2f" path="res://assets/textures/player/Char depan/Topi.png" id="8_lqdhu"]
 [ext_resource type="Texture2D" uid="uid://c2x6c72uta7dd" path="res://assets/textures/player/Tools/sekop.png" id="8_n7e5a"]
+[ext_resource type="Texture2D" uid="uid://pd5nhi5vwv8p" path="res://assets/textures/player/Tools/sabit baru.png" id="9_3c4mh"]
 [ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/player/Char depan/tangan kiri.png" id="9_t8d2k"]
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
-[ext_resource type="Texture2D" uid="uid://iv8tnmogsfyv" path="res://assets/textures/player/Tools/scythe.png" id="11_scythe"]
 [ext_resource type="Script" uid="uid://db3f2fenej1kc" path="res://src/entities/player/slash_arc.gd" id="12_slash_arc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
@@ -828,6 +828,7 @@ centered = false
 texture = ExtResource("6_3c4mh")
 
 [node name="HandL" type="Sprite2D" parent="Visual/Badan" unique_id=2070089238]
+z_index = 2
 position = Vector2(-124, -135)
 texture = ExtResource("9_t8d2k")
 centered = false
@@ -840,9 +841,8 @@ texture = ExtResource("8_n7e5a")
 
 [node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
 show_behind_parent = true
-position = Vector2(-150, -195)
-rotation = -0.7
-texture = ExtResource("11_scythe")
+position = Vector2(-120.44445, -0.5555525)
+texture = ExtResource("9_3c4mh")
 centered = false
 
 [node name="Pickaxe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311712]
