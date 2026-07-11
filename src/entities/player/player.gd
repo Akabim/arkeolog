@@ -143,6 +143,9 @@ func swing_tool() -> void:
 	if current_tool == "scythe":
 		anim.play("swing_scythe")
 		Global.play_sfx.emit("slash") # Sabit slash sound
+	elif current_tool == "pickaxe":
+		anim.play("swing_pickaxe")
+		Global.play_sfx.emit("slash") # Beliung slash sound
 	else:
 		anim.play("swing_shovel")
 		Global.play_sfx.emit("dig") # Sekop dig sound
@@ -270,6 +273,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			current_tool = "none"
 		else:
 			current_tool = "shovel"
+		update_tool_visual()
+		Global.play_sfx.emit("stone_scrape")
+		get_viewport().set_input_as_handled()
+		return
+		
+	# Select Pickaxe (Key 3 or select_pickaxe action)
+	var is_pickaxe_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_3)
+	if InputMap.has_action("select_pickaxe") and event.is_action_pressed("select_pickaxe"):
+		is_pickaxe_pressed = true
+		
+	if is_pickaxe_pressed:
+		if current_tool == "pickaxe":
+			current_tool = "none"
+		else:
+			current_tool = "pickaxe"
 		update_tool_visual()
 		Global.play_sfx.emit("stone_scrape")
 		get_viewport().set_input_as_handled()
