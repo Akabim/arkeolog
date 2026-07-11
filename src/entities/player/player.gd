@@ -134,7 +134,8 @@ func _process(delta: float) -> void:
 
 func check_swinging() -> bool:
 	if not anim: return false
-	return anim.current_animation == "swing_scythe" or anim.current_animation == "swing_shovel"
+	return anim.current_animation == "swing_scythe" or anim.current_animation == "swing_shovel" or anim.current_animation == "swing_pickaxe"
+
 
 func swing_tool() -> void:
 	if check_swinging() or Global.current_state != Global.State.OVERWORLD: return

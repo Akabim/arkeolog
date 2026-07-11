@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
 [ext_resource type="Texture2D" uid="uid://sblvogfxxaky" path="res://assets/textures/player/Tools/Pickaxe.png" id="11_pickaxe"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 12.0
 
@@ -388,6 +387,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [0.0, 0.0]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visual/Badan/HandL/Pickaxe:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-41.582558, 6.3394465), Vector2(-41.582558, 6.3394465)]
+}
 
 [sub_resource type="Animation" id="Animation_idle_shovel"]
 resource_name = "idle_shovel"
@@ -492,7 +503,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(2.222, 0), Vector2(-15, -45), Vector2(30, 20), Vector2(2.222, 0)]
+"values": [Vector2(2.222, 0), Vector2(-15, -45), Vector2(25, 20), Vector2(2.222, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -504,7 +515,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.4, 0.8, 0.0]
+"values": [0.0, -1.6, 1.0, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -516,7 +527,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-2.222, 2.222), Vector2(-22, -40), Vector2(25, 25), Vector2(-2.222, 2.222)]
+"values": [Vector2(-2.222, 2.222), Vector2(-20, -40), Vector2(20, 25), Vector2(-2.222, 2.222)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -528,7 +539,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -1.2, 0.6, 0.0]
+"values": [0.0, -1.4, 0.8, 0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -564,7 +575,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.6, 0.4, 0.0]
+"values": [0.0, -1.8, 1.2, 0.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -578,6 +589,7 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525)]
 }
+
 
 [sub_resource type="Animation" id="Animation_swing_scythe"]
 resource_name = "swing_scythe"
@@ -1054,6 +1066,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [0.0, 0.06, 0.0, -0.06, 0.0]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Visual/Badan/HandL/Pickaxe:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-41.582558, 6.3394465), Vector2(-41.582558, 6.3394465)]
+}
 
 [sub_resource type="Animation" id="Animation_walk_shovel"]
 resource_name = "walk_shovel"
@@ -1251,8 +1275,8 @@ color_ramp = SubResource("Gradient_dust_color")
 scale = Vector2(0.45, 0.45)
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
-position = Vector2(-0.36383528, 0.72767055)
-rotation = -0.010915059
+position = Vector2(-0.87842184, 1.7568437)
+rotation = -0.026352655
 texture = ExtResource("3_tk761")
 
 [node name="KakiKiri" type="Sprite2D" parent="Visual" unique_id=343680900]
@@ -1299,7 +1323,6 @@ texture = ExtResource("7_p2qdy")
 
 [node name="Topi" type="Sprite2D" parent="Visual" unique_id=397567305]
 texture = ExtResource("8_lqdhu")
-
 
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=625213377]
 collision_layer = 0
