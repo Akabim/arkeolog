@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://pd5nhi5vwv8p" path="res://assets/textures/player/Tools/sabit baru.png" id="9_3c4mh"]
 [ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/player/Char depan/tangan kiri.png" id="9_t8d2k"]
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
-[ext_resource type="Texture2D" uid="uid://sblvogfxxaky" path="res://assets/textures/player/Tools/Pickaxe.png" id="11_pickaxe"]
+[ext_resource type="Texture2D" path="res://assets/textures/player/Tools/Pickaxe baru.png" id="11_pickaxe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 12.0
