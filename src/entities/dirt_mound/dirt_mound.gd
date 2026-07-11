@@ -37,13 +37,20 @@ func _ready() -> void:
 	if relic_id in Global.discovered_symbols:
 		current_mound_state = MoundState.CLEANED
 		is_cleaned = true
-		collision_layer = 0
-		collision_mask = 0
+		disable_collisions()
 		call_deferred("spawn_stone_block")
 	else:
 		current_mound_state = MoundState.GRASS
 		
 	setup_visual()
+
+func disable_collisions() -> void:
+	collision_layer = 0
+	collision_mask = 0
+	if has_node("SolidBody"):
+		var solid_body = $SolidBody
+		solid_body.collision_layer = 0
+		solid_body.collision_mask = 0
 
 func setup_visual() -> void:
 	var tex_key = "gundukan_rumput"
@@ -203,8 +210,7 @@ func complete_cleaning() -> void:
 	spawn_stone_block()
 	
 	# Disable interaction and update visual to hole
-	collision_layer = 0
-	collision_mask = 0
+	disable_collisions()
 	prompt.visible = false
 	setup_visual()
 

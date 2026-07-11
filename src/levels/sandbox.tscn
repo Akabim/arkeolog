@@ -52,10 +52,8 @@ position = Vector2(250, 360)
 [node name="Sockets" type="Node2D" parent="." unique_id=1524399721]
 y_sort_enabled = true
 
-[node name="Socket" parent="Sockets" instance=ExtResource("5_socket")]
+[node name="Socket" parent="Sockets" unique_id=1004598620 instance=ExtResource("5_socket")]
 position = Vector2(640, 200)
-relic_id = "stone_1"
-symbol_char = "ha"
 
 [node name="Torches" type="Node2D" parent="." unique_id=373566271]
 y_sort_enabled = true
@@ -66,9 +64,6 @@ y_sort_enabled = true
 [node name="DirtMounds" type="Node2D" parent="." unique_id=1357581413]
 y_sort_enabled = true
 
-[node name="DirtMound" parent="DirtMounds" instance=ExtResource("4_mound")]
+[node name="DirtMound" parent="DirtMounds" unique_id=1012150627 instance=ExtResource("4_mound")]
 position = Vector2(640, 450)
-relic_id = "stone_1"
 relic_name = "Relik Ha"
-symbol_char = "ha"
-
