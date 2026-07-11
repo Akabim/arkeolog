@@ -99,7 +99,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-124, -135)]
+"values": [Vector2(2.222, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -111,7 +111,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-131, -128)]
+"values": [Vector2(-2.222, 2.222)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -188,7 +188,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.8, 1.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-124, -135), Vector2(-124, -134), Vector2(-124, -135)]
+"values": [Vector2(2.222, 0.0), Vector2(2.222, 1.0), Vector2(2.222, 0.0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -200,7 +200,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.8, 1.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-131, -128), Vector2(-131, -127), Vector2(-131, -128)]
+"values": [Vector2(-2.222, 2.222), Vector2(-2.222, 3.222), Vector2(-2.222, 2.222)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -301,7 +301,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-100.195, -116.895), Vector2(-100.195, -116.895)]
+"values": [Vector2(26.027, 18.105), Vector2(26.027, 18.105)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -313,7 +313,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-131, -155.105), Vector2(-131, -155.105)]
+"values": [Vector2(-2.222, -24.883), Vector2(-2.222, -24.883)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -465,7 +465,6 @@ tracks/9/keys = {
 "values": [Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525), Vector2(-120.44445, -0.5555525)]
 }
 
-
 [sub_resource type="Animation" id="Animation_swing_shovel"]
 resource_name = "swing_shovel"
 length = 0.35
@@ -480,7 +479,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-100.195, -116.895), Vector2(-150.165, -88.46), Vector2(-52.275, -125), Vector2(-100.195, -116.895)]
+"values": [Vector2(26.027, 18.105), Vector2(-23.943, 46.54), Vector2(73.947, 10.0), Vector2(26.027, 18.105)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -504,7 +503,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-131, -155.105), Vector2(-200.985, -102.15), Vector2(-51.105, -183.565), Vector2(-131, -155.105)]
+"values": [Vector2(-2.222, -24.883), Vector2(-72.207, 28.072), Vector2(77.673, -53.343), Vector2(-2.222, -24.883)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -593,7 +592,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-124, -135), Vector2(-124, -138), Vector2(-124, -135), Vector2(-124, -131), Vector2(-124, -135)]
+"values": [Vector2(2.222, 0.0), Vector2(2.222, -3.0), Vector2(2.222, 0.0), Vector2(2.222, 4.0), Vector2(2.222, 0.0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -605,7 +604,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25, 0.375, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-131, -128), Vector2(-131, -124), Vector2(-131, -128), Vector2(-131, -132), Vector2(-131, -128)]
+"values": [Vector2(-2.222, 2.222), Vector2(-2.222, 6.222), Vector2(-2.222, 2.222), Vector2(-2.222, -1.778), Vector2(-2.222, 2.222)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -766,7 +765,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-100.195, -116.895), Vector2(-100.195, -116.895)]
+"values": [Vector2(26.027, 18.105), Vector2(26.027, 18.105)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -778,7 +777,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-131, -155.105), Vector2(-131, -155.105)]
+"values": [Vector2(-2.222, -24.883), Vector2(-2.222, -24.883)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -902,7 +901,7 @@ texture = ExtResource("6_3c4mh")
 
 [node name="HandL" type="Sprite2D" parent="Visual/Badan" unique_id=2070089238]
 z_index = 2
-position = Vector2(-124, -135)
+position = Vector2(2.222, 0)
 texture = ExtResource("9_t8d2k")
 
 [node name="Shovel" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
@@ -912,8 +911,9 @@ position = Vector2(106.22223, 123.88889)
 texture = ExtResource("8_n7e5a")
 
 [node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
+visible = false
 show_behind_parent = true
-position = Vector2(-118.22223, -0.55555725)
+position = Vector2(-120.44445, -0.5555525)
 texture = ExtResource("9_3c4mh")
 
 [node name="Pickaxe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311712]
@@ -922,9 +922,8 @@ position = Vector2(16, 16)
 offset = Vector2(0, -12)
 
 [node name="HandR" type="Sprite2D" parent="Visual/Badan" unique_id=1230186548]
-position = Vector2(-131, -128)
+position = Vector2(-2.222, 2.222)
 texture = ExtResource("10_yi0df")
-centered = false
 
 [node name="Kepala" type="Sprite2D" parent="Visual" unique_id=1651958959]
 texture = ExtResource("7_p2qdy")
@@ -936,7 +935,7 @@ texture = ExtResource("8_lqdhu")
 visible = false
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-20, -10)
-rotation = 0.8
+rotation = -1.710423
 scale = Vector2(1.2, 0.9)
 script = ExtResource("12_slash_arc")
 
