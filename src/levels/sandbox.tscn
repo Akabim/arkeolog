@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxsandboxlevel1"]
+
+[ext_resource type="Script" path="res://src/levels/sandbox.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://b8y48k1q6k7g" path="res://src/entities/player/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://c6cswd7i4x1e1" path="res://src/entities/obstacles/shrub.tscn" id="3_shrub"]
+[ext_resource type="PackedScene" uid="uid://dmyqfchq87431" path="res://src/entities/dirt_mound/dirt_mound.tscn" id="4_dirt_mound"]
+[ext_resource type="PackedScene" uid="uid://df72y18p7l3v4" path="res://src/entities/obstacles/torch.tscn" id="5_torch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_border"]
+size = Vector2(8, 1280)
+
+[node name="Sandbox" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_level")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.25, 0.45, 0.3, 1.0)
+metadata/_edit_lock_ = true
+
+[node name="Borders" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[key id="CollisionLeft"]
+[node name="CollisionLeft" type="CollisionShape2D" parent="Borders"]
+position = Vector2(4, 360)
+shape = SubResource("RectangleShape2D_border")
+
+[key id="CollisionRight"]
+[node name="CollisionRight" type="CollisionShape2D" parent="Borders"]
+position = Vector2(1276, 360)
+shape = SubResource("RectangleShape2D_border")
+
+[key id="CollisionTop"]
+[node name="CollisionTop" type="CollisionShape2D" parent="Borders"]
+position = Vector2(640, 4)
+rotation = 1.570796
+shape = SubResource("RectangleShape2D_border")
+
+[key id="CollisionBottom"]
+[node name="CollisionBottom" type="CollisionShape2D" parent="Borders"]
+position = Vector2(640, 716)
+rotation = 1.570796
+shape = SubResource("RectangleShape2D_border")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(250, 360)
+
+[node name="Sockets" type="Node2D" parent="."]
+
+[node name="Torches" type="Node2D" parent="."]
+
+[node name="Torch1" parent="Torches" instance=ExtResource("5_torch")]
+position = Vector2(400, 100)
+is_lit = true
+
+[node name="Torch2" parent="Torches" instance=ExtResource("5_torch")]
+position = Vector2(880, 100)
+is_lit = true
+
+[node name="Torch3" parent="Torches" instance=ExtResource("5_torch")]
+position = Vector2(400, 620)
+is_lit = false
+
+[node name="Torch4" parent="Torches" instance=ExtResource("5_torch")]
+position = Vector2(880, 620)
+is_lit = false
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Shrub1" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(350, 250)
+
+[node name="Shrub2" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(450, 480)
+
+[node name="Shrub3" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(800, 220)
+
+[node name="Shrub4" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(920, 500)
+
+[node name="Shrub5" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(640, 150)
+
+[node name="Shrub6" parent="Obstacles" instance=ExtResource("3_shrub")]
+position = Vector2(640, 580)
+
+[node name="DirtMounds" type="Node2D" parent="."]
+
+[node name="Mound1" parent="DirtMounds" instance=ExtResource("4_dirt_mound")]
+position = Vector2(500, 360)
+relic_id = "stone_ha"
+relic_name = "Aksara Ha"
+symbol_char = "ha"
+
+[node name="Mound2" parent="DirtMounds" instance=ExtResource("4_dirt_mound")]
+position = Vector2(750, 360)
+relic_id = "stone_na"
+relic_name = "Aksara Na"
+symbol_char = "na"
+
+[node name="Mound3" parent="DirtMounds" instance=ExtResource("4_dirt_mound")]
+position = Vector2(1000, 360)
+relic_id = "stone_ca"
+relic_name = "Aksara Ca"
+symbol_char = "ca"
