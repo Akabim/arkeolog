@@ -17,6 +17,18 @@ func bake_all_textures() -> void:
 	Global.textures["tree"] = await get_texture_or_bake("tree", TREE_VISUAL, {}, Vector2(64, 96))
 	Global.textures["dirt_mound"] = await get_texture_or_bake("dirt_mound", DIRT_MOUND_VISUAL, {}, Vector2(64, 48))
 	
+	# Preload hand-drawn envi assets to avoid disk-read latency during gameplay
+	var tex_s1 = "res://assets/textures/player/envi/semak 1.png"
+	var tex_s2 = "res://assets/textures/player/envi/semak 2.png"
+	if ResourceLoader.exists(tex_s1):
+		Global.textures["semak_1"] = load(tex_s1)
+	if ResourceLoader.exists(tex_s2):
+		Global.textures["semak_2"] = load(tex_s2)
+		
+	var tex_m = "res://assets/textures/player/envi/Gundukan Tanah 1.png"
+	if ResourceLoader.exists(tex_m):
+		Global.textures["gundukan_1"] = load(tex_m)
+	
 	# Load hand and tools with fallbacks
 	Global.textures["hand"] = load_or_create_fallback("hand", Vector2(16, 16), Color.WHITE)
 	Global.textures["scythe"] = load_or_create_fallback("Tools/scythe", Vector2(32, 32), Color.DARK_GRAY)

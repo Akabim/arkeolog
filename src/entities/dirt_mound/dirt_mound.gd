@@ -23,11 +23,11 @@ func _ready() -> void:
 	body_exited.connect(_on_player_exited)
 	prompt.visible = false
 	
-	# Assign baked sprite texture or load Nesya's new assets
+	# Assign baked sprite texture or load Nesya's new assets from preloaded cache
 	var sprite = Sprite2D.new()
-	var tex_mound = "res://assets/textures/player/envi/Gundukan Tanah 1.png"
-	if ResourceLoader.exists(tex_mound):
-		sprite.texture = load(tex_mound)
+	var tex_mound = Global.textures.get("gundukan_1")
+	if tex_mound:
+		sprite.texture = tex_mound
 		sprite.centered = true
 		sprite.offset = Vector2(0, -128)
 		sprite.scale = Vector2(0.45, 0.45)
