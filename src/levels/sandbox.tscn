@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://dy43twjm5oae5" path="res://src/levels/sandbox.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://b8y48k1q6k7g" path="res://src/entities/player/player.tscn" id="2_player"]
 [ext_resource type="Texture2D" uid="uid://bqy0h044t321a" path="res://assets/textures/player/envi/bg.png" id="3_bg"]
+[ext_resource type="PackedScene" uid="uid://dmyqfchq87431" path="res://src/entities/dirt_mound/dirt_mound.tscn" id="4_mound"]
+[ext_resource type="PackedScene" uid="uid://cx4x6j8o4v821" path="res://src/entities/socket/socket.tscn" id="5_socket"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_border"]
 size = Vector2(8, 1280)
@@ -49,8 +51,20 @@ position = Vector2(250, 360)
 
 [node name="Sockets" type="Node2D" parent="." unique_id=1524399721]
 
+[node name="Socket" parent="Sockets" instance=ExtResource("5_socket")]
+position = Vector2(640, 200)
+relic_id = "stone_1"
+symbol_char = "ha"
+
 [node name="Torches" type="Node2D" parent="." unique_id=373566271]
 
 [node name="Obstacles" type="Node2D" parent="." unique_id=833852451]
 
 [node name="DirtMounds" type="Node2D" parent="." unique_id=1357581413]
+
+[node name="DirtMound" parent="DirtMounds" instance=ExtResource("4_mound")]
+position = Vector2(640, 450)
+relic_id = "stone_1"
+relic_name = "Relik Ha"
+symbol_char = "ha"
+
