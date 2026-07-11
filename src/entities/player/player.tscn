@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/player/Char depan/tangan kiri.png" id="9_t8d2k"]
 [ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
 [ext_resource type="Texture2D" uid="uid://iv8tnmogsfyv" path="res://assets/textures/player/Tools/scythe.png" id="11_scythe"]
+[ext_resource type="Script" path="res://src/entities/player/slash_arc.gd" id="12_slash_arc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 12.0
@@ -305,7 +306,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.8, 1.2, 0.0]
+"values": [0.0, -1.8, 1.8, 0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -342,6 +343,54 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.0, -0.1, 0.15, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visual/SlashArc:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visual/SlashArc:rotation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.08, 0.15, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.8, 0.0, 1.8]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Visual/SlashArc:scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.08, 0.15, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1.2, 1.2), Vector2(1.3, 0.9)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visual/SlashArc:modulate")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.08, 0.15, 0.22),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.8), Color(1, 1, 1, 0.8), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_swing_shovel"]
@@ -763,6 +812,10 @@ texture = ExtResource("7_p2qdy")
 [node name="Topi" type="Sprite2D" parent="Visual" unique_id=397567305]
 texture = ExtResource("8_lqdhu")
 
+[node name="SlashArc" type="Node2D" parent="Visual" unique_id=397567306]
+visible = false
+position = Vector2(-20, -10)
+script = ExtResource("12_slash_arc")
 [node name="InteractionDetector" type="Area2D" parent="." unique_id=625213377]
 collision_layer = 0
 collision_mask = 8
