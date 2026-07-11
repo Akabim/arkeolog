@@ -13,7 +13,7 @@ var current_mound_state: MoundState = MoundState.GRASS
 var player_near = false
 var is_cleaned = false
 var current_player: CharacterBody2D = null
-var sprite: Sprite2D = null
+@onready var sprite: Sprite2D = $Visual/Sprite2D
 
 var hold_time: float = 0.0
 var required_hold_time: float = 2.0
@@ -61,22 +61,14 @@ func setup_visual() -> void:
 		else:
 			tex_mound = load("res://assets/textures/player/envi/lubang.png")
 			
-	if not sprite:
-		sprite = Sprite2D.new()
-		sprite.centered = true
-		sprite.offset = Vector2(0, -128)
-		sprite.scale = Vector2(0.45, 0.45)
-		visual.add_child(sprite)
-		visual.set_script(null) # Remove vector fallback drawing
-		
-	sprite.texture = tex_mound
-	
-	if current_mound_state == MoundState.CLEANED:
-		sprite.z_index = -1
-		sprite.show_behind_parent = true
-	else:
-		sprite.z_index = 0
-		sprite.show_behind_parent = false
+	if sprite:
+		sprite.texture = tex_mound
+		if current_mound_state == MoundState.CLEANED:
+			sprite.z_index = -1
+			sprite.show_behind_parent = true
+		else:
+			sprite.z_index = 0
+			sprite.show_behind_parent = false
 
 func _on_player_entered(body: Node2D) -> void:
 	if is_cleaned: return
