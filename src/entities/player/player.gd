@@ -366,18 +366,20 @@ func update_character_facing() -> void:
 	hand_l.texture = dict["tangan_l"]
 	hand_r.texture = dict["tangan_r"]
 	
-	# Adjust Z-index of Tas and Tool:
-	# Front facing: Tas is behind everything (-1), Tool is in front (0)
-	# Back facing: Tas is on top of Badan (1), Tool is behind body (-2)
+	# Adjust draw order of Tas and HandL without using non-zero Z-indices:
+	# Front facing: Tas is behind everything, HandL (and tool) is in front of body
+	# Back facing: Tas is in front of everything, HandL (and tool) is behind body
+	sprite_tas.z_index = 0
 	var active_tool_sprite = get_active_tool_sprite()
+	if active_tool_sprite:
+		active_tool_sprite.z_index = 0
+		
 	if current_facing == "front":
-		sprite_tas.z_index = -1
-		if active_tool_sprite:
-			active_tool_sprite.z_index = 0
+		visual.move_child(sprite_tas, 0)
+		hand_l.show_behind_parent = false
 	else:
-		sprite_tas.z_index = 1
-		if active_tool_sprite:
-			active_tool_sprite.z_index = -2
+		visual.move_child(sprite_tas, visual.get_child_count() - 1)
+		hand_l.show_behind_parent = true
 
 func get_active_tool_sprite() -> Sprite2D:
 	if not is_inside_tree(): return null

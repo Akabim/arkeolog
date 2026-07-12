@@ -955,7 +955,6 @@ centered = false
 texture = ExtResource("6_3c4mh")
 
 [node name="HandL" type="Sprite2D" parent="Visual/Badan" unique_id=2070089238]
-z_index = 2
 position = Vector2(2.222, 0)
 texture = ExtResource("9_t8d2k")
 
