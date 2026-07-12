@@ -4,6 +4,7 @@ var sockets_container: Node2D = null
 var player_spawn: Marker2D = null
 
 var level_is_restored = false
+var torches_list: Array[Node] = []
 
 func _ready() -> void:
 	# Ensure Y-Sorting is enabled on level containers
@@ -51,6 +52,21 @@ func _ready() -> void:
 		Global.total_sockets_in_level = sockets_container.get_child_count()
 	else:
 		Global.total_sockets_in_level = 0
+		
+	# Pre-populate torches list for level clear trigger before reparenting them
+	if has_node("Torches"):
+		torches_list = $Torches.get_children()
+		
+	# Y-Sorting Context Fix:
+	# Reparent all child elements of empty Node2D group containers (DirtMounds, Sockets, etc.)
+	# to the level root so they are siblings of Player and sort together properly in Godot's 2D engine.
+	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles"]:
+		if has_node(container_name):
+			var container = get_node(container_name)
+			if container is Node2D:
+				var children_to_reparent = container.get_children()
+				for child in children_to_reparent:
+					child.reparent(self, true)
 		
 	Global.solved_sockets.clear()
 	Global.level_restored.connect(_on_level_restored)
@@ -102,10 +118,9 @@ func _on_level_restored() -> void:
 	Global.camera_shake.emit(4.0, 0.6)
 	
 	# Light up all torches in the level
-	if has_node("Torches"):
-		for torch in $Torches.get_children():
-			if torch.has_method("light_up"):
-				torch.light_up()
+	for torch in torches_list:
+		if is_instance_valid(torch) and torch.has_method("light_up"):
+			torch.light_up()
 				
 	# Enable secret pathways or water flows (e.g. make a hidden wall disappear or reveal water)
 	if has_node("RestorationVisuals"):
