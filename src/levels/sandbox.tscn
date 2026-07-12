@@ -47,7 +47,7 @@ rotation = 1.570796
 shape = SubResource("RectangleShape2D_border")
 
 [node name="Player" parent="." unique_id=1129232846 instance=ExtResource("2_player")]
-position = Vector2(250, 360)
+position = Vector2(550, 438)
 
 [node name="Sockets" type="Node2D" parent="." unique_id=1524399721]
 y_sort_enabled = true
@@ -64,6 +64,5 @@ y_sort_enabled = true
 [node name="DirtMounds" type="Node2D" parent="." unique_id=1357581413]
 y_sort_enabled = true
 
-[node name="DirtMound" parent="DirtMounds" unique_id=1012150627 instance=ExtResource("4_mound")]
-position = Vector2(640, 450)
-relic_name = "Relik Ha"
+[node name="DirtMound" parent="." unique_id=2108471254 instance=ExtResource("4_mound")]
+position = Vector2(654, 466)

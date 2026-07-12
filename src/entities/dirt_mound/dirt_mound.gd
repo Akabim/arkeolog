@@ -33,8 +33,7 @@ func _ready() -> void:
 	for child in get_children():
 		child.position.y -= y_offset
 	
-	# Enable Y-sorting for cozy depth sorting
-	y_sort_enabled = true
+	
 	
 	collision_layer = 8 # Layer 4 (Interactables)
 	collision_mask = 2 # Detect Player

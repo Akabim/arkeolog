@@ -66,8 +66,7 @@ func _ready() -> void:
 	add_child(shadow)
 	move_child(shadow, 0)
 
-	# Enable Y-sorting for cozy depth sorting
-	y_sort_enabled = true
+
 	
 	# Enable physics interpolation if available
 	if has_method("set_physics_interpolation_mode"):

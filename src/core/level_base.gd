@@ -67,6 +67,7 @@ func _ready() -> void:
 				var children_to_reparent = container.get_children()
 				for child in children_to_reparent:
 					child.reparent(self, true)
+				container.y_sort_enabled = false
 		
 	Global.solved_sockets.clear()
 	Global.level_restored.connect(_on_level_restored)
