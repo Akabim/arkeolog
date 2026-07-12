@@ -16,7 +16,6 @@ collision_mask = 2
 script = ExtResource("1_mound")
 
 [node name="InteractColl" type="CollisionShape2D" parent="." unique_id=1694293198]
-position = Vector2(0, -30)
 shape = SubResource("CircleShape2D_mound")
 
 [node name="SolidBody" type="StaticBody2D" parent="." unique_id=1720061086]
@@ -24,17 +23,17 @@ collision_layer = 1
 collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="SolidBody" unique_id=1720061085]
-position = Vector2(0.5, -5)
+position = Vector2(0.5, 14.5)
 shape = SubResource("RectangleShape2D_gqrul")
 
 [node name="Visual" type="Node2D" parent="." unique_id=889776734]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=34819705]
-position = Vector2(5, 0)
+position = Vector2(5, 50)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_grass")
 offset = Vector2(0, -128)
 
 [node name="Prompt" type="Node2D" parent="." unique_id=1622641699]
-position = Vector2(0, -70)
+position = Vector2(0, -41)
 script = ExtResource("3_prompt")

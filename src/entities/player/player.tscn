@@ -913,13 +913,13 @@ motion_mode = 1
 script = ExtResource("1_player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2113414262]
-position = Vector2(-5, 0)
+position = Vector2(-5, 46)
 shape = SubResource("CircleShape2D_player")
 
 [node name="DustParticles" type="CPUParticles2D" parent="." unique_id=253918371]
 show_behind_parent = true
 z_index = -2
-position = Vector2(0, 8)
+position = Vector2(0, 54)
 emitting = false
 texture = ExtResource("3_qlg0r")
 lifetime = 0.4
@@ -936,7 +936,6 @@ scale_amount_curve = SubResource("Curve_dust_scale")
 color_ramp = SubResource("Gradient_dust_color")
 
 [node name="Visual" type="Node2D" parent="." unique_id=1858749338]
-position = Vector2(0, -46)
 scale = Vector2(0.45, 0.45)
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
@@ -993,7 +992,7 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=1508877668]
-position = Vector2(-4, -10)
+position = Vector2(-4, 36)
 shape = SubResource("CircleShape2D_interact")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1587575647]

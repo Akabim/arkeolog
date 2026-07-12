@@ -176,7 +176,7 @@ func swing_tool() -> void:
 		
 	# Perform action check in front of player
 	var facing_dir = sign(visual.scale.x)
-	var sweep_center = global_position + Vector2(facing_dir * 32, -34)
+	var sweep_center = global_position + Vector2(facing_dir * 32, 12)
 	
 	if current_tool == "scythe":
 		# Hit shrubs in front
