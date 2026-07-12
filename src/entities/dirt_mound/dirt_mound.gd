@@ -71,11 +71,15 @@ func setup_visual() -> void:
 	if sprite:
 		sprite.texture = tex_mound
 		if current_mound_state == MoundState.CLEANED:
+			# Hole should render below all entities
 			sprite.z_index = -1
 			sprite.show_behind_parent = true
+			# Also lower the parent Area2D so the entire mound node sorts behind
+			z_index = -5
 		else:
 			sprite.z_index = 0
 			sprite.show_behind_parent = false
+			z_index = 0
 
 func _on_player_entered(body: Node2D) -> void:
 	if is_cleaned: return
@@ -220,4 +224,9 @@ func spawn_stone_block() -> void:
 	stone.relic_id = relic_id
 	stone.symbol_char = symbol_char
 	stone.relic_name = relic_name
-	get_parent().add_child(stone)
+	# Add stone to the level root (not a container) for proper y-sorting
+	# If this mound is inside a container (e.g. DirtMounds), go up to level root
+	var target_parent = get_parent()
+	while target_parent and target_parent.get_parent() and target_parent.get_parent() is Node2D and target_parent.get_parent().get("y_sort_enabled"):
+		target_parent = target_parent.get_parent()
+	target_parent.add_child(stone)

@@ -176,19 +176,21 @@ func swing_tool() -> void:
 		
 	# Perform action check in front of player
 	var facing_dir = sign(visual.scale.x)
-	var sweep_center = global_position + Vector2(facing_dir * 32, 12)
+	var sweep_center = global_position + Vector2(facing_dir * 32, -34)
 	
 	if current_tool == "scythe":
 		# Hit shrubs in front
 		var level = get_parent()
 		if level:
-			# Find all shrubs in level
-			var shrubs_node = level.get_node_or_null("Shrubs")
+			# Find all shrubs - check both container and direct children
 			var targets = []
-			if shrubs_node:
-				targets = shrubs_node.get_children()
-			else:
-				targets = level.get_children()
+			var obstacles_node = level.get_node_or_null("Obstacles")
+			if obstacles_node:
+				targets.append_array(obstacles_node.get_children())
+			# Also check direct children for backward compatibility
+			for child in level.get_children():
+				if child.has_method("take_damage") and not child in targets:
+					targets.append(child)
 				
 			for child in targets:
 				if child.has_method("take_damage") and not child.get("is_destroyed"):

@@ -14,15 +14,16 @@ y_sort_enabled = true
 script = ExtResource("1_level")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1802798687]
+z_index = -10
+z_as_relative = false
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0.3019608, 0.4862745, 0.34901962, 1)
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." unique_id=1700644359 instance=ExtResource("2_bswci")]
-position = Vector2(298, 256)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1464803714]
+y_sort_enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=722168127]
 position = Vector2(5, 360)
@@ -42,26 +43,41 @@ position = Vector2(640.5, 712)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_bswci")
 
-[node name="Shrub" parent="." unique_id=941340407 instance=ExtResource("3_rus8k")]
-position = Vector2(1027, 530)
+[node name="Sockets" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Shrub2" parent="." unique_id=120313617 instance=ExtResource("3_rus8k")]
-position = Vector2(824, 398)
+[node name="Socket" parent="Sockets" unique_id=1308032500 instance=ExtResource("5_fcfvj")]
+position = Vector2(2208, -521)
 
-[node name="Shrub3" parent="." unique_id=1046078350 instance=ExtResource("3_rus8k")]
-position = Vector2(496, 384)
+[node name="DirtMounds" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="Shrub4" parent="." unique_id=48614578 instance=ExtResource("3_rus8k")]
-position = Vector2(538, 421)
-
-[node name="Shrub5" parent="." unique_id=707962124 instance=ExtResource("3_rus8k")]
-position = Vector2(456, 427)
-
-[node name="Shrub6" parent="." unique_id=248443825 instance=ExtResource("3_rus8k")]
-position = Vector2(525, 330)
-
-[node name="DirtMound" parent="." unique_id=1338128221 instance=ExtResource("4_4nkto")]
+[node name="DirtMound" parent="DirtMounds" unique_id=1338128221 instance=ExtResource("4_4nkto")]
 position = Vector2(707, 245)
 
-[node name="Socket" parent="." unique_id=1308032500 instance=ExtResource("5_fcfvj")]
-position = Vector2(2208, -521)
+[node name="Obstacles" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Shrub" parent="Obstacles" unique_id=941340407 instance=ExtResource("3_rus8k")]
+position = Vector2(1027, 530)
+
+[node name="Shrub2" parent="Obstacles" unique_id=120313617 instance=ExtResource("3_rus8k")]
+position = Vector2(824, 398)
+
+[node name="Shrub3" parent="Obstacles" unique_id=1046078350 instance=ExtResource("3_rus8k")]
+position = Vector2(496, 384)
+
+[node name="Shrub4" parent="Obstacles" unique_id=48614578 instance=ExtResource("3_rus8k")]
+position = Vector2(538, 421)
+
+[node name="Shrub5" parent="Obstacles" unique_id=707962124 instance=ExtResource("3_rus8k")]
+position = Vector2(456, 427)
+
+[node name="Shrub6" parent="Obstacles" unique_id=248443825 instance=ExtResource("3_rus8k")]
+position = Vector2(525, 330)
+
+[node name="Torches" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="." unique_id=1700644359 instance=ExtResource("2_bswci")]
+position = Vector2(298, 256)

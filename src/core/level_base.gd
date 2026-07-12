@@ -20,10 +20,31 @@ func _ready() -> void:
 	if has_node("PlayerSpawn"):
 		player_spawn = $PlayerSpawn
 		
-	# Prevent background ColorRect from swallowing mouse click inputs
+	# Fix Background ordering: force it to be always behind everything
 	var bg = get_node_or_null("Background")
-	if bg and bg is Control:
-		bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if bg:
+		bg.z_index = -10
+		bg.z_as_relative = false
+		if bg is Control:
+			bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		# If Background is a Sprite2D (in sandbox), also set z_index
+		if bg is Node2D:
+			bg.y_sort_enabled = false
+	
+	# Prevent non-visual nodes (walls/borders) from interfering with y-sort
+	for child in get_children():
+		if child is StaticBody2D and child.name in ["StaticBody2D", "Borders"]:
+			child.y_sort_enabled = false
+	
+	# Parallax backgrounds should always be behind
+	var parallax = get_node_or_null("ParallaxBackground")
+	if parallax:
+		for layer in parallax.get_children():
+			if layer is ParallaxLayer:
+				for sprite in layer.get_children():
+					if sprite is Node2D:
+						sprite.z_index = -10
+						sprite.z_as_relative = false
 		
 	# Calculate total sockets in this level
 	if sockets_container:

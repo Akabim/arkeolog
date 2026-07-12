@@ -3,6 +3,7 @@ extends Node2D
 var prompt_type: String = "hold" # "hold" or "click"
 
 func _ready() -> void:
+	z_index = 10
 	queue_redraw()
 
 func set_prompt_type(type: String) -> void:

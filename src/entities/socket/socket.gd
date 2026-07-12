@@ -11,6 +11,8 @@ var is_solved: bool = false
 func _ready() -> void:
 	collision_layer = 0
 	collision_mask = 4 # Detect Stone Blocks (Layer 3)
+	# Sockets are ground-level markers, render below entities
+	z_index = -3
 	
 	update_socket_visual()
 
