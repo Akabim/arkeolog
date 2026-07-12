@@ -8,7 +8,7 @@
 radius = 49.0408
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gqrul"]
-size = Vector2(97, 53)
+size = Vector2(101, 53)
 
 [node name="DirtMound" type="Area2D" unique_id=2108471254]
 collision_layer = 8
@@ -22,7 +22,7 @@ shape = SubResource("CircleShape2D_mound")
 collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="SolidBody" unique_id=1720061085]
-position = Vector2(1.5, 19.5)
+position = Vector2(-0.5, 19.5)
 shape = SubResource("RectangleShape2D_gqrul")
 
 [node name="Visual" type="Node2D" parent="." unique_id=889776734]
