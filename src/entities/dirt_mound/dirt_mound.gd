@@ -24,6 +24,15 @@ var is_click_started_on_mound: bool = false
 const STONE_BLOCK_SCENE = preload("res://src/entities/stone_block/stone_block.tscn")
 
 func _ready() -> void:
+	# --- Y-Sort Pivot Fix ---
+	# Move this node's origin to the visual base of the mound (Y+50)
+	# so Godot's Y-sort uses the base, not the top.
+	# Shift all children UP by 50 to compensate — visual stays identical.
+	var y_offset: float = 50.0
+	position.y += y_offset
+	for child in get_children():
+		child.position.y -= y_offset
+	
 	# Enable Y-sorting for cozy depth sorting
 	y_sort_enabled = true
 	

@@ -34,6 +34,15 @@ var textures_back: Dictionary = {}
 var current_facing: String = "front"
 
 func _ready() -> void:
+	# --- Y-Sort Pivot Fix ---
+	# Move origin to feet (Y+46) so Y-sort uses foot position.
+	# Shift all children UP by 46 to compensate — visual stays identical.
+	var y_offset: float = 46.0
+	position.y += y_offset
+	for child in get_children():
+		if child is CanvasItem:
+			child.position.y -= y_offset
+	
 	# Create soft radial shadow at player's feet
 	var grad = Gradient.new()
 	grad.colors = PackedColorArray([Color(0, 0, 0, 0.4), Color(0, 0, 0, 0)])
@@ -50,7 +59,7 @@ func _ready() -> void:
 	var shadow = Sprite2D.new()
 	shadow.name = "Shadow"
 	shadow.texture = grad_tex
-	shadow.position = Vector2(-5, 46)
+	shadow.position = Vector2(-5, 0) # Feet are now at Y=0 after offset
 	shadow.scale = Vector2(1.5, 0.6)
 	shadow.show_behind_parent = true
 	shadow.z_index = -1
