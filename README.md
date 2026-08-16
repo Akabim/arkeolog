@@ -1,4 +1,4 @@
-# Project: Arkeolog Gembul (Working Title)
+# Project: Excavation Duty! (Working Title)
 
 A cozy, minimalist, web-focused archaeology game built with **Godot 4.6**. The game features a 2D top-down perspective with a cute, round, chunky pixel art style (thick ink outlines, cute Chiikawa-like proportions, warm natural colors) inspired by *Poni's Math Quest*.
 
