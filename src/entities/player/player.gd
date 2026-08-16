@@ -4,6 +4,10 @@ extends CharacterBody2D
 @export var acceleration: float = 1000.0
 @export var friction: float = 800.0
 @export var push_force: float = 80.0
+@export var min_zoom: float = 1.0
+@export var max_zoom: float = 2.2
+
+var target_zoom: Vector2 = Vector2(1.5, 1.5)
 
 @onready var visual: Node2D = $Visual
 #@onready var sprite: Sprite2D = $Visual/Sprite
@@ -24,7 +28,7 @@ extends CharacterBody2D
 @onready var sprite_kepala: Sprite2D = $Visual/Kepala
 @onready var sprite_topi: Sprite2D = $Visual/Topi
 
-var current_tool: String = "scythe" # "scythe" or "shovel"
+var current_tool: String = "none" # "none", "scythe", "shovel", "pickaxe"
 
 var shake_intensity: float = 0.0
 var shake_timer: float = 0.0
@@ -34,14 +38,7 @@ var textures_back: Dictionary = {}
 var current_facing: String = "front"
 
 func _ready() -> void:
-	# --- Y-Sort Pivot Fix ---
-	# Move origin to feet (Y+46) so Y-sort uses foot position.
-	# Shift all children UP by 46 to compensate — visual stays identical.
-	var y_offset: float = 46.0
-	position.y += y_offset
-	for child in get_children():
-		if child is CanvasItem:
-			child.position.y -= y_offset
+	add_to_group("player")
 	
 	# Create soft radial shadow at player's feet
 	var grad = Gradient.new()
@@ -59,7 +56,7 @@ func _ready() -> void:
 	var shadow = Sprite2D.new()
 	shadow.name = "Shadow"
 	shadow.texture = grad_tex
-	shadow.position = Vector2(-5, 0) # Feet are now at Y=0 after offset
+	shadow.position = Vector2(0, 0) # Feet are now at Y=0 after offset
 	shadow.scale = Vector2(1.5, 0.6)
 	shadow.show_behind_parent = true
 	shadow.z_index = -1
@@ -71,29 +68,31 @@ func _ready() -> void:
 	# Enable physics interpolation if available
 	if has_method("set_physics_interpolation_mode"):
 		set_physics_interpolation_mode(1) # Inherit
+	if has_node("Camera2D"):
+		$Camera2D.zoom = target_zoom
 	Global.camera_shake.connect(start_camera_shake)
 	call_deferred("setup_camera_limits")
 	
 	# Load modular textures
 	textures_front = {
-		"tas": load("res://assets/textures/player/Char depan/Tas.png"),
-		"kaki_l": load("res://assets/textures/player/Char depan/Kaki Kiri.png"),
-		"kaki_r": load("res://assets/textures/player/Char depan/Kaki Kanan.png"),
-		"badan": load("res://assets/textures/player/Char depan/Badan.png"),
-		"kepala": load("res://assets/textures/player/Char depan/Kepala.png"),
-		"topi": load("res://assets/textures/player/Char depan/Topi.png"),
-		"tangan_l": load("res://assets/textures/player/Char depan/tangan kiri.png"),
-		"tangan_r": load("res://assets/textures/player/Char depan/tangan kanan.png")
+		"tas": load("res://assets/textures/characters/front/Tas.png"),
+		"kaki_l": load("res://assets/textures/characters/front/Kaki Kiri.png"),
+		"kaki_r": load("res://assets/textures/characters/front/Kaki Kanan.png"),
+		"badan": load("res://assets/textures/characters/front/Badan.png"),
+		"kepala": load("res://assets/textures/characters/front/Kepala.png"),
+		"topi": load("res://assets/textures/characters/front/Topi.png"),
+		"tangan_l": load("res://assets/textures/characters/front/tangan kiri.png"),
+		"tangan_r": load("res://assets/textures/characters/front/tangan kanan.png")
 	}
 	textures_back = {
-		"tas": load("res://assets/textures/player/Char Belakang/Tas.png"),
-		"kaki_l": load("res://assets/textures/player/Char Belakang/Kaki Kiri.png"),
-		"kaki_r": load("res://assets/textures/player/Char Belakang/Kaki Kanan.png"),
-		"badan": load("res://assets/textures/player/Char Belakang/badan.png"),
-		"kepala": load("res://assets/textures/player/Char Belakang/Kepala.png"),
-		"topi": load("res://assets/textures/player/Char Belakang/Topi.png"),
-		"tangan_l": load("res://assets/textures/player/Char Belakang/Tangan Kiri.png"),
-		"tangan_r": load("res://assets/textures/player/Char Belakang/Tangan Kanan.png")
+		"tas": load("res://assets/textures/characters/back/Tas.png"),
+		"kaki_l": load("res://assets/textures/characters/back/Kaki Kiri.png"),
+		"kaki_r": load("res://assets/textures/characters/back/Kaki Kanan.png"),
+		"badan": load("res://assets/textures/characters/back/badan.png"),
+		"kepala": load("res://assets/textures/characters/back/Kepala.png"),
+		"topi": load("res://assets/textures/characters/back/Topi.png"),
+		"tangan_l": load("res://assets/textures/characters/back/Tangan Kiri.png"),
+		"tangan_r": load("res://assets/textures/characters/back/Tangan Kanan.png")
 	}
 		
 	update_tool_visual()
@@ -109,6 +108,11 @@ func update_tool_visual() -> void:
 	if not shovel_sprite.texture:
 		shovel_sprite.texture = Global.get_texture("shovel")
 		
+	if not shovel_sprite.material:
+		var shader_mat: ShaderMaterial = ShaderMaterial.new()
+		shader_mat.shader = preload("res://src/entities/player/shovel_clip.gdshader")
+		shovel_sprite.material = shader_mat
+
 	# Hide all tools
 	shovel_sprite.visible = false
 	scythe_sprite.visible = false
@@ -142,11 +146,13 @@ func update_tool_visual() -> void:
 			play_anim(base)
 
 func setup_camera_limits() -> void:
+	if has_node("Camera2D"):
+		$Camera2D.limit_smoothed = true
 	var level = get_parent()
 	if level:
 		var limit_r = level.get("level_width")
 		var limit_b = level.get("level_height")
-		if limit_r and limit_b:
+		if limit_r and limit_b and has_node("Camera2D"):
 			$Camera2D.limit_left = 0
 			$Camera2D.limit_top = 0
 			$Camera2D.limit_right = int(limit_r)
@@ -157,11 +163,23 @@ func start_camera_shake(intensity: float, duration: float) -> void:
 	shake_timer = duration
 
 func _process(delta: float) -> void:
+	if has_node("Camera2D"):
+		$Camera2D.zoom = $Camera2D.zoom.lerp(target_zoom, 10.0 * delta)
+		
 	if shake_timer > 0.0:
 		shake_timer -= delta
 		$Camera2D.offset = Vector2(randf_range(-shake_intensity, shake_intensity), randf_range(-shake_intensity, shake_intensity))
 		if shake_timer <= 0.0:
 			$Camera2D.offset = Vector2.ZERO
+
+	var clip: float = 0.0
+	if anim and anim.current_animation == "swing_shovel":
+		var pos: float = anim.current_animation_position
+		if pos >= 0.22 and pos <= 0.5:
+			clip = 0.6
+			
+	if shovel_sprite and shovel_sprite.material is ShaderMaterial:
+		(shovel_sprite.material as ShaderMaterial).set_shader_parameter("clip_amount", clip)
 
 func check_swinging() -> bool:
 	if not anim: return false
@@ -184,7 +202,7 @@ func swing_tool() -> void:
 		
 	# Perform action check in front of player
 	var facing_dir = sign(visual.scale.x)
-	var sweep_center = global_position + Vector2(facing_dir * 32, 12)
+	var sweep_center = global_position + Vector2(facing_dir * 32, -10)
 	
 	if current_tool == "scythe":
 		# Hit shrubs in front
@@ -270,52 +288,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 		
+	if event.is_action_pressed("zoom_in"):
+		target_zoom = (target_zoom + Vector2(0.1, 0.1)).clamp(Vector2(min_zoom, min_zoom), Vector2(max_zoom, max_zoom))
+		get_viewport().set_input_as_handled()
+		return
+		
+	if event.is_action_pressed("zoom_out"):
+		target_zoom = (target_zoom - Vector2(0.1, 0.1)).clamp(Vector2(min_zoom, min_zoom), Vector2(max_zoom, max_zoom))
+		get_viewport().set_input_as_handled()
+		return
+		
 	if Global.current_state != Global.State.OVERWORLD:
-		return
-		
-	# Select Scythe (Key 1 or select_scythe action)
-	var is_scythe_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_1)
-	if InputMap.has_action("select_scythe") and event.is_action_pressed("select_scythe"):
-		is_scythe_pressed = true
-		
-	if is_scythe_pressed:
-		if current_tool == "scythe":
-			current_tool = "none"
-		else:
-			current_tool = "scythe"
-		update_tool_visual()
-		Global.play_sfx.emit("stone_scrape")
-		get_viewport().set_input_as_handled()
-		return
-		
-	# Select Shovel (Key 2 or select_shovel action)
-	var is_shovel_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_2)
-	if InputMap.has_action("select_shovel") and event.is_action_pressed("select_shovel"):
-		is_shovel_pressed = true
-		
-	if is_shovel_pressed:
-		if current_tool == "shovel":
-			current_tool = "none"
-		else:
-			current_tool = "shovel"
-		update_tool_visual()
-		Global.play_sfx.emit("stone_scrape")
-		get_viewport().set_input_as_handled()
-		return
-		
-	# Select Pickaxe (Key 3 or select_pickaxe action)
-	var is_pickaxe_pressed = (event is InputEventKey and event.pressed and event.keycode == KEY_3)
-	if InputMap.has_action("select_pickaxe") and event.is_action_pressed("select_pickaxe"):
-		is_pickaxe_pressed = true
-		
-	if is_pickaxe_pressed:
-		if current_tool == "pickaxe":
-			current_tool = "none"
-		else:
-			current_tool = "pickaxe"
-		update_tool_visual()
-		Global.play_sfx.emit("stone_scrape")
-		get_viewport().set_input_as_handled()
 		return
 		
 	# Swing Tool (Exclusively Mouse Left Click)

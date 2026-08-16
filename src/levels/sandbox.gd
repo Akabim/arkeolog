@@ -1,7 +1,7 @@
 extends "res://src/core/level_base.gd"
 
-@export var level_width: float = 1280.0
-@export var level_height: float = 720.0
+@export var level_width: float = 1920.0
+@export var level_height: float = 1080.0
 
 func _ready() -> void:
 	# Enable Y-Sorting for depth layering

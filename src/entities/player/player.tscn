@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://b8y48k1q6k7g"]
 
-[ext_resource type="Script" uid="uid://djgykpijmkgtp" path="res://src/entities/player/player.gd" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://fd32msged4o5" path="res://assets/textures/player/hand.png" id="3_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://c0kluls3m0pc4" path="res://assets/textures/player/Char depan/Tas.png" id="3_tk761"]
-[ext_resource type="Texture2D" uid="uid://b5mny30scf5ai" path="res://assets/textures/player/Char depan/Kaki Kiri.png" id="4_n7e5a"]
-[ext_resource type="Texture2D" uid="uid://hq6recn0cxlw" path="res://assets/textures/player/Char depan/Kaki Kanan.png" id="5_kc3pt"]
-[ext_resource type="Texture2D" uid="uid://bqjhchs7as13o" path="res://assets/textures/player/Char depan/Badan.png" id="6_3c4mh"]
-[ext_resource type="Texture2D" uid="uid://dmyrsfombd4rb" path="res://assets/textures/player/Char depan/Kepala.png" id="7_p2qdy"]
-[ext_resource type="Texture2D" uid="uid://cf1ryiq56iq2f" path="res://assets/textures/player/Char depan/Topi.png" id="8_lqdhu"]
-[ext_resource type="Texture2D" uid="uid://c2x6c72uta7dd" path="res://assets/textures/player/Tools/sekop.png" id="8_n7e5a"]
-[ext_resource type="Texture2D" uid="uid://pd5nhi5vwv8p" path="res://assets/textures/player/Tools/sabit baru.png" id="9_3c4mh"]
-[ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/player/Char depan/tangan kiri.png" id="9_t8d2k"]
-[ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/player/Char depan/tangan kanan.png" id="10_yi0df"]
-[ext_resource type="Texture2D" uid="uid://oaiadb6j6ql8" path="res://assets/textures/player/Tools/Pickaxe baru.png" id="11_pickaxe"]
+[ext_resource type="Script" uid="uid://ccka6ihl3qsd0" path="res://src/entities/player/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://fd32msged4o5" path="res://assets/textures/characters/hand.png" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://c0kluls3m0pc4" path="res://assets/textures/characters/front/Tas.png" id="3_tk761"]
+[ext_resource type="Texture2D" uid="uid://b5mny30scf5ai" path="res://assets/textures/characters/front/Kaki Kiri.png" id="4_n7e5a"]
+[ext_resource type="Texture2D" uid="uid://hq6recn0cxlw" path="res://assets/textures/characters/front/Kaki Kanan.png" id="5_kc3pt"]
+[ext_resource type="Texture2D" uid="uid://bqjhchs7as13o" path="res://assets/textures/characters/front/Badan.png" id="6_3c4mh"]
+[ext_resource type="Texture2D" uid="uid://dmyrsfombd4rb" path="res://assets/textures/characters/front/Kepala.png" id="7_p2qdy"]
+[ext_resource type="Texture2D" uid="uid://cf1ryiq56iq2f" path="res://assets/textures/characters/front/Topi.png" id="8_lqdhu"]
+[ext_resource type="Texture2D" uid="uid://c2x6c72uta7dd" path="res://assets/textures/tools/sekop.png" id="8_n7e5a"]
+[ext_resource type="Texture2D" uid="uid://pd5nhi5vwv8p" path="res://assets/textures/tools/sabit baru.png" id="9_3c4mh"]
+[ext_resource type="Texture2D" uid="uid://boqttln8j6gp3" path="res://assets/textures/characters/front/tangan kiri.png" id="9_t8d2k"]
+[ext_resource type="Texture2D" uid="uid://5impdxm6f3uo" path="res://assets/textures/characters/front/tangan kanan.png" id="10_yi0df"]
+[ext_resource type="Texture2D" uid="uid://oaiadb6j6ql8" path="res://assets/textures/tools/Pickaxe baru.png" id="11_pickaxe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 12.0
@@ -508,7 +508,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_swing_shovel"]
 resource_name = "swing_shovel"
-length = 0.35
+length = 0.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -517,10 +517,10 @@ tracks/0/path = NodePath("Visual/Badan/HandL:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.12, 0.35, 0.42, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(26.027, 18.105), Vector2(-23.943, 46.54), Vector2(73.947, 10), Vector2(26.027, 18.105)]
+"values": [Vector2(26.027, 18.105), Vector2(-23.943, 46.54), Vector2(-23.943, 46.54), Vector2(73.947, 10), Vector2(26.027, 18.105)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -529,10 +529,10 @@ tracks/1/path = NodePath("Visual/Badan/HandL:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.12, 0.35, 0.42, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.4, 0.6, 0.0]
+"values": [0.0, -0.4, -0.4, 0.6, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -541,10 +541,10 @@ tracks/2/path = NodePath("Visual/Badan/HandR:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.12, 0.35, 0.42, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-2.222, -24.883), Vector2(-72.207, 28.072), Vector2(77.673, -53.343), Vector2(-2.222, -24.883)]
+"values": [Vector2(-2.222, -24.883), Vector2(-72.207, 28.072), Vector2(-72.207, 28.072), Vector2(77.673, -53.343), Vector2(-2.222, -24.883)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -553,10 +553,10 @@ tracks/3/path = NodePath("Visual/Badan/HandR:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.12, 0.22, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.12, 0.35, 0.42, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [0.0, -0.4, 0.6, 0.0]
+"values": [0.0, -0.4, -0.4, 0.6, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_walk"]
@@ -912,13 +912,12 @@ motion_mode = 1
 script = ExtResource("1_player")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2113414262]
-position = Vector2(-5, 46)
+position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_player")
 
 [node name="DustParticles" type="CPUParticles2D" parent="." unique_id=253918371]
 show_behind_parent = true
 z_index = -2
-position = Vector2(0, 54)
 emitting = false
 texture = ExtResource("3_qlg0r")
 lifetime = 0.4
@@ -935,6 +934,7 @@ scale_amount_curve = SubResource("Curve_dust_scale")
 color_ramp = SubResource("Gradient_dust_color")
 
 [node name="Visual" type="Node2D" parent="." unique_id=1858749338]
+position = Vector2(0, -35)
 scale = Vector2(0.45, 0.45)
 
 [node name="Tas" type="Sprite2D" parent="Visual" unique_id=157407684]
@@ -958,9 +958,8 @@ position = Vector2(2.222, 0)
 texture = ExtResource("9_t8d2k")
 
 [node name="Shovel" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311710]
-visible = false
 show_behind_parent = true
-position = Vector2(-28.249222, -2.5494432)
+position = Vector2(-21.582554, -6.993888)
 texture = ExtResource("8_n7e5a")
 
 [node name="Scythe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311711]
@@ -970,6 +969,7 @@ position = Vector2(-120.44445, -0.5555525)
 texture = ExtResource("9_3c4mh")
 
 [node name="Pickaxe" type="Sprite2D" parent="Visual/Badan/HandL" unique_id=1165311712]
+visible = false
 show_behind_parent = true
 position = Vector2(-8.888664, 13.333334)
 texture = ExtResource("11_pickaxe")
@@ -990,15 +990,14 @@ collision_mask = 8
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionDetector" unique_id=1508877668]
-position = Vector2(-4, 36)
+position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_interact")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1587575647]
-zoom = Vector2(1.35, 1.35)
+zoom = Vector2(1.5, 1.5)
+limit_smoothed = true
 position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
+position_smoothing_speed = 7.0
 drag_left_margin = 0.1
 drag_top_margin = 0.1
 drag_right_margin = 0.1

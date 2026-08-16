@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://gc14ip4tem77"]
+
+[ext_resource type="Script" uid="uid://dxh4oc2162iyh" path="res://src/entities/obstacles/tree.gd" id="1_tree"]
+[ext_resource type="Texture2D" uid="uid://dwfkxygaojh1p" path="res://assets/textures/environment/pohon 2.png" id="2_pohon2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uox20"]
+radius = 15.0
+height = 92.0
+
+[node name="Tree2" type="StaticBody2D" unique_id=1841995626]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_tree")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=610323604]
+position = Vector2(1, 19)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_uox20")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1201403354]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=1034749697]
+scale = Vector2(1.1535157, 1.1535157)
+texture = ExtResource("2_pohon2")
+offset = Vector2(0, -100)

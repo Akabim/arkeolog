@@ -2,3 +2,7 @@
 .godot/
 /android/
 *.uid
+
+# Local AI rules (tidak masuk GitHub)
+.antigravity/
+GEMINI.md

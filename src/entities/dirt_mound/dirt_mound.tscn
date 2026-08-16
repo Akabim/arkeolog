@@ -1,38 +1,56 @@
 [gd_scene format=3 uid="uid://dmyqfchq87431"]
 
-[ext_resource type="Script" uid="uid://0a5355pgaa0r" path="res://src/entities/dirt_mound/dirt_mound.gd" id="1_mound"]
-[ext_resource type="Texture2D" uid="uid://b5uh3f3aqtjj" path="res://assets/textures/player/envi/gundukan rumput.png" id="2_grass"]
-[ext_resource type="Script" uid="uid://b8jcpcypp4reh" path="res://src/core/prompt_visual.gd" id="3_prompt"]
+[ext_resource type="Script" uid="uid://cor86jvkyfwwh" path="res://src/entities/dirt_mound/dirt_mound.gd" id="1_mound"]
+[ext_resource type="Texture2D" uid="uid://b5uh3f3aqtjj" path="res://assets/textures/environment/gundukan rumput.png" id="2_grass"]
+[ext_resource type="Script" uid="uid://dn33x2kpylrp" path="res://src/core/prompt_visual.gd" id="3_prompt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mound"]
-radius = 49.0408
+radius = 73.02739
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqrul"]
-size = Vector2(101, 53)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gqrul"]
+radius = 21.0
+height = 108.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7l677"]
+radius = 28.0
+height = 102.0
 
 [node name="DirtMound" type="Area2D" unique_id=2108471254]
+y_sort_enabled = true
 collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_mound")
 
 [node name="InteractColl" type="CollisionShape2D" parent="." unique_id=1694293198]
+position = Vector2(-3, -10)
 shape = SubResource("CircleShape2D_mound")
 
 [node name="SolidBody" type="StaticBody2D" parent="." unique_id=1720061086]
+position = Vector2(-3, 9)
 collision_mask = 0
 
 [node name="Collision" type="CollisionShape2D" parent="SolidBody" unique_id=1720061085]
-position = Vector2(-0.5, 19.5)
-shape = SubResource("RectangleShape2D_gqrul")
+position = Vector2(-1, -11)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_gqrul")
 
 [node name="Visual" type="Node2D" parent="." unique_id=889776734]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=34819705]
-position = Vector2(5, 50)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("2_grass")
-offset = Vector2(0, -128)
+offset = Vector2(0, -32)
 
 [node name="Prompt" type="Node2D" parent="." unique_id=1622641699]
-position = Vector2(0, -41)
+position = Vector2(0, -60)
 script = ExtResource("3_prompt")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=455694444]
+position = Vector2(-48, -45)
+
+[node name="AfterMinigameCol" type="StaticBody2D" parent="." unique_id=565588598]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AfterMinigameCol" unique_id=1495437571]
+position = Vector2(-4, -7)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_7l677")

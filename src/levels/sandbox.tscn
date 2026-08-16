@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dy43twjm5oae5" path="res://src/levels/sandbox.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://b8y48k1q6k7g" path="res://src/entities/player/player.tscn" id="2_player"]
-[ext_resource type="Texture2D" uid="uid://bqy0h044t321a" path="res://assets/textures/player/envi/bg.png" id="3_bg"]
+[ext_resource type="Texture2D" uid="uid://bqy0h044t321a" path="res://assets/textures/environment/bg.png" id="3_bg"]
 [ext_resource type="PackedScene" uid="uid://dmyqfchq87431" path="res://src/entities/dirt_mound/dirt_mound.tscn" id="4_mound"]
 [ext_resource type="PackedScene" uid="uid://cx4x6j8o4v821" path="res://src/entities/socket/socket.tscn" id="5_socket"]
+[ext_resource type="PackedScene" uid="uid://br7dcvysc4wgb" path="res://src/entities/obstacles/tree_1.tscn" id="6_k1b4j"]
+[ext_resource type="PackedScene" uid="uid://c6cswd7i4x1e1" path="res://src/entities/obstacles/shrub.tscn" id="6_ue4sf"]
+[ext_resource type="PackedScene" uid="uid://gc14ip4tem77" path="res://src/entities/obstacles/tree_2.tscn" id="7_bay4c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_border"]
-size = Vector2(8, 1280)
+size = Vector2(8, 1920)
 
 [node name="Sandbox" type="Node2D" unique_id=488431746]
 y_sort_enabled = true
@@ -16,12 +19,11 @@ script = ExtResource("1_level")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=792474515]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1510514110]
-motion_scale = Vector2(0.85, 0.85)
 
 [node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1971215265]
 z_index = -10
-position = Vector2(640, 360)
-scale = Vector2(0.75, 0.75)
+position = Vector2(960, 540)
+scale = Vector2(1.125, 1.125)
 texture = ExtResource("3_bg")
 metadata/_edit_lock_ = true
 
@@ -29,20 +31,20 @@ metadata/_edit_lock_ = true
 collision_mask = 0
 
 [node name="CollisionLeft" type="CollisionShape2D" parent="Borders" unique_id=909508495]
-position = Vector2(4, 360)
+position = Vector2(4, 540)
 shape = SubResource("RectangleShape2D_border")
 
 [node name="CollisionRight" type="CollisionShape2D" parent="Borders" unique_id=780791455]
-position = Vector2(1276, 360)
+position = Vector2(1916, 540)
 shape = SubResource("RectangleShape2D_border")
 
 [node name="CollisionTop" type="CollisionShape2D" parent="Borders" unique_id=1383591704]
-position = Vector2(640, 4)
+position = Vector2(960, 4)
 rotation = 1.570796
 shape = SubResource("RectangleShape2D_border")
 
 [node name="CollisionBottom" type="CollisionShape2D" parent="Borders" unique_id=1358557269]
-position = Vector2(640, 716)
+position = Vector2(960, 1076)
 rotation = 1.570796
 shape = SubResource("RectangleShape2D_border")
 
@@ -58,11 +60,38 @@ position = Vector2(640, 200)
 [node name="Torches" type="Node2D" parent="." unique_id=373566271]
 y_sort_enabled = true
 
-[node name="Obstacles" type="Node2D" parent="." unique_id=833852451]
-y_sort_enabled = true
-
 [node name="DirtMounds" type="Node2D" parent="." unique_id=1357581413]
 y_sort_enabled = true
 
+[node name="Entities" type="Node2D" parent="." unique_id=34064232]
+y_sort_enabled = true
+
+[node name="Tree" type="Node2D" parent="Entities" unique_id=588527202]
+y_sort_enabled = true
+
+[node name="Tree1" parent="Entities/Tree" unique_id=189570429 instance=ExtResource("6_k1b4j")]
+position = Vector2(282, 444)
+
+[node name="Tree2" parent="Entities/Tree" unique_id=2094677509 instance=ExtResource("7_bay4c")]
+position = Vector2(695, 387)
+
+[node name="Shrubs" type="Node2D" parent="Entities" unique_id=2077565845]
+y_sort_enabled = true
+
+[node name="Shrub" parent="Entities/Shrubs" unique_id=434625009 instance=ExtResource("6_ue4sf")]
+position = Vector2(479, 684)
+
+[node name="Shrub2" parent="Entities/Shrubs" unique_id=1974351346 instance=ExtResource("6_ue4sf")]
+position = Vector2(558, 649)
+
+[node name="Shrub3" parent="Entities/Shrubs" unique_id=110024158 instance=ExtResource("6_ue4sf")]
+position = Vector2(467, 649)
+
+[node name="Shrub4" parent="Entities/Shrubs" unique_id=892706050 instance=ExtResource("6_ue4sf")]
+position = Vector2(562, 678)
+
+[node name="Shrub5" parent="Entities/Shrubs" unique_id=79971857 instance=ExtResource("6_ue4sf")]
+position = Vector2(452, 318)
+
 [node name="DirtMound" parent="." unique_id=2108471254 instance=ExtResource("4_mound")]
-position = Vector2(654, 466)
+position = Vector2(543, 506)

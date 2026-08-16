@@ -1,30 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6cswd7i4x1e1"]
+[gd_scene format=3 uid="uid://c6cswd7i4x1e1"]
 
-[ext_resource type="Script" path="res://src/entities/obstacles/shrub.gd" id="1_shrub"]
-[ext_resource type="Script" path="res://src/entities/obstacles/shrub_visual.gd" id="2_visual"]
+[ext_resource type="Script" uid="uid://clt1xvkmsxtx2" path="res://src/entities/obstacles/shrub.gd" id="1_shrub"]
+[ext_resource type="Script" uid="uid://lqt8nlqey6ku" path="res://src/entities/obstacles/shrub_visual.gd" id="2_visual"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_shrub"]
-radius = 12.0
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vja16"]
+load_path = "res://.godot/imported/semak 1 new.png-80e0443402ec18e6439257c69e9be683.ctex"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bash"]
-radius = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_player_detector"]
+radius = 57.035076
 
-[node name="Shrub" type="StaticBody2D"]
-collision_layer = 1
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_click"]
+radius = 25.0
+height = 116.0
+
+[node name="Shrub" type="StaticBody2D" unique_id=434625009]
+y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("1_shrub")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
-shape = SubResource("CircleShape2D_shrub")
-
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." unique_id=1755456429]
 script = ExtResource("2_visual")
 
-[node name="BashDetector" type="Area2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=1806535516]
+scale = Vector2(0.18, 0.18)
+texture = SubResource("CompressedTexture2D_vja16")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1141786780]
+position = Vector2(0, -4)
 collision_layer = 0
 collision_mask = 2
-monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BashDetector"]
-shape = SubResource("CircleShape2D_bash")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=243297672]
+shape = SubResource("CircleShape2D_player_detector")
+
+[node name="ClickDetector" type="Area2D" parent="." unique_id=1276109620]
+position = Vector2(0, 5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickDetector" unique_id=1051857710]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_click")
