@@ -80,3 +80,55 @@ Per artifact:
 - Do not reuse legacy Prasasti/Batu puzzle assets.
 - Do not redesign the existing Jigsaw Core.
 - Do not lock final target offsets before final artwork exists.
+
+## Next Integration Flow — Confirmed Direction
+
+### Artifact Cycle
+Each artifact follows:
+Restoration → Completion Celebration → Photo Mode → Shutter → Polaroid → Journal → Journal Auto-Close → Overworld.
+
+### Altar
+- Altar is visible from the beginning.
+- Player can interact with the altar from the beginning.
+- Missing required fragments → contextual Dialogic 2 dialogue.
+- Complete required fragments → contextual prompt to start Restoration.
+- Start interaction with `E`.
+- V1 transition into Restoration uses a normal fade.
+- Player cannot freely exit Restoration before completion.
+
+### Restoration Completion
+- Restoration Core emits `restoration_completed`.
+- Restoration Core does NOT own Photo, Journal, or progression.
+- A higher-level flow/gameplay layer decides what happens after completion.
+- Artifact celebration happens before Photo Mode.
+
+### Photo Mode
+- Player returns to overworld near the altar/artifact context.
+- Player movement is disabled during Photo Mode.
+- Mouse wheel controls zoom.
+- Space triggers the shutter.
+
+### Photo → Journal
+- Shutter triggers a Polaroid presentation.
+- Polaroid animates into the Journal.
+- Journal displays the artifact entry.
+- Journal closes automatically afterward.
+- Player returns to the overworld.
+
+### Multiple Artifacts
+- One artifact = one complete Restoration → Photo → Journal cycle.
+- After returning to the overworld, contextual dialogue may indicate remaining artifacts.
+- Example: "Masih ada satu artefak lagi yang harus kita pulihkan."
+- After all required artifacts are completed:
+  - final Journal presentation
+  - Site/Level Complete
+  - Next Place / Next Level
+
+### Implementation Sequence
+Do NOT implement the entire flow as one task.
+
+1. Task A — Altar → Restoration entry
+2. Task B — Restoration completion → Photo Mode
+3. Task C — Photo → Journal → progression
+
+Each task must be integrated and verified before starting the next.
