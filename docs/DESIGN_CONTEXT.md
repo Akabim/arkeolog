@@ -1,8 +1,36 @@
-﻿# DESIGN CONTEXT — ARKEOLOG
+# DESIGN CONTEXT — ARKEOLOG
 
 ## Game / Tone
 - Cozy archaeology adventure.
 - Focus: exploration, excavation, restoration, documentation, journal, progression.
+
+## Hierarchy & Piece Identity — Confirmed
+- Conceptual hierarchy: Level → Artifact → Piece.
+- A physical artifact fragment discovered through excavation is the same physical piece later used in Restoration (`fragment_id == piece_id`).
+- Piece IDs are artifact-based, not level-based.
+- Example:
+  - `artifact_id = "cat_statue"`
+  - `piece_id = "cat_statue_p01"`
+- Do not use level-based piece identity (e.g. `lvl_1_piece_01`). Level is progression context, not object identity.
+- A piece may have a player-facing identity such as "Bagian Kepala Patung Kucing". Technical identity and player-facing wording are distinct concepts.
+
+## Excavation → Piece Flow — Confirmed
+- Excavation is pure physical excavation/cleaning.
+- The old `symbol_char` / translation-oriented `"ha"` identity is legacy and is not part of the new gameplay loop.
+- A dirt mound is assigned one specific physical piece.
+  - Example: Mound A → `cat_statue_p01`, Mound B → `cat_statue_p02`, Mound C → `cat_statue_p03`.
+- For V1 / current Level 1 direction, all required artifact pieces are already present in the level from the beginning, hidden inside dirt mounds.
+- No random reward pool for excavation.
+- No additional progression trigger is required before a piece can become available in V1.
+- When excavation completes, the piece is considered collected immediately.
+- A short contextual discovery dialogue may then communicate what the player found (e.g. "Sepertinya ini bagian kepala patung kucing.").
+- The dialogue is discovery feedback and does not delay or change the collected state.
+
+## Artifact & Puzzle Relationship — Confirmed
+- In the current implementation direction, `RestorationPuzzleData` is the source of truth for which pieces belong to an artifact.
+- Do NOT introduce a second required-piece list in Altar.
+- Do NOT create duplicate piece membership data merely for abstraction.
+- `ArtifactData` and `FragmentData` remain uncommitted/unused legacy candidates unless a later design decision explicitly reuses them (do not delete).
 
 ## Restoration Jigsaw — Confirmed
 - Player restores one artifact from multiple separate irregular pieces.
@@ -83,13 +111,19 @@ Per artifact:
 - Pieces should visually read as irregular archaeological fragments.
 - Level 1 guideline: 3–4 pieces.
 
-## TBD
+## Explicitly NOT LOCKED YET / TBD
+- Exact `PieceData` Resource/class structure.
+- Exact InventoryManager API for unique piece ownership.
+- Exact relationship between any future PieceData and JigsawPieceData.
+- Exact Altar implementation.
+- Exact RESTORATION state integration.
+- Final player-facing dialogue wording.
+- Future Level 2/3 excavation progression variations.
 - Exact Level 1 cat-deity piece division.
 - Exact final artifact visuals.
 - Exact artifact forms for future levels.
 - Exact target offsets.
 - Snap tolerance final tuning.
-- Exact relationship/identity mapping between new `fragment_id` and Jigsaw `piece_id`.
 - Photo presentation polish.
 - Final Journal presentation polish.
 - Final Site Complete presentation.
