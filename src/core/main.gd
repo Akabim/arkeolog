@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var excavation_overlay = $ExcavationOverlay
 @onready var journal_ui = $JournalUI
+@onready var restoration_overlay = get_node_or_null("RestorationOverlay")
 @onready var ui_flash_layer = $UIFlash
 @onready var ui_flash = $UIFlash/ColorRect
 @onready var victory_ui = $VictoryUI
@@ -20,6 +21,8 @@ func _ready() -> void:
 	ui_flash.color = Color(1, 1, 1, 0)
 	ui_flash_layer.visible = false
 	victory_ui.visible = false
+	if restoration_overlay:
+		restoration_overlay.visible = false
 	
 	# Load level 1
 	load_level()
@@ -41,6 +44,8 @@ func load_level() -> void:
 	# Move level behind UI layers
 	move_child(current_level, 0)
 	
+	_connect_altars(current_level)
+	
 	# Check if Player node already exists inside the level (manually placed in Editor)
 	player = current_level.get_node_or_null("Player")
 	if not player:
@@ -51,6 +56,28 @@ func load_level() -> void:
 			spawn_pos = current_level.get_node("PlayerSpawn").global_position
 		player.position = spawn_pos
 		current_level.add_child(player)
+
+func _connect_altars(node: Node) -> void:
+	if not node: return
+	if node.has_signal("restoration_requested"):
+		if not node.is_connected("restoration_requested", start_restoration):
+			node.connect("restoration_requested", start_restoration)
+	for child in node.get_children():
+		_connect_altars(child)
+
+func start_restoration(puzzle_data: RestorationPuzzleData) -> void:
+	if not restoration_overlay or not puzzle_data:
+		return
+	Global.change_state(Global.State.RESTORATION)
+	var ctrl: Control = restoration_overlay.get_node_or_null("Control")
+	if ctrl:
+		ctrl.modulate.a = 0.0
+		restoration_overlay.visible = true
+		var tween: Tween = create_tween()
+		tween.tween_property(ctrl, "modulate:a", 1.0, 0.35).set_ease(Tween.EASE_OUT)
+	else:
+		restoration_overlay.visible = true
+	restoration_overlay.start_restoration(puzzle_data)
 
 func on_level_restored() -> void:
 	# Lock player movement by changing state

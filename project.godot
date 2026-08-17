@@ -24,7 +24,9 @@ Dialogic="*uid://ds2q0uclmolvu"
 [dialogic]
 
 directories/dch_directory={}
-directories/dtl_directory={}
+directories/dtl_directory={
+"altar_incomplete": "res://dialogue/timelines/altar_incomplete.dtl"
+}
 layout/style_directory={}
 
 [display]

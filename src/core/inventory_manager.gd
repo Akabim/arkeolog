@@ -8,11 +8,12 @@ var assembled_artifacts: Array = []
 func add_fragment(fragment_id: String) -> void:
 	if fragment_id.is_empty():
 		return
-	if collected_fragments.has(fragment_id):
-		collected_fragments[fragment_id] += 1
-	else:
+	if not collected_fragments.has(fragment_id):
 		collected_fragments[fragment_id] = 1
-	inventory_updated.emit()
+		inventory_updated.emit()
+
+func has_fragment(piece_id: String) -> bool:
+	return collected_fragments.has(piece_id) and collected_fragments[piece_id] > 0
 
 func remove_fragment(fragment_id: String, amount: int = 1) -> bool:
 	if collected_fragments.has(fragment_id) and collected_fragments[fragment_id] >= amount:

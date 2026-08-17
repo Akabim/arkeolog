@@ -9,7 +9,7 @@ var torches_list: Array[Node] = []
 func _ready() -> void:
 	# Ensure Y-Sorting is enabled on level containers
 	y_sort_enabled = true
-	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles"]:
+	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles", "Altars"]:
 		if has_node(container_name):
 			var node = get_node(container_name)
 			if node is Node2D:
@@ -60,7 +60,7 @@ func _ready() -> void:
 	# Y-Sorting Context Fix:
 	# Reparent all child elements of empty Node2D group containers (DirtMounds, Sockets, etc.)
 	# to the level root so they are siblings of Player and sort together properly in Godot's 2D engine.
-	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles"]:
+	for container_name in ["DirtMounds", "Sockets", "Torches", "Obstacles", "Altars"]:
 		if has_node(container_name):
 			var container = get_node(container_name)
 			if container is Node2D:

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bsh2i3l4h3s01" path="res://src/ui/excavation/excavation_overlay.tscn" id="2_exca"]
 [ext_resource type="PackedScene" uid="uid://be5e2m6p5a081" path="res://src/ui/journal/journal_ui.tscn" id="3_journal"]
 [ext_resource type="Script" uid="uid://cbqlg73rlhn2m" path="res://src/ui/journal/polaroid_frame.gd" id="4_frame"]
+[ext_resource type="PackedScene" path="res://src/ui/restoration/restoration_overlay.tscn" id="5_resto"]
 
 [node name="Main" type="Node2D" unique_id=1228835079]
 script = ExtResource("1_main")
@@ -11,6 +12,8 @@ script = ExtResource("1_main")
 [node name="ExcavationOverlay" parent="." unique_id=1161345688 instance=ExtResource("2_exca")]
 
 [node name="JournalUI" parent="." unique_id=52581367 instance=ExtResource("3_journal")]
+
+[node name="RestorationOverlay" parent="." instance=ExtResource("5_resto")]
 
 [node name="VictoryUI" type="CanvasLayer" parent="." unique_id=1882323727]
 layer = 12

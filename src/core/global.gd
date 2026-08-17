@@ -4,7 +4,8 @@ extends Node
 enum State {
 	OVERWORLD,
 	EXCAVATION,
-	JOURNAL
+	JOURNAL,
+	RESTORATION
 }
 
 var current_state: State = State.OVERWORLD
