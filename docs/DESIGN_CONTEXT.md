@@ -41,6 +41,12 @@ Multiple artifacts:
 - V1 transition into Restoration = normal fade.
 - Player cannot freely leave Restoration before completion.
 
+## Fragment Collection / Identity — Confirmed
+- The current game design uses **pure excavation**: excavation is about finding/cleaning physical relic fragments and does not use the former manual translation/dictionary interaction as part of the new gameplay loop.
+- Each required fragment for an artifact is unique; normal gameplay does not give duplicate copies of the same fragment.
+- A collected fragment represents one physical piece that can later be used in that artifact's Restoration Jigsaw.
+- The old `symbol_char` / translation-oriented data may still exist in legacy code, but it is not part of the new player-facing fragment/restoration design.
+
 ## Photo Mode — Confirmed Direction
 - Player returns to overworld context near the artifact/altar.
 - Player cannot move during photo mode.
@@ -83,6 +89,7 @@ Per artifact:
 - Exact artifact forms for future levels.
 - Exact target offsets.
 - Snap tolerance final tuning.
+- Exact relationship/identity mapping between new `fragment_id` and Jigsaw `piece_id`.
 - Photo presentation polish.
 - Final Journal presentation polish.
 - Final Site Complete presentation.
@@ -91,6 +98,7 @@ Per artifact:
 - Do not reuse legacy Prasasti/Batu puzzle assets.
 - Do not redesign the existing Jigsaw Core.
 - Do not lock final target offsets before final artwork exists.
+- Do not reintroduce the old manual translation/dictionary mechanic into the new excavation → fragment → restoration loop.
 
 ## Next Integration Flow — Confirmed Direction
 
