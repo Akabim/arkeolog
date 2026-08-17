@@ -7,6 +7,7 @@
 ## Restoration Jigsaw — Confirmed
 - Player restores one artifact from multiple separate irregular pieces.
 - Pieces spawn radially around the artifact silhouette.
+- Restoration intro presentation: pieces are presented around the silhouette and settle into their radial staging positions with a short "placed on the table" style animation before player control begins. This is a presentation/polish layer, not a puzzle-rule requirement.
 - LMB = drag.
 - R = rotate 90°.
 - RMB = rotate 90°.
@@ -33,7 +34,9 @@ Multiple artifacts:
 ## Altar — Confirmed Direction
 - Altar is visible and interactable from the beginning.
 - Incomplete fragments → short contextual dialogue.
-- Complete fragments → E starts Restoration.
+- Altar may be interacted with repeatedly while required fragments are incomplete.
+- Incomplete altar dialogue reflects current fragment progress and may use small variations so repeated interactions do not always repeat the exact same line.
+- Complete fragments → E starts Restoration directly; no additional pre-restoration dialogue.
 - Dialogic 2 is the dialogue system.
 - V1 transition into Restoration = normal fade.
 - Player cannot freely leave Restoration before completion.
@@ -99,10 +102,17 @@ Restoration → Completion Celebration → Photo Mode → Shutter → Polaroid �
 - Altar is visible from the beginning.
 - Player can interact with the altar from the beginning.
 - Missing required fragments → contextual Dialogic 2 dialogue.
+- Player can re-interact while incomplete; dialogue should reflect current progress and may vary slightly.
 - Complete required fragments → contextual prompt to start Restoration.
 - Start interaction with `E`.
 - V1 transition into Restoration uses a normal fade.
 - Player cannot freely exit Restoration before completion.
+
+### Restoration Intro
+- After the fade into Restoration, pieces are staged around the artifact silhouette in a radial layout.
+- The intended intro presentation is that pieces appear/settle around the silhouette as if being placed on a work surface, rather than flying in from the screen edges.
+- Player input begins only after the intro presentation completes.
+- The exact animation timing and visual polish remain deferred.
 
 ### Restoration Completion
 - Restoration Core emits `restoration_completed`.
