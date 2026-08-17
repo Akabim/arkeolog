@@ -52,10 +52,17 @@ Multiple artifacts:
 - Final artifact may use an extended completion presentation.
 
 ## Current Content
-- Level 1 first restoration concept: Ganesha statue.
-- Artist is creating the new Ganesha artwork.
+- The recurring artifact/entity concept changed from the earlier Ganesha plan to a fictional cat deity/entity.
+- Level 1 first restoration concept: a cat-deity statue in a Hindu-inspired sculptural style.
+- The artist is creating the new artifact artwork.
 - New Jigsaw assets do NOT exist yet.
 - Legacy Prasasti/Batu assets are NOT the new Jigsaw content.
+
+## Cross-Level Artifact Direction — Confirmed Direction
+- The game may feature one recurring cat-deity/entity represented through different artifact forms across levels.
+- Each level's artifact form can differ substantially while remaining part of the same recurring entity concept.
+- Level 2 example currently being considered: an Egyptian-style vessel/kendi associated with the recurring cat-deity/entity.
+- Exact level-by-level artifact forms beyond Level 1 remain TBD until finalized.
 
 ## Art Specification
 Per artifact:
@@ -68,8 +75,9 @@ Per artifact:
 - Level 1 guideline: 3–4 pieces.
 
 ## TBD
-- Exact Ganesha piece division.
-- Exact final visuals.
+- Exact Level 1 cat-deity piece division.
+- Exact final artifact visuals.
+- Exact artifact forms for future levels.
 - Exact target offsets.
 - Snap tolerance final tuning.
 - Photo presentation polish.
