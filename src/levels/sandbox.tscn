@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://br7dcvysc4wgb" path="res://src/entities/obstacles/tree_1.tscn" id="6_k1b4j"]
 [ext_resource type="PackedScene" uid="uid://c6cswd7i4x1e1" path="res://src/entities/obstacles/shrub.tscn" id="6_ue4sf"]
 [ext_resource type="PackedScene" uid="uid://gc14ip4tem77" path="res://src/entities/obstacles/tree_2.tscn" id="7_bay4c"]
+[ext_resource type="PackedScene" path="res://src/entities/altar/altar.tscn" id="9_bay4c"]
+[ext_resource type="Resource" uid="uid://d33pivnsvfutp" path="res://resources/test/restoration_test_cat_statue.tres" id="10_uox20"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_border"]
 size = Vector2(8, 1920)
@@ -95,3 +97,7 @@ position = Vector2(452, 318)
 
 [node name="DirtMound" parent="." unique_id=2108471254 instance=ExtResource("4_mound")]
 position = Vector2(543, 506)
+
+[node name="Altar" parent="." unique_id=1057995882 instance=ExtResource("9_bay4c")]
+position = Vector2(273, 587)
+puzzle_data = ExtResource("10_uox20")

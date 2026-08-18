@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="RestorationPuzzleData" load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://src/core/resources/restoration_puzzle_data.gd" id="1_puzzle_script"]
+[ext_resource type="Script" path="res://src/core/resources/jigsaw_piece_data.gd" id="2_piece_script"]
+[ext_resource type="Texture2D" path="res://resources/test/tex_silhouette.png" id="3_sil_tex"]
+[ext_resource type="Texture2D" path="res://resources/test/tex_piece_triangle.png" id="4_p1_tex"]
+[ext_resource type="Texture2D" path="res://resources/test/tex_piece_rect.png" id="5_p2_tex"]
+[ext_resource type="Texture2D" path="res://resources/test/tex_piece_parallelogram.png" id="6_p3_tex"]
+
+[sub_resource type="Resource" id="Resource_p1"]
+script = ExtResource("2_piece_script")
+piece_id = "cat_statue_p01"
+texture = ExtResource("4_p1_tex")
+target_offset = Vector2(0, -80)
+canonical_rotation = 0
+
+[sub_resource type="Resource" id="Resource_p2"]
+script = ExtResource("2_piece_script")
+piece_id = "cat_statue_p02"
+texture = ExtResource("5_p2_tex")
+target_offset = Vector2(0, 0)
+canonical_rotation = 0
+
+[sub_resource type="Resource" id="Resource_p3"]
+script = ExtResource("2_piece_script")
+piece_id = "cat_statue_p03"
+texture = ExtResource("6_p3_tex")
+target_offset = Vector2(0, 80)
+canonical_rotation = 0
+
+[resource]
+script = ExtResource("1_puzzle_script")
+artifact_id = "cat_statue"
+silhouette_texture = ExtResource("3_sil_tex")
+pieces = Array[ExtResource("2_piece_script")]([SubResource("Resource_p1"), SubResource("Resource_p2"), SubResource("Resource_p3")])
+snap_tolerance = 45.0
+radial_radius = 260.0
